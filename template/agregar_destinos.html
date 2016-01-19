@@ -1,0 +1,38 @@
+
+
+   <label> Destino</label>
+   <input type="text" class="form-control">
+   <label> Pais</label>
+   <select type="text" class="form-control">
+    <option></option>
+   	<option>Colombia</option>
+   	<option>Panama</option>
+   </select>
+ 
+   <label> Precio</label>
+   <input type="text" class="form-control">
+   <label> Salida</label>
+   <input type="text" class="form-control">
+
+   <label> Descripcion</label>
+   <textarea type="text" class="form-control"></textarea>
+
+   <div>
+   <label class="control-label">Seleccionar Foto</label>
+   <input id="inp_file" name="inp_file[]" multiple=true type="file" class="file-loading"></input>
+   </div>
+   
+   	<buttom class="btn btn-success btn-block" style="margin-top:25px;">Enviar</buttom>
+   
+<script>
+  $("#inp_file").fileinput();
+  $('#file_file').fileinput({
+        language: 'es',
+        uploadUrl: '#',
+        allowedFileExtensions : ['jpg', 'png','gif'],
+        verwriteInitial: false,
+        maxFilesNum: 10
+    });
+  
+
+</script>

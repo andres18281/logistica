@@ -103,6 +103,57 @@
    $("#btn_list_paque").click(function(){
    	 $("#contenido").html("");
    	 $("#contenido").load("template/listar_destino.html");
+   	 $.ajax({
+   	 	datatype:"json",
+   	 	type:"post",
+   	 	url:"controller/Recibe_by_ajax.php",
+   	 	data:{"listar":"ok"},
+   	 	success:function(data){
+   	     var data = $.parseJSON(data);
+   	 	 $.each(data,function(index,value){
+   	 	   $('<tr><td>'+value[0]+'</td>\
+    		    <td>'+value[1]+'</td>\
+    		    <td>'+value[2]+'</td>\
+    		    <td>'+value[3]+'</td>\
+    		    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
+   	 		    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
+    		 </tr>'
+   	 	 });
+   	 	 
+
+   	 	}
+   	 });
    });
+
+   $(document).on('click',"#btn_send",function(){
+   	 var destino = $("#txt_destino").val(); 
+   	 var pais = $("#slt_pais").val(); 
+   	 var precio = $("#txt_precio").val();
+   	 var fecha = $("#txt_fecha").val();
+	 var descrip = $("#txt_descrip").val();
+    var fd = new FormData();
+    var file_data = $('input[type="file"]')[0].files; // for multiple files
+    for(var i = 0;i<file_data.length;i++){
+        fd.append("inp_file", file_data[i]);
+    }
+    fd.append("pais",pais);
+    fd.append("lugar",destino);
+    fd.append("descrip",descrip);
+    fd.append("precio",precio);
+    fd.append("fecha",fecha);
+    var other_data = $('form').serializeArray();
+   
+    $.ajax({
+        url: 'controller/Recibe_by_ajax.php',
+        data: fd,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(data){
+           
+        }
+    });
+   });
+
  });
 </script>

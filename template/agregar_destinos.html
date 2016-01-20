@@ -1,38 +1,39 @@
 
-
+  <form method="post" enctype="multipart/form-data">
    <label> Destino</label>
-   <input type="text" class="form-control">
+   <input type="text" id="txt_destino" class="form-control">
    <label> Pais</label>
-   <select type="text" class="form-control">
+   <select id="slt_pais" type="text" class="form-control">
     <option></option>
-   	<option>Colombia</option>
-   	<option>Panama</option>
+   	<option value="1">COLOMBIA</option>
+   	<option value="2">PANAMA</option>
+    <option value="3">EEUU</option>
+    <option value="4">ESPANA</option>
    </select>
  
    <label> Precio</label>
-   <input type="text" class="form-control">
+   <input type="text" id="txt_precio" class="form-control">
    <label> Salida</label>
-   <input type="text" class="form-control">
+   <input type="text" id="txt_fecha" class="form-control">
 
    <label> Descripcion</label>
-   <textarea type="text" class="form-control"></textarea>
+   <textarea type="text" id="txt_descrip" class="form-control"></textarea>
 
    <div>
    <label class="control-label">Seleccionar Foto</label>
-   <input id="inp_file" name="inp_file[]" multiple=true type="file" class="file-loading"></input>
+   <input id="inp_file" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
+   <input id="inp_file2" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
    </div>
-   
-   	<buttom class="btn btn-success btn-block" style="margin-top:25px;">Enviar</buttom>
-   
+    
+   	<buttom id="btn_send" class="btn btn-success btn-block" style="margin-top:25px;">Enviar</buttom>
+  </form> 
 <script>
   $("#inp_file").fileinput();
   $('#file_file').fileinput({
         language: 'es',
         uploadUrl: '#',
         allowedFileExtensions : ['jpg', 'png','gif'],
-        verwriteInitial: false,
-        maxFilesNum: 10
+        maxFileCount:5,
+        maxFileCount: 5
     });
-  
-
 </script>

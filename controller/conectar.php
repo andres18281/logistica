@@ -16,13 +16,11 @@
         public $mysqli;
         public $db;
 	      public $array = array();
-  
         public function __construct($user,$pass){
                 $this->host = "localhost";//"190.84.233.180";
-                $this->user = 'root';
-                $this->pass = '123456';
+                $this->user = $user;
+                $this->pass = $pass;
                 $this->db = "logistica_";   
-
         }
 
         public function connect(){             
@@ -37,7 +35,6 @@
                 //  $inserta = 'INSERT INTO '.$tablas.' ('.implode("','",array_keys($parametros)).'") VALUES ("'.implode("','",$parametros).'")"';
                
                 $inserta = 'INSERT INTO `'.$tablas.'` (`'.implode('`, `',array_keys($params)).'`) VALUES ("' . implode('", "', $params) . '")';
-         
                 $insercion = $this->mysqli->query($inserta);
                 if($insercion){
                     $array = array("exito"=>"Insercion con exito",

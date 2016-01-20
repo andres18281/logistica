@@ -1,12 +1,13 @@
 
 <?php
-  include_once $_SERVER['document_root']."controller/conectar.php";
+  include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conectar.php";
   class Destinos extends Conectar{
 
   	function __construct(){
-  		parent::__construct($user,$pass);
+  		parent::__construct("root","");
   	}
 
+  	// Inserta un destino
   	function Set_destino($nombre_des,$pais,$precio,$fecha,$descrip){
   		$array = Array("pais"=>$pais,
   					   "lugar"=>$nombre_des,
@@ -16,16 +17,17 @@
   		$response = parent::inserta('destinos',$array);
   		return $response;
   	}
-
+    // obtiene toda la informacion del destino con el id
   	function Get_destino($id){
   		$sql = 'SELECT des.pais,des.lugar,des.descrip,des.precio,fo.Foto1,fo.Foto2
   				FROM destinos des
   				INNER JOIN fotos fo ON fo.id_desti = des.Des_id
-  				WHERE Des_id '= $id;
+  				WHERE Des_id ='.$id;
   		$response = parent::consultas($sql);
   		return $response;
   	}
 
+  	// obtiene todo los registros de destinos por el pais
   	function Get_destinos_por_pais($pais){
   		$sql = 'SELECT lugar,descrip,precio,fo.Foto1,fo.Foto2
   				FROM destinos des
@@ -35,6 +37,15 @@
   		return $response;
   	}
 
+  	function Get_all_destinos(){
+  	  $sql = 'SELECT Des_id,lugar,descrip,precio,fo.Foto1,fo.Foto2
+  			  FROM destinos des
+  			  INNER JOIN fotos fo ON fo.id_desti = des.Des_id';
+  		$response = parent::consultas($sql);
+  		return $response;	
+  	}
+
+  	// Actualiza los destinos por el id
   	function Update_destino($id,$nombre_des,$pais,$precio,$fecha,$descrip){
   		$sql = 'UPDATE destinos
   				SET pais ='.$pais.',
@@ -43,14 +54,23 @@
   				precio ='.$precio.'
   				WHERE Des_id = '.$id;
   		$response =	parent::update_query($sql);
-  		return $response;
+  		return json_encode($response);
   	}
 
+  	// Borra un destino por el ID
   	function Delete_destino($id){
   		$sql = 'DELETE  
   				FROM destinos 
-  				WHERE Des_id = '.$id
+  				WHERE Des_id = '.$id;
   		$response =	parent::update_query($sql);
+  		return $response;
+  	}
+
+  	function Set_fotos($id,$nombre1,$nombre2){
+  		$array = Array('Foto1'=>$nombre1,
+  					   'Foto2'=>$nombre2,
+  					   'id_desti'=>$id);
+  		$response = parent::inserta('fotos',$array);
   		return $response;
   	}
   }

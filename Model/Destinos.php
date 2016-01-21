@@ -10,10 +10,10 @@
   	// Inserta un destino
   	function Set_destino($nombre_des,$pais,$precio,$fecha,$descrip){
   		$array = Array("pais"=>$pais,
-  					   "lugar"=>$nombre_des,
-  					   "descrip"=>$descrip,
-  					   "precio"=>$precio
-  					 );
+  					         "lugar"=>$nombre_des,
+  					         "descrip"=>$descrip,
+  					         "precio"=>$precio
+  					        );
   		$response = parent::inserta('destinos',$array);
   		return $response;
   	}
@@ -38,9 +38,10 @@
   	}
 
   	function Get_all_destinos(){
-  	  $sql = 'SELECT Des_id,lugar,descrip,precio,fo.Foto1,fo.Foto2
+  	  $sql = 'SELECT Des_id,pa.Nombre,lugar,descrip,precio,fo.Foto1,fo.Foto2
   			  FROM destinos des
-  			  INNER JOIN fotos fo ON fo.id_desti = des.Des_id';
+  			  INNER JOIN fotos fo ON fo.id_desti = des.Des_id 
+          INNER JOIN pais pa ON pa.Pa_id = des.pais';
   		$response = parent::consultas($sql);
   		return $response;	
   	}

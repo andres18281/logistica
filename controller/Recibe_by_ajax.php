@@ -24,11 +24,34 @@
      }else{
      	$respon = $destino->Set_fotos($response['last_cod_id'],time().$array_nombre[0]['name'],null);
      }
-     echo json_encode($respon);
+     $data['respon'] = $respon;
+     $data['last_id'] = $response['last_cod_id'];
+     echo json_encode($data);
     }
     
    }
  }
+
+ if(isset($_POST['id'],$_POST["txt_title2"],$_POST["txt_subtitle2"])){
+   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Lugares.php";
+   $url = $_SERVER['DOCUMENT_ROOT']."/logistica/img/";
+   $title = $_POST["txt_title2"];
+   $subtitle = $_POST["txt_subtitle2"];
+   $descrip = $_POST["txt_descrip2"];
+   $id = $_POST['id'];
+   $lugar = new Lugares();
+   if(isset($_FILES["file2"])){
+    $file = $_FILES["file2"];
+    $name = $file['name'];
+    if(move_uploaded_file($file['tmp_name'], $url.time().$name)){
+      $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,$name);   
+    }
+   }else{
+     $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,$name);  
+   }
+   echo json_encode($response);
+ }
+
  if(isset($_POST["listar"]) and $_POST["listar"] =="ok"){
  	$destino = new Destinos();
  	$response = $destino->Get_all_destinos();

@@ -111,20 +111,40 @@
    	 	success:function(data){
    	     var data = $.parseJSON(data);
    	 	 $.each(data,function(index,value){
-   	 	   $('<tr><td>'+value[0]+'</td>\
-    		    <td>'+value[1]+'</td>\
-    		    <td>'+value[2]+'</td>\
-    		    <td>'+value[3]+'</td>\
-    		    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
-   	 		    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
-    		 </tr>'
+   	 	 	console.log(value[4]);
+   	 	  var data = '<tr><td>'+value[1]+'</td>\
+    		    		<td>'+value[2]+'</td>\
+    		    		<td>'+value[3]+'</td>\
+    		    		<td>'+value[4]+'</td>\
+    		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModal" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
+   	 		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModa2" title="Delete"><button id='+value[0]+' class="btn btn-danger btn-xs btn_delete" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
+    		 		 </tr>';
+    	  $(data).appendTo($("#table_lista"));
    	 	 });
-   	 	 
-
    	 	}
    	 });
    });
 
+   $(document).on('click',".btn_modifi",function(){
+     $("#myModal").modal('show');
+     var destino = $("#txt_destino").val(); 
+     var pais = $("#slt_pais").val(); 
+     var precio = $("#txt_precio").val();
+     var fecha = $("#txt_fecha").val(); 
+     var descrip = $("#txt_descrip").val();    
+     $("#txt_lugar").val(destino); //destino
+     $("#txt_fech").val(fecha);  //fecga
+     $("#txt_prec").val(precio);  //precio
+     $("#slt_pai").val(pais); // pais
+     $("#txt_area").val(descrip);
+   });	
+
+   $(document).on('click',".btn_delete",function(){
+     $("#myModa2").modal('show');
+   });	
+
+
+   var id_destino = 0;
    $(document).on('click',"#btn_send",function(){
    	 var destino = $("#txt_destino").val(); 
    	 var pais = $("#slt_pais").val(); 
@@ -142,7 +162,6 @@
     fd.append("precio",precio);
     fd.append("fecha",fecha);
     var other_data = $('form').serializeArray();
-   
     $.ajax({
         url: 'controller/Recibe_by_ajax.php',
         data: fd,
@@ -150,10 +169,101 @@
         processData: false,
         type: 'POST',
         success: function(data){
-           
+         id_destino = data.last_id;
+        }
+    });
+   });
+
+   $(document).on('click',"#btn_save2",function(){
+   	var title = $("#txt_title2").val();
+   	var subtitle = $("#txt_subtitle2").val();
+   	var descrip = $("#txt_descrip2").val();
+   	var form = new FormData();
+   	var file_data = $('#inp_file').files;
+   	form.append('id',id_destino);
+   	form.append("file2", file_data);
+   	form.append('txt_title2',title);
+   	form.append('txt_subtitle2',subtitle);
+   	form.append('txt_descrip2',descrip);
+   	$.ajax({
+        url: 'controller/Recibe_by_ajax.php',
+        data: form,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(data){
+           console.log(data);
         }
     });
    });
 
  });
+</script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modificar</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-md-12">
+          <label>Pais</label>
+          <select class="form-control" id="slt_pai">
+            <option></option>
+          	<option value="1">COLOMBIA</option>
+   			<option value="2">PANAMA</option>
+    		<option value="3">EEUU</option>
+    		<option value="4">ESPANA</option>
+          </select>
+          <label>Lugar</label>
+           <input type="text" id="txt_lugar"class="form-control">
+          <label>Fecha</label>
+           <input type="text" id="txt_fech" class="form-control">
+          <label>Precio</label>
+           <input type="text" id="txt_prec" class="form-control">
+          <textarea id="txt_area"></textarea>
+          <label>Imagen</label>
+           <input id="inp_files" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
+   		   <input id="inp_files2" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Borrar</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+   $("#inp_files").fileinput();
+    $('#inp_files').fileinput({
+        language: 'es',
+        uploadUrl: '#',
+        allowedFileExtensions : ['jpg', 'png','gif'],
+        maxFileCount:5,
+        maxFileCount: 5
+    });
+  
 </script>

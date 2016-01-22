@@ -9,6 +9,7 @@
                    <th>Lugar</th>
                    <th>Fecha</th> 
                    <th>Precio</th> 
+                   <th>Ver</th> 
                    <th>Editar</th>  
                    <th>Borrar</th>
               </thead>
@@ -25,11 +26,11 @@
             $("#mytable input[type=checkbox]").each(function () {
                 $(this).prop("checked", true);
             });
-        } else {
+        }else{
             $("#mytable input[type=checkbox]").each(function () {
                 $(this).prop("checked", false);
             });
         }
-    });
+  });
     $("[data-toggle=tooltip]").tooltip();
 </script>

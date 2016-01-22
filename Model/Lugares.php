@@ -24,7 +24,5 @@
   		$response = parent::inserta('lugares',$array);
   		return json_encode($response);
   	}
-
   }
-
 ?>

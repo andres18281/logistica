@@ -27,8 +27,7 @@
      $data['respon'] = $respon;
      $data['last_id'] = $response['last_cod_id'];
      echo json_encode($data);
-    }
-    
+    }    
    }
  }
 
@@ -43,7 +42,7 @@
    if(isset($_FILES["file2"])){
     $file = $_FILES["file2"];
     $name = $file['name'];
-    if(move_uploaded_file($file['tmp_name'], $url.time().$name)){
+    if(move_uploaded_file($_FILES["file2"]['tmp_name'], $url.time().$name)){
       $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,$name);   
     }
    }else{
@@ -52,11 +51,12 @@
    echo json_encode($response);
  }
 
+ // Lista todos los destinos creados
  if(isset($_POST["listar"]) and $_POST["listar"] =="ok"){
- 	$destino = new Destinos();
- 	$response = $destino->Get_all_destinos();
- 	if(isset($response)){
- 	 echo json_encode($response);
- 	}
+ 	  $destino = new Destinos();
+ 	  $response = $destino->Get_all_destinos();
+    if(isset($response)){
+ 	    echo json_encode($response);
+ 	  }
  }
 ?>

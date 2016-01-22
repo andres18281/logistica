@@ -111,14 +111,14 @@
    	 	success:function(data){
    	     var data = $.parseJSON(data);
    	 	 $.each(data,function(index,value){
-   	 	 	console.log(value[4]);
-   	 	  var data = '<tr><td>'+value[1]+'</td>\
+   	 	  var data = '<tr id='+value[0]+' class="destin"><td>'+value[1]+'</td>\
     		    		<td>'+value[2]+'</td>\
     		    		<td>'+value[3]+'</td>\
     		    		<td>'+value[4]+'</td>\
+    		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#" title="Edit"><button id='+value[0]+' class="btn btn-success btn-xs btn_ver" data-title="Edit" data-toggle="modal" data-target="#ver" ><span class="glyphicon glyphicon-zoom-in"></span></button></p></td>\
     		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModal" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
    	 		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModa2" title="Delete"><button id='+value[0]+' class="btn btn-danger btn-xs btn_delete" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
-    		 		 </tr>';
+    		 		  </tr>';
     	  $(data).appendTo($("#table_lista"));
    	 	 });
    	 	}
@@ -143,7 +143,7 @@
      $("#myModa2").modal('show');
    });	
 
-
+   // id del destino creado
    var id_destino = 0;
    $(document).on('click',"#btn_send",function(){
    	 var destino = $("#txt_destino").val(); 
@@ -169,19 +169,20 @@
         processData: false,
         type: 'POST',
         success: function(data){
+         data = $.parseJSON(data);
          id_destino = data.last_id;
         }
     });
-   });
+   }); 
 
    $(document).on('click',"#btn_save2",function(){
    	var title = $("#txt_title2").val();
    	var subtitle = $("#txt_subtitle2").val();
    	var descrip = $("#txt_descrip2").val();
    	var form = new FormData();
-   	var file_data = $('#inp_file').files;
+   	var file_des = $('#inp_file2')[0].files;   	
    	form.append('id',id_destino);
-   	form.append("file2", file_data);
+   	form.append("file2", file_des[0]);
    	form.append('txt_title2',title);
    	form.append('txt_subtitle2',subtitle);
    	form.append('txt_descrip2',descrip);
@@ -195,6 +196,12 @@
            console.log(data);
         }
     });
+   });
+
+   // al darle click en el boton con forma de +, direcciona a la web
+   $(document).on('click',".destin",function(){
+     var id_ver = $(this).attr('id');
+      $(location).attr('href','destinos.php?id='+id_ver); 
    });
 
  });
@@ -255,15 +262,3 @@
   </div>
 </div>
 
-<script>
-
-   $("#inp_files").fileinput();
-    $('#inp_files').fileinput({
-        language: 'es',
-        uploadUrl: '#',
-        allowedFileExtensions : ['jpg', 'png','gif'],
-        maxFileCount:5,
-        maxFileCount: 5
-    });
-  
-</script>

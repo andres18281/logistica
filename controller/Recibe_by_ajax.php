@@ -1,6 +1,6 @@
 <?php
  include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php";
- 
+ include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conexion.php";  
  // agrega destinos a la base de datos
  if(isset($_POST['pais'],$_POST['lugar'],$_POST['descrip'],$_POST['precio'],$_POST['fecha'])){
    $url = $_SERVER['DOCUMENT_ROOT']."/logistica/img/";
@@ -56,7 +56,57 @@
  	  $destino = new Destinos();
  	  $response = $destino->Get_all_destinos();
     if(isset($response)){
- 	    echo json_encode($response);
+      if(is_array($response[0])){
+        foreach($response as $val){
+          $array[] = array($val[0],$val[1],$val[2],utf8_encode($val[3]),$val[4],$val[5]);
+        }
+      }else{
+        $array[] = array($response[0],$response[1],$response[2],utf8_encode($response[3]),$response[4],$response[5]);
+      }
+    }
+    if(isset($array)){
+ 	    echo json_encode($array);
  	  }
  }
+
+ // borrar destino
+ if(isset($_POST['eliminate'])){
+   $conexion = new Conectar('root','');
+   $id = $_POST['eliminate'];
+   $fot = 'SELECT Foto1, Foto2 FROM fotos WHERE id_desti = '.$id;
+   $data = $conexion->consultas($fot);
+   $dele_fotos = 'DELETE FROM fotos where id_desti = '.$id;
+   $sql = 'DELETE FROM destinos WHERE Des_id = '.$id;
+   $sql2 = 'DELETE FROM lugares WHERE id_desti = '.$id;
+   if(isset($data)){
+    if(is_array($data[0])){
+      foreach($data as $value){
+        unlink("../img/".$value[0]);
+        if(isset($value[1])){
+          unlink("../img/".$value[1]);
+        }
+      }
+    }else{
+      unlink("../img/".$data[0]);  
+    }
+   }
+   $conexion->update_query($dele_fotos);
+   $conexion->update_query($sql);
+   $conexion->update_query($sql2);
+   $dato['success'] = true;
+   echo json_encode($dato);
+ }
+
+ // devuelve informacion de destino
+ if(isset($_POST['id_destino'])){
+   $id = $_POST['id_destino'];
+   $destino = new Destinos();
+   $data['success'] = $destino->Get_destino($id);
+   if(isset($data)){
+    echo json_encode($data);
+   }else{
+    echo null;
+   }
+ }
+
 ?>

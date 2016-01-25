@@ -19,7 +19,7 @@
   	}
     // obtiene toda la informacion del destino con el id
   	function Get_destino($id){
-  		$sql = 'SELECT des.pais,des.lugar,des.descrip,des.precio,fo.Foto1,fo.Foto2
+  		$sql = 'SELECT des.pais,des.lugar,des.descrip,fo.Foto1,fo.Foto2
   				FROM destinos des
   				INNER JOIN fotos fo ON fo.id_desti = des.Des_id
   				WHERE Des_id ='.$id;
@@ -38,7 +38,7 @@
   	}
 
   	function Get_all_destinos(){
-  	  $sql = 'SELECT Des_id,pa.Nombre,lugar,descrip,precio,fo.Foto1,fo.Foto2
+  	  $sql = 'SELECT Des_id,pa.Nombre,lugar,precio,fo.Foto1,fo.Foto2
   			  FROM destinos des
   			  INNER JOIN fotos fo ON fo.id_desti = des.Des_id 
           INNER JOIN pais pa ON pa.Pa_id = des.pais';

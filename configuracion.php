@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/fileinput.css">
   	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
@@ -20,9 +21,9 @@
 					</button> <a class="navbar-brand" href="#"></a>
 				</div>
 				
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						
+				<div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav visible-xs">
+  					  
 					</ul>
 					
 					<ul class="nav navbar-nav navbar-right">
@@ -68,14 +69,13 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 col-sm-3 hidden-xs">
 		  <div class="list-group">
-  			
   			<a href="#" id="btn_desti" class="list-group-item">Agregar Destinos</a>
   			<a href="#" id="btn_list_paque" class="list-group-item">Listar Paquetes</a>
 		   </div>
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-8 col-sm-8 col-xs-12">
 		  <div class="container-fluid">
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -93,119 +93,7 @@
 </body>
 </html>
 
-<script>
- $(function(){
-   $("#btn_desti").click(function(){
-   	 $("#contenido").html("");
-     $("#contenido").load("template/agregar_destinos.html");
-   });
-
-   $("#btn_list_paque").click(function(){
-   	 $("#contenido").html("");
-   	 $("#contenido").load("template/listar_destino.html");
-   	 $.ajax({
-   	 	datatype:"json",
-   	 	type:"post",
-   	 	url:"controller/Recibe_by_ajax.php",
-   	 	data:{"listar":"ok"},
-   	 	success:function(data){
-   	     var data = $.parseJSON(data);
-   	 	 $.each(data,function(index,value){
-   	 	  var data = '<tr id='+value[0]+' class="destin"><td>'+value[1]+'</td>\
-    		    		<td>'+value[2]+'</td>\
-    		    		<td>'+value[3]+'</td>\
-    		    		<td>'+value[4]+'</td>\
-    		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#" title="Edit"><button id='+value[0]+' class="btn btn-success btn-xs btn_ver" data-title="Edit" data-toggle="modal" data-target="#ver" ><span class="glyphicon glyphicon-zoom-in"></span></button></p></td>\
-    		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModal" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
-   	 		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModa2" title="Delete"><button id='+value[0]+' class="btn btn-danger btn-xs btn_delete" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
-    		 		  </tr>';
-    	  $(data).appendTo($("#table_lista"));
-   	 	 });
-   	 	}
-   	 });
-   });
-
-   $(document).on('click',".btn_modifi",function(){
-     $("#myModal").modal('show');
-     var destino = $("#txt_destino").val(); 
-     var pais = $("#slt_pais").val(); 
-     var precio = $("#txt_precio").val();
-     var fecha = $("#txt_fecha").val(); 
-     var descrip = $("#txt_descrip").val();    
-     $("#txt_lugar").val(destino); //destino
-     $("#txt_fech").val(fecha);  //fecga
-     $("#txt_prec").val(precio);  //precio
-     $("#slt_pai").val(pais); // pais
-     $("#txt_area").val(descrip);
-   });	
-
-   $(document).on('click',".btn_delete",function(){
-     $("#myModa2").modal('show');
-   });	
-
-   // id del destino creado
-   var id_destino = 0;
-   $(document).on('click',"#btn_send",function(){
-   	 var destino = $("#txt_destino").val(); 
-   	 var pais = $("#slt_pais").val(); 
-   	 var precio = $("#txt_precio").val();
-   	 var fecha = $("#txt_fecha").val();
-	 var descrip = $("#txt_descrip").val();
-    var fd = new FormData();
-    var file_data = $('input[type="file"]')[0].files; // for multiple files
-    for(var i = 0;i<file_data.length;i++){
-        fd.append("inp_file", file_data[i]);
-    }
-    fd.append("pais",pais);
-    fd.append("lugar",destino);
-    fd.append("descrip",descrip);
-    fd.append("precio",precio);
-    fd.append("fecha",fecha);
-    var other_data = $('form').serializeArray();
-    $.ajax({
-        url: 'controller/Recibe_by_ajax.php',
-        data: fd,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        success: function(data){
-         data = $.parseJSON(data);
-         id_destino = data.last_id;
-        }
-    });
-   }); 
-
-   $(document).on('click',"#btn_save2",function(){
-   	var title = $("#txt_title2").val();
-   	var subtitle = $("#txt_subtitle2").val();
-   	var descrip = $("#txt_descrip2").val();
-   	var form = new FormData();
-   	var file_des = $('#inp_file2')[0].files;   	
-   	form.append('id',id_destino);
-   	form.append("file2", file_des[0]);
-   	form.append('txt_title2',title);
-   	form.append('txt_subtitle2',subtitle);
-   	form.append('txt_descrip2',descrip);
-   	$.ajax({
-        url: 'controller/Recibe_by_ajax.php',
-        data: form,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        success: function(data){
-           console.log(data);
-        }
-    });
-   });
-
-   // al darle click en el boton con forma de +, direcciona a la web
-   $(document).on('click',".destin",function(){
-     var id_ver = $(this).attr('id');
-      $(location).attr('href','destinos.php?id='+id_ver); 
-   });
-
- });
-</script>
+<script src="js/scripts.js"></script>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -215,25 +103,45 @@
         <h4 class="modal-title" id="myModalLabel">Modificar</h4>
       </div>
       <div class="modal-body">
-        <div class="col-md-12">
+        <div class="container-fluid">
+         <div class="col-md-6">
           <label>Pais</label>
-          <select class="form-control" id="slt_pai">
+           <select class="form-control" id="slt_pai">
             <option></option>
           	<option value="1">COLOMBIA</option>
    			<option value="2">PANAMA</option>
     		<option value="3">EEUU</option>
     		<option value="4">ESPANA</option>
-          </select>
-          <label>Lugar</label>
+           </select>
+         </div>
+         <div class="col-md-6">
+           <label>Lugar</label>
            <input type="text" id="txt_lugar"class="form-control">
-          <label>Fecha</label>
-           <input type="text" id="txt_fech" class="form-control">
+         </div>
+         <div class="col-md-12">
           <label>Precio</label>
-           <input type="text" id="txt_prec" class="form-control">
-          <textarea id="txt_area"></textarea>
-          <label>Imagen</label>
-           <input id="inp_files" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
-   		   <input id="inp_files2" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
+          <input type="text" id="txt_prec" class="form-control">
+         </div>
+         <div class="col-md-12"> 
+          <label> Descripcion</label>
+          <textarea id="txt_area" class="form-control"></textarea>
+         </div>
+         <div class="col-md-12">
+  			<div class="col-xs-6 col-md-6">
+    		  <a href="#"  class="glyphicon glyphicon-remove btn btn-default" ></a>
+    		  <a href="#" class="thumbnail">
+      			<img src="" id="ïmg1">
+    		  </a>
+  			</div>
+  			<div class="col-xs-6 col-md-6">
+    		   <a href="#" class="glyphicon glyphicon-remove btn btn-default"></a>
+    		  <a href="#" class="thumbnail">
+      			<img src="" id="ïmg2">
+    		  </a>
+  			</div>
+		 </div>
+         <label>Imagen</label>
+         <input id="inp_files" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
         </div>
       </div>
       <div class="modal-footer">
@@ -252,11 +160,11 @@
         <h4 class="modal-title" id="myModalLabel">Borrar</h4>
       </div>
       <div class="modal-body">
-        
+        <h5> Desea borrar esta destino ? </h5>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Eliminar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_eliminate">Eliminar</button>
       </div>
     </div>
   </div>

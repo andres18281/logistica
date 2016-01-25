@@ -7,7 +7,6 @@
                   <thead> 
                    <th>Pais</th>
                    <th>Lugar</th>
-                   <th>Fecha</th> 
                    <th>Precio</th> 
                    <th>Ver</th> 
                    <th>Editar</th>  
@@ -22,7 +21,7 @@
 
 <script type="text/javascript">
   $("#mytable #checkall").click(function () {
-        if ($("#mytable #checkall").is(':checked')) {
+        if($("#mytable #checkall").is(':checked')){
             $("#mytable input[type=checkbox]").each(function () {
                 $(this).prop("checked", true);
             });

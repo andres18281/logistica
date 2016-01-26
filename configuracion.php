@@ -103,6 +103,7 @@
         <h4 class="modal-title" id="myModalLabel">Modificar</h4>
       </div>
       <div class="modal-body">
+       <form id="form_update" method="POST" enctype="multipart/form-data">
         <div class="container-fluid">
          <div class="col-md-6">
           <label>Pais</label>
@@ -124,29 +125,31 @@
          </div>
          <div class="col-md-12"> 
           <label> Descripcion</label>
-          <textarea id="txt_area" class="form-control"></textarea>
+          <textarea id="txt_area" class="form-control" rows="7"></textarea>
          </div>
          <div class="col-md-12">
   			<div class="col-xs-6 col-md-6">
-    		  <a href="#"  class="glyphicon glyphicon-remove btn btn-default" ></a>
-    		  <a href="#" class="thumbnail">
-      			<img src="" id="ïmg1">
+    		  <button  class="glyphicon glyphicon-remove btn btn-danger" id="btn_dele_foto" data-toggle="tooltip" data-placement="left" title="Eliminar foto"></button>
+    		  <a href="#" class="thumbnail" id="thumbnail1">
+      			<img src="" id="img1">
     		  </a>
   			</div>
   			<div class="col-xs-6 col-md-6">
-    		   <a href="#" class="glyphicon glyphicon-remove btn btn-default"></a>
-    		  <a href="#" class="thumbnail">
-      			<img src="" id="ïmg2">
+    		   <button class="glyphicon glyphicon-remove btn btn-danger" id="btn_dele_foto2" data-toggle="tooltip" data-placement="left" title="Eliminar foto"></button>
+    		  <a href="#" class="thumbnail" id="thumbnail2">
+      			<img src="" id="img2">
     		  </a>
   			</div>
 		 </div>
-         <label>Imagen</label>
-         <input id="inp_files" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
+		 <div class="col-md-12">
+           <label>Imagen</label>
+           <input id="inp_files_3" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
+         </div>
         </div>
-      </div>
+     </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Actualizar</button>
+        <button type="button" class="btn btn-primary" id="btn_update_desti">Actualizar</button>
       </div>
     </div>
   </div>
@@ -169,4 +172,12 @@
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function(){
+  $('#btn_dele_foto').tooltip({title: "Eliminar foto", placement: "top"}); 
+  $('#btn_dele_foto2').tooltip({title: "Eliminar foto", placement: "top"}); 
+  $('#btn_desti').tooltip({title: "Crear destinos", placement: "right"}); 
+  $('#btn_list_paque').tooltip({title: "Enlistar destinos ", placement: "right"}); 
 
+});
+</script>

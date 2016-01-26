@@ -76,7 +76,6 @@
 
       public function update_query($query){
         $salida = array("error"=> "Problemas al actualizar datos.");
-        
         if($this->connect()){
            if($this->mysqli->query($query)){
               $salida = array("mensaje"=> "Datos actualizados con exito\n Filas afectadas: ".$this->mysqli->affected_rows,

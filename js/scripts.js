@@ -30,6 +30,7 @@ $(function(){
    });
 
    $(document).on('click',".btn_modifi",function(){
+   	 id = $(this).attr('id');
      $("#myModal").modal('show');
      var destino = $("#txt_destino").val(); 
      var pais = $("#slt_pais").val(); 
@@ -40,11 +41,13 @@ $(function(){
      $("#txt_fech").val(fecha);  //fecga
      $("#txt_prec").val(precio);  //precio
      $("#slt_pai").val(pais); // pais
+
      $("#txt_area").val(descrip);
    });	
 
    $(document).on('click',".btn_delete",function(){
      $("#myModa2").modal('show');
+
    });	
 
    // id del destino creado
@@ -90,6 +93,11 @@ $(function(){
    	form.append('txt_title2',title);
    	form.append('txt_subtitle2',subtitle);
    	form.append('txt_descrip2',descrip);
+   	$("#txt_title2").val("");
+   	$("#txt_subtitle2").val("");
+   	$("#txt_descrip2").val("");
+   	$('#inp_file2').fileinput('reset');
+   
    	$.ajax({
         url: 'controller/Recibe_by_ajax.php',
         data: form,
@@ -98,7 +106,28 @@ $(function(){
         type: 'POST',
         success: function(data){
            console.log(data);
+           form.delete('id');
+    	   form.delete('file2');
+    	   form.delete('txt_title2');
+    	   form.delete('txt_subtitle2');
+    	   form.delete('txt_descrip2');
+    		$("#txt_title2").val("");
+   			$("#txt_subtitle2").val("");
+   			$("#txt_descrip2").val("");
+   			$('#inp_file2').fileinput('reset');
+   			
         }
+    }).done(function(data){
+    	form.delete('id');
+    	form.delete('file2');
+    	form.delete('txt_title2');
+    	form.delete('txt_subtitle2');
+    	form.delete('txt_descrip2');
+    	$("#txt_title2").val("");
+   		$("#txt_subtitle2").val("");
+   		$("#txt_descrip2").val("");
+   		$('#inp_file2').fileinput('reset');
+   		
     });
    });
 
@@ -108,6 +137,7 @@ $(function(){
      var id_ver = $(this).attr('id');
       $(location).attr('href','destinos.php?destinos='+id_ver); 
    });
+
    var id;
    $("#btn_eliminate").click(function(){
    	  $.ajax({
@@ -131,12 +161,12 @@ $(function(){
    });
    // boton modificar
    $(document).on('click',".btn_modifi",function(){
-   	 var id_modi = $(this).attr('id');
+   	 id_destino = $(this).attr('id');
    	 $.ajax({
    	 	dataType:"json",
    	 	type:"post",
    	 	url:"controller/Recibe_by_ajax.php",
-   	 	data:{"id_destino":id_modi},
+   	 	data:{"id_destino":id_destino},
    	 	success:function(){
    	 		$("#slt_pai").val("");
    	 		$("#txt_lugar").val("");
@@ -152,18 +182,33 @@ $(function(){
    	 		$("#ïmg2").attr('src',"");
    	 	}
    	 }).done(function(data){
+
    	 	$("#slt_pai").val("");
    	 	$("#txt_lugar").val("");
    	 	$("#txt_area").val("");
    	 	$("#ïmg1").attr('src',"");
    	 	$("#ïmg2").attr('src',"");
    	 	data = data.success;
+   	 	console.log(data);
    	 	$("#slt_pai").val(data[0]);
    	 	$("#txt_lugar").val(data[1]);
    	 	$("#txt_area").val(data[2]);
-   	 	$("#ïmg1").attr('src',"../logistica/img/"+data[3]);
+   	 	$("#txt_prec").val(data[5]);
+   	 	if(data[3] != ""){
+   	 	  $("#thumbnail1").css('display','block');
+   	 	  $("#btn_dele_foto1").css('display','block');
+   	 	  $("#img1").attr('src',"../logistica/img/"+data[3]);
+   	 	}else{
+   	 	  $("#thumbnail1").css('display','none');
+   	 	  $("#btn_dele_foto1").css('display','none');
+   	 	}
    	 	if(data[4] != ""){
-   	 	 $("#ïmg2").attr('src',"../logistica/img/"+data[4]);
+   	 	 $("#thumbnail2").css('display','block');
+   	 	 $("#img2").attr('src',"../logistica/img/"+data[4]);
+   	 	 $("#btn_dele_foto2").css('display','block');
+   	    }else{
+   	     $("#thumbnail2").css('display','none');
+   	     $("#btn_dele_foto2").css('display','none');
    	    }
    	 });
    });
@@ -172,4 +217,85 @@ $(function(){
    $(document).on('click',".btn_delete",function(){
      id = $(this).attr('id');
    });
+
+
+
+   // boton de modal modificar
+   
+   	$(document).on('click',"#btn_dele_foto",function(){
+   	  var foto = $("#img1").attr('src');
+   	  foto = foto.replace('../logistica/img/',"");
+   	  $.ajax({
+   	  	dataType:"json",
+   	  	type:"post",
+   	  	url:"controller/Recibe_by_ajax.php",
+   	  	data:{"imgen":foto},
+   	  	success:function(){
+   	  	}
+   	  }).done(function(data){
+   	  	if(data.response === true){
+   	  	  $("#img1").toggle( "slow");
+   	  	}else{
+
+   	  	}
+   	  });
+   	});
+   	$(document).on('click',"#btn_dele_foto2",function(){
+   	  var foto = $("#img2").attr('src');
+   	  foto = foto.replace('../logistica/img/',"");
+   	  $.ajax({
+   	  	dataType:"json",
+   	  	type:"post",
+   	  	url:"controller/Recibe_by_ajax.php",
+   	  	data:{"imgen":foto},
+   	  	success:function(){
+   	  	}
+   	  }).done(function(data){
+   	  	if(data.response === true){
+   	  	  $("#img2").toggle( "slow");
+   	  	}else{
+
+   	  	}
+   	  });
+   	});
+
+   	$("#btn_update_desti").click(function(){
+   	  var pais = $("#slt_pai").val();
+   	  var lugar = $("#txt_lugar").val();
+   	  var precio = $("#txt_prec").val();
+   	  var text	= $("#txt_area").val();
+   	  var file_data = $('#inp_files_3')[0].files; // for multiple files
+   	  var dato = new FormData();
+   	  dato.append('id',id_destino);
+   	  dato.append('slt_pai',pais);
+   	  dato.append('txt_lugar',lugar);
+   	  dato.append('txt_prec',precio);
+   	  dato.append('txt_area',text);
+   	  if(file_data.length > 1){
+   	    for(var i = 0;i< file_data.length;i++){
+          dato.append("inp_file", file_data[i]);
+        }
+      }else if(file_data.length > 0 && file_data.length <= 1){
+      	dato.append("inp_file", file_data[0]);
+      }  
+      var other_data = $('#form_update').serializeArray();
+      $.ajax({
+        url: 'controller/Recibe_by_ajax.php',
+        data: dato,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(data){
+         console.log(data);
+        }
+      }).done(function(data){
+        var data = $.parseJSON(data);
+      	if(data.respon === true){
+      	 $("#myModal").modal('hide');
+      	}else if(data.respon === false){
+      	 $("#myModal").modal('hide');
+      	  alert("algo resulto mal, por favor vuelva y rectifique los datos digitados");
+      	}
+      });
+   	});
  });

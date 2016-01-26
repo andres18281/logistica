@@ -19,7 +19,7 @@
   	}
     // obtiene toda la informacion del destino con el id
   	function Get_destino($id){
-  		$sql = 'SELECT des.pais,des.lugar,des.descrip,fo.Foto1,fo.Foto2
+  		$sql = 'SELECT des.pais,des.lugar,des.descrip,fo.Foto1,fo.Foto2,des.precio
   				FROM destinos des
   				INNER JOIN fotos fo ON fo.id_desti = des.Des_id
   				WHERE Des_id ='.$id;
@@ -47,11 +47,11 @@
   	}
 
   	// Actualiza los destinos por el id
-  	function Update_destino($id,$nombre_des,$pais,$precio,$fecha,$descrip){
+  	function Update_destino($id,$nombre_des,$pais,$precio,$descrip){ 
   		$sql = 'UPDATE destinos
   				SET pais ='.$pais.',
-  				lugar ='.$nombre_des.',
-  				descrip = '.$descrip.',
+  				lugar ="'.$nombre_des.'",
+  				descrip = "'.$descrip.'",
   				precio ='.$precio.'
   				WHERE Des_id = '.$id;
   		$response =	parent::update_query($sql);
@@ -69,11 +69,19 @@
 
   	function Set_fotos($id,$nombre1,$nombre2){
   		$array = Array('Foto1'=>$nombre1,
-  					   'Foto2'=>$nombre2,
-  					   'id_desti'=>$id);
+  					         'Foto2'=>$nombre2,
+  					         'id_desti'=>$id);
   		$response = parent::inserta('fotos',$array);
   		return $response;
   	}
+
+    function Update_foto($id,$nombre1,$nombre2){
+      $sql = 'UPDATE fotos SET Foto1 = "'.$nombre1.'",
+                               Foto2 = "'.$nombre2.'"
+              WHERE id_desti = '.$id;
+      $response = parent::update_query($sql);
+      return $response;
+    }
   }
 
 ?>

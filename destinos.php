@@ -39,14 +39,14 @@
         $response_lugar = $lugares->Get_lugares($id_desti);
         if(isset($response_desti)){
           $cabecera = '
-            <div class="container-fluid">
+            <div class="container">
                 <div class="jumbotron" style="background-image: url(img/'.$response_desti[4].');background-size: 100% 100%; background-repeat: no-repeat;
     background-size: length;">
                 </div>
                 <h2 style="text-align:center">
                   '.$response_desti[1].' 
                 </h2>
-                <p  style="text-align:center">
+                <p style="text-align:center">
                    '.$response_desti[2].' 
                 </p>
             </div>';
@@ -54,32 +54,29 @@
         if(isset($response_lugar)){
           if(is_array($response_lugar[0])){
            foreach($response_lugar as $key=>$val){
-            $var[] = '
+            $var[] = '<br>
             <div class="row">
-              <div class="col-md-4">
-               <img alt="Bootstrap Image Preview" src="img/'.$val[4].'"/>
-              </div>
-              <div class="divisor"></div>
-              <div class="col-md-8">
-               <h3 class="text-info text-left">
+              <div class="col-md-5 col-sm-12 col-xs-12 col-lg-5">
+               <img class="thumbnail"  src="img/'.$val[4].'"/>
+              </div>    
+              <div class="col-md-7 col-sm-12 col-xs-12 col-lg-7">
+               <h2>
                 '.$val[1].'
-               </h3>
-               <h2 class="text-info text-left">
-                '.$val[2].'
                </h2>
-               <p class="text-muted">
-                <small>
+               <h3>
+                '.$val[2].'
+               </h3>
+               <p >
                  '.$val[3].'
-                </small>
                </p>
               </div>
             </div>';
            }
           }else{
              $var = '
-            <div class="row">
+            <div class="col-md-12">
               <div class="col-md-4">
-               <img alt="Bootstrap Image Preview" width="200" src="img/'.$response_lugar[4].'"/>
+               <img class="thumbnail"  src="img/'.$response_lugar[4].'"/>
               </div>
               <div class="col-md-8">
                <h2 class="text-primary" style="margin-top:0;">
@@ -153,12 +150,12 @@
 
 
 	<div class="row">	
-		<div class="col-md-12">
-		  <div class="container-fluid">
+		
+		  
 			 <div class="panel panel-default">
 				
 				<div id="contenido" class="panel-body">
-					<div class="container-fluid">
+					<div class="col-md-12">
             <?php 
              if(isset($var)){
               if(count($var) > 1){
@@ -173,8 +170,8 @@
           </div>
 				</div>
 			 </div>
-		  </div>
-		</div>
+		 
+		
 	</div>
 </div>
 </body>

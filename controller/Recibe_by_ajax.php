@@ -43,7 +43,7 @@
     $file = $_FILES["file2"];
     $name = $file['name'];
     if(move_uploaded_file($_FILES["file2"]['tmp_name'], $url.time().$name)){
-      $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,$name);   
+      $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,time().$name);   
     }
    }else{
      $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,$name);  
@@ -101,12 +101,64 @@
  if(isset($_POST['id_destino'])){
    $id = $_POST['id_destino'];
    $destino = new Destinos();
-   $data['success'] = $destino->Get_destino($id);
+   $data =  $destino->Get_destino($id);
    if(isset($data)){
-    echo json_encode($data);
+    $array = Array($data[0],utf8_encode($data[1]),utf8_encode($data[2]),$data[3],$data[4],$data[5]);
+   }
+   if(isset($array)){
+    $respon['success'] = $array;
+    echo json_encode($respon);
    }else{
     echo null;
    }
  }
 
+ if(isset($_POST['imgen'])){
+   $conexion = new Conectar('root','');
+   $foto1 = $_POST['imgen'];
+   unlink("../img/".$foto1);
+   $sql = 'UPDATE fotos SET Foto1 = "" WHERE Foto1 = "'.$foto1.'"';
+   $sql2 = 'UPDATE fotos SET Foto2 = "" WHERE Foto2 = "'.$foto1.'"';
+   $respon = $conexion->update_query($sql);
+   $respons = $conexion->update_query($sql2);
+   if(isset($respon['exito']) or isset($respons['exito'])){
+    $res['response'] = true;
+   }else{
+    $res['response'] = false;
+   }
+   echo json_encode($res); 
+ }
+
+ // actualizar destinos
+ if(isset($_POST['id'],$_POST['slt_pai'],$_POST['txt_lugar'],$_POST['txt_prec'],$_POST['txt_area'])){
+   $url = $_SERVER['DOCUMENT_ROOT']."/logistica/img/";
+   $destino = new Destinos();
+   $id = $_POST['id'];
+   $pais = $_POST['slt_pai'];
+   $lugar = $_POST['txt_lugar'];
+   $precio = $_POST['txt_prec'];
+   $descrip = $_POST['txt_area'];
+   $array_nombre = array();
+   $respon = $destino->Update_destino($id,$lugar,$pais,$precio,$descrip);
+   if(!isset($respon['error']) and isset($_FILES['inp_file'])){
+     foreach($_FILES as $key=>$files){
+      if(move_uploaded_file($files['tmp_name'], $url.time().$files['name'])){
+        array_push($array_nombre,$files);
+      }
+     }
+     if(isset($array_nombre)){
+      if(count($array_nombre) >= 2){
+        $respon = $destino->Update_foto($id,time().$array_nombre[0]['name'],time().$array_nombre[1]['name']);
+      }else{
+         $respon = $destino->Update_foto($id,time().$array_nombre[0]['name'],null);
+      }
+      $data['respon'] = true;
+     }
+   }elseif(!isset($respon['error'])){
+     $data['respon'] = true;
+   }else{
+    $data['respon'] = false;
+   }
+   echo json_encode($data);
+ }
 ?>

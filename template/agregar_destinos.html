@@ -4,21 +4,21 @@
                 <div class="connecting-line"></div>
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active">
-                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Destino principal">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-plane"></i>
                             </span>
                         </a>
                     </li>
                     <li role="presentation" class="disabled">
-                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Sub-destinos">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-road"></i>
                             </span>
                         </a>
                     </li>
                     <li role="presentation" class="disabled">
-                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Completado">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </span>
@@ -29,29 +29,37 @@
 
             <form role="form">
                 <div class="tab-content">
-                    <div class="tab-pane active" role="tabpanel" id="step1">
+                    <div class="tab-pane active well" role="tabpanel" id="step1">
                       <form method="post" enctype="multipart/form-data">
-                        <label> Destino</label>
-                        <input type="text" id="txt_destino" class="form-control"> 
-                        <label> Pais</label> 
-                        <select id="slt_pais" type="text" class="form-control"> 
+                        <div class="col-md-12">
+                         <label> Destino</label>
+                         <input type="text" id="txt_destino" class="form-control"> 
+                        </div>
+                        <div class="col-md-6">
+                         <label> Pais</label> 
+                         <select id="slt_pais" type="text" class="form-control"> 
                           <option></option>
                           <option value="1">COLOMBIA</option>
                           <option value="2">PANAMA</option>
                           <option value="3">EEUU</option>
-                         <option value="4">ESPANA</option>
-                        </select>
-                        <label> Precio</label>
-                        <input type="number" id="txt_precio" class="form-control"> 
+                          <option value="4">ESPANA</option>
+                         </select>
+                        </div>
+                        <div class="col-md-6">
+                         <label> Precio</label>
+                         <input type="number" id="txt_precio" class="form-control"> 
+                        </div>
+                        <div class="col-md-12">
                          <label> Salida</label>
-                        <input type="text" id="txt_fecha" class="form-control"> 
+                         <input type="text" id="txt_fecha" class="form-control"> 
+                        </div>
+
                         <label> Descripcion</label>
                          <textarea type="text" id="txt_descrip" class="form-control"></textarea> 
                         <div>
                         <label class="control-label">Seleccionar Foto</label>
                         <input id="inp_file" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
-                        </div>
-                        
+                        </div>  
                       </form> 
                         <ul class="list-inline pull-right" style="margin-top:20px;top:20px;">
                           <li>
@@ -59,7 +67,7 @@
                           </li>
                         </ul>
                     </div>
-                    <div class="tab-pane" role="tabpanel" id="step2">
+                    <div class="tab-pane well well-sm" role="tabpanel" id="step2">
                       <h3>Agregar Lugares Destacados</h3> 
                       <form method="post" id="form2" enctype="multipart/form-data">  
                         <label> Titulo</label>

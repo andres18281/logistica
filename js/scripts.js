@@ -1,10 +1,10 @@
 $(function(){
-   $("#btn_desti").click(function(){
+   $(".btn_desti").click(function(){
    	 $("#contenido").html("");
      $("#contenido").load("template/agregar_destinos.html");
    });
 
-   $("#btn_list_paque").click(function(){
+   $(".btn_list_paque").click(function(){
    //	 $("#contenido").html("");
    	 $("#contenido").load("template/listar_destino.html");
 
@@ -21,14 +21,14 @@ $(function(){
     		    		<td>'+value[3]+'</td>\
     		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#" title="Edit"><button id='+value[0]+' class="btn btn-success btn-xs btn_ver"  data-title="Edit" data-toggle="modal" data-target="#ver"><span class="glyphicon glyphicon-zoom-in"></span></button></p></td>\
     		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModal" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
-   	 		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModa2" title="Delete"><button id='+value[0]+' class="btn btn-danger btn-xs btn_delete" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
+   	 		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModal3" title="Delete"><button id='+value[0]+' class="btn btn-danger btn-xs btn_delete" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
     		 		  </tr>';
     	  $(data_).appendTo($("#table_lista"));
    	 	 });
    	 	}
    	 });
    });
-
+	var id_destino = 0;
    $(document).on('click',".btn_modifi",function(){
    	 id = $(this).attr('id');
      $("#myModal").modal('show');
@@ -41,17 +41,16 @@ $(function(){
      $("#txt_fech").val(fecha);  //fecga
      $("#txt_prec").val(precio);  //precio
      $("#slt_pai").val(pais); // pais
-
      $("#txt_area").val(descrip);
    });	
 
    $(document).on('click',".btn_delete",function(){
-     $("#myModa2").modal('show');
-
+   	 id = $(this).attr('id');
+     $("#myModal3").modal('show');
    });	
 
    // id del destino creado
-   var id_destino = 0;
+   
    $(document).on('click',"#btn_send",function(){
    	 var destino = $("#txt_destino").val(); 
    	 var pais = $("#slt_pais").val(); 
@@ -115,7 +114,6 @@ $(function(){
    			$("#txt_subtitle2").val("");
    			$("#txt_descrip2").val("");
    			$('#inp_file2').fileinput('reset');
-   			
         }
     }).done(function(data){
     	form.delete('id');
@@ -213,12 +211,8 @@ $(function(){
    	 });
    });
 
-   //boton eliminar
-   $(document).on('click',".btn_delete",function(){
-     id = $(this).attr('id');
-   });
-
-
+   
+//myModal3
 
    // boton de modal modificar
    

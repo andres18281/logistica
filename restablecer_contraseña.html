@@ -14,20 +14,10 @@
         <div class="row">
           <form id="frmRestablecer" action="validaremail.php" method="post">
             <div class="panel panel-default">
-              <div class="panel-heading">  <label for="email"> Escribe el email o cedula asociado a tu cuenta para recuperar tu contraseña </label><br> </div>
+              <div class="panel-heading">  <label for="email"> Escribe por favor su Email </label><br> </div>
                 <div class="panel-body">
                   <div class="form-group">
-                   <select class="form-control" id="slt_tipo">
-                     <option></option>
-                     <option value="1"> Usar Email</option>
-                     <option value="2"> Usar Cedula o Nit</option>
-                   </select>
-                   <div id="correo">
-                    <input type="email" id="email" class="form-control" name="email" style="display:none" placeholder="Digite su email">
-                   </div>
-                   <div id="cedula"> 
-                    <input type="number" id="cedu" class="form-control" name="cedu" style="display:none" placeholder="Digite su cedula">
-                   </div>
+                    <input type="email" id="email" class="form-control" name="email"  placeholder="Digite su email">
                   </div>
                   <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Recuperar contraseña" >
@@ -45,18 +35,6 @@
 </html>
 <script>
  $(function(){
-   $("#slt_tipo").change(function(){
-     var tipo = $(this).val();
-     if(tipo == 1){
-      $("#email").css("display","block");
-      $("#cedu").css("display","none");
-     }
-     if(tipo == 2){
-       $("#email").css("display","none");
-       $("#cedu").css("display","block");
-     }
-   });
-
     $("#frmRestablecer").submit(function(event){
       event.preventDefault();
       $.ajax({

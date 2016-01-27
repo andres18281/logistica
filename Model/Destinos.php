@@ -17,6 +17,7 @@
   		$response = parent::inserta('destinos',$array);
   		return $response;
   	}
+    
     // obtiene toda la informacion del destino con el id
   	function Get_destino($id){
   		$sql = 'SELECT des.pais,des.lugar,des.descrip,fo.Foto1,fo.Foto2,des.precio

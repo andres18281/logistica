@@ -1,6 +1,5 @@
 <?php
-
-include_once $_SERVER['DOCUMENT_ROOT'].'/controlador/conectar.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/controller/controlador/conectar.php';
 if($_POST['password1'] != "" && $_POST['password1'] != "" && $_POST['idusuario'] != "" && $_POST['token'] != "" ){
   $conectar = new Conectar('root','');
   $password1 = $_POST['password1'];
@@ -30,32 +29,28 @@ if($_POST['password1'] != "" && $_POST['password1'] != "" && $_POST['idusuario']
    if(isset($resultado)){
       if(sha1($resultado[1] === $idusuario)){
          if($password1 === $password2){
-            $sql = "UPDATE usuarios SET Usua_pass = '".sha1($password1)."' WHERE Usua_id = ".$resultado[1];
+            $sql = "UPDATE users SET User_Password_ = '".sha1($password1)."' WHERE id_cedu_ = ".$resultado[1];
             $resultado = $conectar->update_query($sql);
-            if($resultado){
+            if(isset($resultado['exito'])){
                $sql = "DELETE FROM tblreseteopass WHERE token = '$token';";
-               $resultado = $conectar->update_query($sql);
-?>
+               $resultado = $conectar->update_query($sql); ?>
                <p class="alert alert-info"> La contraseña se actualizó con exito. </p>
                <a href="index.php" class="btn -btn-success">Iniciar Sesion</a>
-<?php
-            }else{
-?>
+              <?php
+            }else{ ?>
               <p class="alert alert-danger"> Ocurrió un error al actualizar la contraseña, intentalo más tarde </p>
-<?php
+            <?php
             }
-         }else{
-?>
+         }else{ ?>
            <p class="alert alert-danger"> Las contraseñas no coinciden </p>
-<?php
+          <?php
          }
-      }else{
-?>
+      }else{ ?>
         <p class="alert alert-danger"> El token no es válido </p>
-<?php
+      <?php
       }
    }else{
-?>
+      ?>
       <p class="alert alert-danger"> El token no es válido </p>
 <?php
    }
@@ -68,8 +63,7 @@ if($_POST['password1'] != "" && $_POST['password1'] != "" && $_POST['idusuario']
 </body>
 </html>
 <?php
-}
-else{
-   header('Location:index.php');
+}else{
+  header('Location:index.php');
 }
 ?>

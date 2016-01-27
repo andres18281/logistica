@@ -1,13 +1,13 @@
 <?php
-$token = $_GET['token'];
-$idusuario = $_GET['idusuario'];
- 
+
 include_once $_SERVER['DOCUMENT_ROOT'].'/controlador/conectar.php';
 $conect = new Conectar('root','');
- 
-$sql = 'SELECT * FROM tblreseteopass WHERE token = "'.$token.'"';
-$resultado = $conect->consultas($sql);
-if(isset($resultado)){
+if(isset($_GET['token'],$_GET['idusuario'])){
+ $token = $_GET['token'];
+ $idusuario = $_GET['idusuario'];
+ $sql = 'SELECT * FROM tblreseteopass WHERE token = "'.$token.'"';
+ $resultado = $conect->consultas($sql);
+ if(isset($resultado)){
    if(sha1($resultado[1]) == $idusuario){  ?>
     <!DOCTYPE html>
     <html lang="es">
@@ -18,7 +18,6 @@ if(isset($resultado)){
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
       <link href="css/style.css" rel="stylesheet">
      </head>
- 
      <body>
       <div class="container" role="main">
         <div class="col-md-4"></div>
@@ -53,10 +52,10 @@ if(isset($resultado)){
 </html>
 <?php
    }else{
-    // header('Location:index.php');
+     header('Location:index.php');
    }
+ }else{
+     header('Location:index.php');
  }
- else{
-     //header('Location:index.php');
- }
+} 
 ?>

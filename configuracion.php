@@ -25,6 +25,23 @@
   	<script src="js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
   	<script src="js/fileinput_locale_es.js"></script>
   	<script src="js/btn_out_session.js"></script>
+  	<style type="text/css">
+  	   
+  	   .list-group-item:before{
+  	   	content:'';
+ 		position: absolute;
+ 		top: 0px;
+ 	    left: 0px;
+ 		width: 0px;
+ 		height: 42px;
+ 		background: rgba(0,0,255,0.3);
+ 		border-radius: 5px;
+ 		transition: all 2s ease;
+  	   }
+      .list-group-item:hover:before{
+      	width: 100%;
+      }
+  	</style>
 </head>
 
 <body>
@@ -86,10 +103,6 @@
 					Bienvenido
 				</h2>
 				<p>
-					
-				</p>
-				<p>
-					<a class="btn btn-primary btn-large" data-toggle="modal" data-target="#myModal3" href="#">Learn more</a>
 				</p>
 			</div>
 		</div>
@@ -97,9 +110,11 @@
 	<div class="row">
 		<div class="col-md-3 col-sm-3 hidden-xs">
 		  <div class="list-group">
-  			<a href="#" id="" class="list-group-item btn_desti">Agregar Destinos</a>
-  			<a href="#"  class="list-group-item btn_list_paque">Listar Paquetes</a>
-		   </div>
+  			<a href="#" class="list-group-item btn_desti">Agregar Destinos</a>
+  			<a href="#" class="list-group-item btn_list_paque">Listar Paquetes</a>
+  			<a href="#" class="list-group-item btn_list_client">Listar Clientes</a>
+  			<a href="#" class="list-group-item btn_users">Cambiar contraseñas</a>
+		  </div>
 		</div>
 		<div class="col-md-8 col-sm-8 col-xs-12">
 		  <div class="container-fluid">
@@ -113,9 +128,26 @@
 		</div>
 	</div>
 </div>
-</body>
-</html>
-<script src="js/scripts.js"></script>
+
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+   <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Eliminar Destino</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Desea eliminar el destino seleccionado?</div> 
+      </div>
+      <div class="modal-footer ">
+       <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_eliminate"><span class="glyphicon glyphicon-ok-sign"></span>Si</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>No</button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+  </div>
+</div>  
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -156,7 +188,7 @@
     		  </a>
   			</div>
   			<div class="col-xs-6 col-md-6">
-    		   <button class="glyphicon glyphicon-remove btn btn-danger" id="btn_dele_foto2" data-toggle="tooltip" data-placement="left" title="Eliminar foto"></button>
+    		  <button class="glyphicon glyphicon-remove btn btn-danger" id="btn_dele_foto2" data-toggle="tooltip" data-placement="left" title="Eliminar foto"></button>
     		  <a href="#" class="thumbnail" id="thumbnail2">
       			<img src="" id="img2">
     		  </a>
@@ -179,24 +211,17 @@
 
 
 
-<div id="myModal3" class="modal fade" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Borrar</h4>
-      </div>
-      <div class="modal-body">
-       <h5> Desea borrar esta destino ? </h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-         <button type="button" class="btn btn-success" id="btn_eliminate">Si</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
 
 
 <script>
@@ -205,7 +230,6 @@ $(document).ready(function(){
   $('#btn_dele_foto2').tooltip({title: "Eliminar foto", placement: "top"}); 
   $('#btn_desti').tooltip({title: "Crear destinos", placement: "right"}); 
   $('#btn_list_paque').tooltip({title: "Enlistar destinos ", placement: "right"}); 
-     
-
 });
 </script>
+<script src="js/scripts.js"></script>

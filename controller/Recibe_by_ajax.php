@@ -161,4 +161,16 @@
    }
    echo json_encode($data);
  }
+
+ if(isset($_POST['list_client']) and $_POST['list_client'] == "ok"){
+   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Clientes.php";
+   $cliente = new Clientes();
+   $response = $cliente->Listar_clientes();
+   if(isset($response)){
+    echo json_encode($response);
+   }else{
+    echo null;
+   }
+
+ }
 ?>

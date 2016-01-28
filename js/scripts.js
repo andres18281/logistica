@@ -1,13 +1,21 @@
 $(function(){
+
+    $("#log_out").click(function(){
+         window.location.reload();
+                   window.location.reload();
+                   window.reload(true);
+                   window.reload(true);
+    });
+
+   // agregar destinos nuevos
    $(".btn_desti").click(function(){
    	 $("#contenido").html("");
      $("#contenido").load("template/agregar_destinos.html");
    });
-
+  // listar los destinos creados
    $(".btn_list_paque").click(function(){
    //	 $("#contenido").html("");
    	 $("#contenido").load("template/listar_destino.html");
-
    	 $.ajax({
    	 	dataType:"json",
    	 	type:"POST",
@@ -20,14 +28,18 @@ $(function(){
     		    		<td>'+value[2]+'</td>\
     		    		<td>'+value[3]+'</td>\
     		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#" title="Edit"><button id='+value[0]+' class="btn btn-success btn-xs btn_ver"  data-title="Edit" data-toggle="modal" data-target="#ver"><span class="glyphicon glyphicon-zoom-in"></span></button></p></td>\
-    		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModal" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
-   	 		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#myModal3" title="Delete"><button id='+value[0]+' class="btn btn-danger btn-xs btn_delete" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
+    		    		<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi" data-title="Edit" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
+   	 		    		<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id='+value[0]+' class="btn btn-danger btn_delete btn-xs" data-title="Delete" data-toggle="modal" data-target="#myModal3" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
     		 		  </tr>';
     	  $(data_).appendTo($("#table_lista"));
    	 	 });
    	 	}
    	 });
    });
+
+
+
+    // ------------------botones de eventos de eliminar, modificar y editar ----------------------//
 	var id_destino = 0;
    $(document).on('click',".btn_modifi",function(){
    	 id = $(this).attr('id');
@@ -45,8 +57,7 @@ $(function(){
    });	
 
    $(document).on('click',".btn_delete",function(){
-   	 id = $(this).attr('id');
-     $("#myModal3").modal('show');
+   	 id = $(this).attr('id');  
    });	
 
    // id del destino creado
@@ -129,7 +140,6 @@ $(function(){
     });
    });
 
-   // al darle click en el boton con forma de +, direcciona a la web
    // boton ver
    $(document).on('click',".btn_ver",function(){
      var id_ver = $(this).attr('id');
@@ -212,8 +222,6 @@ $(function(){
    });
 
    
-//myModal3
-
    // boton de modal modificar
    
    	$(document).on('click',"#btn_dele_foto",function(){
@@ -234,6 +242,7 @@ $(function(){
    	  	}
    	  });
    	});
+
    	$(document).on('click',"#btn_dele_foto2",function(){
    	  var foto = $("#img2").attr('src');
    	  foto = foto.replace('../logistica/img/',"");
@@ -292,4 +301,56 @@ $(function(){
       	}
       });
    	});
+
+	//-------------------------------------------------------- finaliza eventos de listar destinos --------------//
+	//------------------- listar todos los clientes registrados -----------------//
+	$(".btn_list_client").click(function(){
+	  $("#contenido").html("");
+	  $("#contenido").load("template/listar_clientes.html");
+	  $.ajax({
+	  	dataType:"json",
+	  	type:"post",
+	  	url:"controller/Recibe_by_ajax.php",
+	  	data:{"list_client":"ok"},
+	  	success:function(data){
+	  	  if(data[0] instanceof Array){
+	  	  	$.each(data, function(indx,value){
+	  	  	  var tr = 
+	  	  	  	'<tr>\
+        		 <td>'+value[0]+'</td>\
+        		 <td>'+value[1]+'</td>\
+        		 <td>'+value[2]+'</td>\
+        		 <td>'+value[3]+'</td>\
+        		 <td>'+value[4]+'</td>\
+       			</tr>';
+       		  $(tr).appendTo($("#tr_client"));
+	  	  	});
+	  	  }else{
+	  	  	var tr = 
+	  	  	  	'<tr>\
+        		 <td>'+data[0]+'</td>\
+        		 <td>'+data[1]+'</td>\
+        		 <td>'+data[2]+'</td>\
+        		 <td>'+data[3]+'</td>\
+        		 <td>'+data[4]+'</td>\
+       			</tr>';
+       		$(tr).appendTo($("#tr_client"));
+	  	  }
+	  	  if(data === null){
+	  	  	alert("vacio");
+	  	  	var tr = 
+	  	  	  	'<tr>\
+        		  <div class="alert alert-info" role="alert">No existen registros aun de clientes</div>\
+       			</tr>';
+       		$(tr).appendTo($("#tr_client"));
+	  	  }
+	  	}
+	  });  
+	});
+
+	//----------------------- boton para modificar contraseñas --------------//
+	$("#btn_users").click(function(){
+
+	});
+
  });

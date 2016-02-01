@@ -2,11 +2,10 @@
  if(!isset($_SESSION)){
     session_start(); 
   }
-  if(isset($_SESSION["perfil"])){
-        header("location: index.php");
-  }
-  if(isset($_SESSION["perfil"]) and $_SESSION["perfil"] == "qwqwsa123423@!"){ // de operaciones
-      header("location: configuracion.php");
+  if(isset($_SESSION) and $_SESSION["perfil"] == "qwqwsa123423@!"){ // de operaciones
+    header("location: configuracion.php");
+  }elseif(isset($_SESSION) and $_SESSION["perfil"] == "asdqweasd5654184"){ // de operaciones
+    header("location: clientes.php");
   }
 ?>
 
@@ -72,7 +71,10 @@
       $pass = $_POST['password'];
       $login = new Login($_POST['users_id'],sha1($pass));
       if($login->loguearse()){
+
         header("location: index.php");
+      }else{
+        echo "no se conecta";
       }
     }
  }

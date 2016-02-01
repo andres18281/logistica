@@ -6,18 +6,14 @@
         session_start(); 
   }
   class Login {    
-      private $user;
-      private $pass;
+      protected $user;
+      protected $pass;
       public function __construct($user,$pass){
         $this->user = $user;
         $this->pass = $pass;
       }
 
       public function loguearse(){
-        if(!isset($_SESSION["perfil"],$_SESSION["pass"])){
-           $_SESSION["perfil"] = "root";
-           $_SESSION["pass"] = "";
-        }
         $consulta = new Conectar("root",""); 
         $sql = 'SELECT  id_cedu_,User_Correo_,users_tipo,User_Nomb_
                 FROM users  

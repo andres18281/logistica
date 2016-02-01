@@ -8,6 +8,10 @@
     }
     if($_SESSION["perfil"] == "qwqwsa123423@!"){ // de operaciones
       header("location: configuracion.php");
+    }elseif($_SESSION["perfil"] == "asdqweasd5654184"){ // de operaciones
+      header("location: clientes.php");
+    }else{
+      header("location: login.php");
     }
               
  /* if(isset($_POST['go'])){

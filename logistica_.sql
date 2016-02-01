@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-01-2016 a las 23:06:12
+-- Tiempo de generación: 01-02-2016 a las 22:57:54
 -- Versión del servidor: 10.0.17-MariaDB
 -- Versión de PHP: 5.5.30
 
@@ -19,6 +19,20 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `logistica_`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `chat_mensajes_`
+--
+
+CREATE TABLE `chat_mensajes_` (
+  `Id_chat` int(11) NOT NULL,
+  `Chat_origen` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
+  `Chat_destin` varchar(60) COLLATE utf8_spanish_ci NOT NULL,
+  `Chat_msn` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `Chat_read` enum('si','no') COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -43,11 +57,7 @@ INSERT INTO `destinos` (`Des_id`, `pais`, `lugar`, `descrip`, `precio`) VALUES
 (152, 1, 'Parque cafetero', 'Al llegar a este paraÃ­so terrenal, el mar de 7 colores, le darÃ¡ la bienvenida siendo su principal anfitriÃ³n, cuenta la leyenda que PoseidÃ³n vive en estas aguas logrando cautivar a sus visitantes con un abanico de belleza exuberante.\r\nEn esta joya del atlÃ¡ntico podrÃ¡ disfrutar de multiplex actividades acuÃ¡ticas, tours de compras y paseos a diferentes escenarios naturales.', '230000'),
 (155, 1, 'ghgh', 'asddddddddddd', '45000'),
 (156, 1, 'dsd', 'dsfffff', '23000'),
-(159, 1, 'ertert', 'ertertert', '23000'),
-(160, 0, '', '', '0'),
-(161, 0, '', '', '0'),
-(162, 0, '', '', '0'),
-(164, 0, '', '', '0');
+(159, 1, 'ertert', 'ertertert', '23000');
 
 -- --------------------------------------------------------
 
@@ -67,14 +77,14 @@ CREATE TABLE `fotos` (
 --
 
 INSERT INTO `fotos` (`Foto_id`, `Foto1`, `Foto2`, `id_desti`) VALUES
-(144, '1454003240chat2.jpg', '', 152),
-(147, '1453915521logostratecsa.png', '', 155),
-(148, '', '', 156),
-(151, '1453922369chat2.jpg', '', 159),
-(152, '1453930423', '', 160),
-(153, '1453930541', '', 161),
-(154, '1453930574', '', 162),
-(156, '1453993159', '', 164);
+(144, '1453915785florida.jpg', '', 152),
+(147, '1453915785florida.jpg', '', 155),
+(148, '1453915785florida.jpg', '', 156),
+(151, '1453915785florida.jpg', '', 159),
+(152, '1453915785florida.jpg', '', 160),
+(153, '1453915785florida.jpg', '', 161),
+(154, '1453915785florida.jpg', '', 162),
+(156, '1453915785florida.jpg', '', 164);
 
 -- --------------------------------------------------------
 
@@ -110,8 +120,7 @@ INSERT INTO `lugares` (`Luga_Id`, `Luga_title`, `Luga_sub_title`, `Luga_descri`,
 (90, 'ACUARIO JOHNNY CAY', '', 'Al llegar a este paraíso terrenal, el mar de 7 colores, le dará la bienvenida siendo su principal anfitrión, cuenta la leyenda que Poseidón vive en estas aguas logrando cautivar a sus visitantes con un abanico de belleza exuberante.\nEn esta joya del atlántico podrá disfrutar de multiplex actividades acuáticas, tours de compras y paseos a diferentes escenarios naturales.', 'florida.jpg', 152),
 (91, 'LA CUEVA DE MORGAN', 'LA LEYENDA DEL PIRATA', 'La cueva de Morgan, uno de los sitios más visitado de la isla, atraídos por la leyenda del pirata más famoso del Caribe, en esta cueva, se puede visitar y conocer 5 paradas temáticas que contaran la historia de los ancestros piratas.', 'florida.jpg', 152),
 (92, 'PROVIDENCIA Y SANTA ', '', 'Providencia y Santa Catalina deslumbran un arcoíris marino de siete azules, que han hecho famosas a estas islas, gracias a su origen volcánico, multiplex arrecifes y paisajes submarinos.\n \nUna de las mejores experiencias del viaje es conocer a los habitantes de esta isla. Son gente amable, sonriente, amante de la música y la gastronomía y dispuesta a compartir los secretos de la vida isleña con los turistas.', 'florida.jpg', 152),
-(94, 'trytry', 'tyutyutyu', ' tyyyyyyyyyyyyyyyyyyy', '145392238311105846_829945847084806_615250059_o.jpg', 159),
-(96, '', '', ' ', '', 152);
+(94, 'trytry', 'tyutyutyu', ' tyyyyyyyyyyyyyyyyyyy', '145392238311105846_829945847084806_615250059_o.jpg', 159);
 
 -- --------------------------------------------------------
 
@@ -170,12 +179,18 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_cedu_`, `User_Nomb_`, `User_apelli_`, `User_Pais_`, `User_Correo_`, `User_Password_`, `users_tipo`) VALUES
 (1144, 'andres', 'giraldo', 1, 'andres18281@hotmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'qwqwsa123423@!'),
-(324234, 'joselito', 'alvares', 1, 'joselito@velasquez.com', '12345', 'asdqweasd5654184'),
+(324234, 'joselito', 'alvares', 1, 'joselito@velasquez.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'asdqweasd5654184'),
 (2347656, 'carlos', 'Vasquez', 1, 'andres@hotmail.com', '12212', 'asdqweasd5654184');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `chat_mensajes_`
+--
+ALTER TABLE `chat_mensajes_`
+  ADD PRIMARY KEY (`Id_chat`);
 
 --
 -- Indices de la tabla `destinos`
@@ -225,10 +240,15 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `chat_mensajes_`
+--
+ALTER TABLE `chat_mensajes_`
+  MODIFY `Id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `destinos`
 --
 ALTER TABLE `destinos`
-  MODIFY `Des_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `Des_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 --
 -- AUTO_INCREMENT de la tabla `fotos`
 --
@@ -238,7 +258,7 @@ ALTER TABLE `fotos`
 -- AUTO_INCREMENT de la tabla `lugares`
 --
 ALTER TABLE `lugares`
-  MODIFY `Luga_Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `Luga_Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 --
 -- AUTO_INCREMENT de la tabla `pais`
 --

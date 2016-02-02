@@ -34,9 +34,9 @@ include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conectar.php";
     }
 
     function Mensaje_recibido_de($person){
-      $sql = 'SELECT Chat_origen 
+      $sql = 'SELECT Chat_msn 
               FROM chat_mensajes_  
-              WHERE Chat_destin = "'.$person.'"
+              WHERE  Chat_origen = "'.$person.'"
               AND Chat_read = 2';
       $response = parent::consultas($sql);
       return $response;

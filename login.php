@@ -2,11 +2,13 @@
  if(!isset($_SESSION)){
     session_start(); 
   }
-  if(isset($_SESSION) and $_SESSION["perfil"] == "qwqwsa123423@!"){ // de operaciones
-    header("location: configuracion.php");
-  }elseif(isset($_SESSION) and $_SESSION["perfil"] == "asdqweasd5654184"){ // de operaciones
-    header("location: clientes.php");
-  }
+  if(isset($_SESSION)){ 
+   if(isset($_SESSION,$_SESSION["perfil"]) and $_SESSION["perfil"] == "qwqwsa123423@!"){ // de operaciones
+     header("location: configuracion.php");
+   }elseif(isset($_SESSION,$_SESSION["perfil"]) and $_SESSION["perfil"] == "asdqweasd5654184"){ // de operaciones
+     header("location: clientes.php");
+   }
+  } 
 ?>
 
 <!DOCTYPE html>

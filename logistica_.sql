@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-02-2016 a las 22:57:54
+-- Tiempo de generación: 02-02-2016 a las 22:59:27
 -- Versión del servidor: 10.0.17-MariaDB
 -- Versión de PHP: 5.5.30
 
@@ -33,6 +33,18 @@ CREATE TABLE `chat_mensajes_` (
   `Chat_msn` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `Chat_read` enum('si','no') COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `chat_mensajes_`
+--
+
+INSERT INTO `chat_mensajes_` (`Id_chat`, `Chat_origen`, `Chat_destin`, `Chat_msn`, `Chat_read`) VALUES
+(5, 'msn@logistica.com', 'joselito@velasquez.com', 'dsfsd', 'no'),
+(4, 'joselito@velasquez.com', 'msn@logistica.com', 'dfsdf', 'no'),
+(6, 'joselito@velasquez.com', 'msn@logistica.com', 'Gracias', 'no'),
+(7, 'msn@logistica.com', 'joselito@velasquez.com', 'kkmkm', 'no'),
+(8, 'joselito@velasquez.com', 'msn@logistica.com', 'ssdsd', 'no'),
+(9, 'msn@logistica.com', 'joselito@velasquez.com', 'Hola, gracias por comunicarse con nosotros', 'no');
 
 -- --------------------------------------------------------
 
@@ -178,7 +190,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_cedu_`, `User_Nomb_`, `User_apelli_`, `User_Pais_`, `User_Correo_`, `User_Password_`, `users_tipo`) VALUES
-(1144, 'andres', 'giraldo', 1, 'andres18281@hotmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'qwqwsa123423@!'),
+(1144, 'andres', 'giraldo', 1, 'msn@logistica.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'qwqwsa123423@!'),
 (324234, 'joselito', 'alvares', 1, 'joselito@velasquez.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'asdqweasd5654184'),
 (2347656, 'carlos', 'Vasquez', 1, 'andres@hotmail.com', '12212', 'asdqweasd5654184');
 
@@ -243,7 +255,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `chat_mensajes_`
 --
 ALTER TABLE `chat_mensajes_`
-  MODIFY `Id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `destinos`
 --

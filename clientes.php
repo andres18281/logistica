@@ -11,7 +11,7 @@
   	 if($_SESSION["perfil"] != "asdqweasd5654184"){ // de operaciones
       header("location: index.php");
   	 }
-      echo '<script> var email = "'.$_SESSION["email"].'"</script>;';
+      echo '<script> var email = "'.$_SESSION["email"].'";</script>';
     ?>
 	<title></title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -919,6 +919,47 @@ $(function(){
 	   $(t).appendTo($("#posts"));
  	}
  });
+ setTimeout(function(){
+    $.ajax({
+      dataType:"json",
+      type:"post",
+      url:"controller/Mensajes.php",
+      data:{'id_consult':email}
+    }).done(function(data){
+      console.log(data);
+      if(data != null){
+       if(data instanceof Array){
+        $.each(data,function(key,value){
+         var recibe = '<article class="timeline-entry">\
+            <div class="timeline-entry-inner">\
+                <div class="timeline-icon bg-success">\
+                    <i class="entypo-feather"></i>\
+                </div>\
+                <div class="timeline-label">\
+                    <h2> <span>Administrador</span></h2>\
+                    <p class="recibe">'+value+'</p>\
+                </div>\
+            </div>\
+         </article>';
+         $(recibe).appendTo($("#chat_"));
+        });
+      }else{
+        var recibe = '<article class="timeline-entry">\
+            <div class="timeline-entry-inner">\
+                <div class="timeline-icon bg-success">\
+                    <i class="entypo-feather"></i>\
+                </div>\
+                <div class="timeline-label">\
+                    <h2> <span>Administrador</span></h2>\
+                    <p class="recibe">'+data+'</p>\
+                </div>\
+            </div>\
+         </article>';
+         $(recibe).appendTo($("#chat_"));
+      }
+     } 
+    });
+   }, 5000);
 });
  $(document).on('click','.destin',function(){
  	var id = $(this).attr('id');
@@ -962,34 +1003,7 @@ $(function(){
  	 }
  	});
   
-  
-   setTimeout(function(){
-   	$.ajax({
-   	  dataType:"json",
-   	  type:"post",
-   	  url:"controller/Mensajes.php",
-   	  data:{'id_consult':email}
-   	}).done(function(data){
-   	  if(data != null){
-   		var recibe = '<article class="timeline-entry">\
-            <div class="timeline-entry-inner">\
-                <div class="timeline-icon bg-success">\
-                    <i class="entypo-feather"></i>\
-                </div>\
-                <div class="timeline-label">\
-                    <h2><a href="#">Art Ramadani</a> <span>Administrador</span></h2>\
-                    <p class="recibe"></p>\
-                </div>\
-            </div>\
-        </article>';
-        $(contesto).appendTo($("#chat_"));
-      }	
-   	});
-   }, 5000);
-    
-  	
 
-  $("article").scroll();
   });
   $(document).on('click',"#btn_send",function(){
 	var text = $("#text_chat").val();

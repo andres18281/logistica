@@ -12,6 +12,9 @@
                    window.reload(true);
                    window.reload(true);
                 }
+              }).done(function(data){
+                window.location.reload();
+                window.location.reload();
               });    
         });
     });

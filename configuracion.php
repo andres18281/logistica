@@ -8,6 +8,7 @@
   if($_SESSION["perfil"] != "qwqwsa123423@!"){ // de operaciones
       header("location: index.php");
   }
+   echo '<script> var email_ = "'.$_SESSION["email"].'";</script>';
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,16 +16,37 @@
 	<title></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<link rel="stylesheet" href="css/fileinput.css">
   	<link rel="stylesheet" href="css/stylo_sesion.css">
   	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  	
   	<script src="js/fileinput.min.js"></script>
   	<script src="js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
   	<script src="js/fileinput_locale_es.js"></script>
   	<script src="js/btn_out_session.js"></script>
+  	
+
+	
   	<style type="text/css">
-  	   
+  		.usuario_preg:hover{
+  		  background-color:rgba(255,0,0,0.3);
+  		}
+  		.usuarios_{
+  		  background-color:rgba(255,0,0,0.0);
+  	    }
+  	   .window{
+  	   	 border-radius: 5px;
+  	   	 border-color:red;
+  	   	 -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+		 box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+		 background-color: rgba(215, 44, 44, 0.2);
+  	   }
+  	   .usuario_preg{
+  	   	cursor:pointer;
+  	   }
   	   .resaltar:before{
   	   	content:'';
  		position: absolute;
@@ -555,7 +577,7 @@ ul.c-controls li a:hover {
 		<ul class="nav navbar-nav navbar-right">
 		 	<ul class="nav navbar-nav navbar-right">
 	    <li>
-	     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Menu</a>
+	     <a href="#" class="dropdown-toggle glyphicon glyphicon-envelope " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span id="msn_badge" style="color:red;">0</span></a>
 		  <ul class="dropdown-menu">
 	       
 	        <ul class="list-group" id="contact-list">
@@ -569,11 +591,9 @@ ul.c-controls li a:hover {
 
 
 
-		 	<li>
-	   		 <a href="#comments-1001"  class="info">Chat </a>		
-	   		</li>		
+		 		
 	  	 	<li class="dropdown">
-		     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Menu</a>
+		     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Mi perfil</a>
 			 <ul class="dropdown-menu">
 		       <li>
                  <div class="navbar-login">
@@ -636,21 +656,7 @@ ul.c-controls li a:hover {
 		  </div>
 		</div>
 		<div id="vent_chat"></div>
-		<div id="comments" class="col-sm-4 col-md-4 col-xs-offset-2 col-lg-4 col-xs-10">
-		  <h1 class="title">
-			Chat
-			<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true"></button>
-		  </h1>
-		  <div id="disqus_thread"></div>
-			<textarea class="form-control" id="text_chat"></textarea>
-		  <div class="row">
-		 	<div class="col-md-4 col-sm-4  col-xs-12" style="text-align:right;margin-top:10px;"><button class="btn btn-success btn-block" id="btn_send" >Enviar</button></div>
-		  </div>
-		  <div class="row">
-         	<div class="timeline-centered" id="chat_">
-    	 	</div>
-		  </div>
-		</div>
+		
 	</div>
 </div>
 
@@ -735,28 +741,48 @@ ul.c-controls li a:hover {
     
 </body>
 </html>
-	
-
-
-
-
-
-
-
-
-
 <script>
 $(document).ready(function(){
+   $(".timeline-centered").scroll();
+   function convertir_a_numero(letra){
+   	var str = String(letra);
+    var n = '';
+    for(var i = 0;i <= 2;i++){
+      n = n + str.charCodeAt(i);
+    }
+    n = n.replace('NaN','');
+    return n;
+  }
+
+  function ventana_nueva(email){
+  	var id = convertir_a_numero(email);
+  	var vent = 
+  	    '<div id="wind_'+id+'" class="panenl col-md-5 col-sm-5 col-lg-5 ventana_chat">\
+		 <div  class="col-sm-12 col-md-12 col-xs-offset-2 col-lg-9 col-xs-10 window">\
+		   <h1 class="title">Chat\
+			<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true" id="btnclo_'+id+'"></button>\
+		   </h1>\
+		   <div id="disqus_thread"></div>\
+		   <textarea class="form-control text_chat" id='+email+'></textarea>\
+		   <div class="row">\
+		 	<div class="col-md-4 col-sm-4 col-xs-12" style="text-align:right;margin-top:10px;"><button class="btn btn-success btn-block btn_send" id="btn'+id+'" >Enviar</button></div>\
+		   </div>\
+		   <div class="timeline-centered chat_"></div>\
+		 </div>\
+		</div>';
+    return vent;
+  }
+
   $('#btn_dele_foto').tooltip({title: "Eliminar foto", placement: "top"}); 
   $('#btn_dele_foto2').tooltip({title: "Eliminar foto", placement: "top"}); 
   $('#btn_desti').tooltip({title: "Crear destinos", placement: "right"}); 
   $('#btn_list_paque').tooltip({title: "Enlistar destinos ", placement: "right"}); 
 
-  if (window.location == window.parent.location) {
-        
+    if (window.location == window.parent.location) {      
         $('#fullscreen').attr('href', 'http://bootsnipp.com/mouse0270/snippets/846vX');
         $('#fullscreen').css('margin-left','-391.5px')
     }    
+    
     $('#fullscreen').on('click', function(event) {
         event.preventDefault();
         window.parent.location =  $('#fullscreen').attr('href');
@@ -780,7 +806,6 @@ $(document).ready(function(){
 		if (percentage <= 20) {
 			$('#posts').removeClass('open');
 		}
-
 		// THIS IS WHERE AJAX CODE WOULD GO TO LOAD ARTICLES DYNAMICALLY
 		$($(this).attr('href')).addClass('active');
 	});
@@ -807,21 +832,20 @@ $(document).ready(function(){
    	   dataType:"json",
    	   type:"post",
    	   url:"controller/Mensajes.php",
-   	   data:{'id_consult_admin':email}
+   	   data:{'id_consult_admin':email_}
    	  }).done(function(data){
+   	  	var cant = data.length;
+   	  	$("#msn_badge").text(cant);
    	    if(data != null){
    	     if(data instanceof Array){
    	      $.each(data,function(key,value){
    	      	var id = convertir_a_numero(value);
             var contact =  
            '<li class="list-group-item usuario_preg" id='+id+'>\
-             <div class="row">\
-                <div class="col-xs-6 col-sm-6">\
-                 <img src="http://api.randomuser.me/portraits/women/76.jpg" alt="Glenda Patterson" class="img-responsive img-circle"/>\
-                </div>\
-                <div class="col-xs-6 col-sm-6">\
+             <div class="container-fluid">\
+                <div class="col-xs-9 col-md-9 col-sm-9 ">\
                   <span class="id_email">'+value+'</span><br/>\
-                </div>\
+           		</div>\
                 <div class="clearfix"></div>\
              </div>\
             </li>';
@@ -848,6 +872,8 @@ $(document).ready(function(){
      }, 5000);
 
     $(document).on('click','.usuario_preg',function(){
+
+       
       var index = $(".usuario_preg").index($(this));
       var text = $(".id_email").eq(index).text();
       var text = $.trim(text);
@@ -856,92 +882,80 @@ $(document).ready(function(){
       	dataType:"json",
       	type:"post",
       	data:{"msn_from":text},
-      	url:"controller/Mensajes.php"
+      	url:"controller/Mensajes.php",
+      	success:function(){
+      		$(".ventana_chat").draggable();
+      	}
       }).done(function(data){
       	if(data[0] instanceof Array){
       	  $.each(data,function(key,value){
       	    var recibe = '<article class="timeline-entry">\
-              <div class="timeline-entry-inner">\
-                <div class="timeline-icon bg-success">\
-                    <i class="entypo-feather"></i>\
-                </div>\
-                <div class="timeline-label">\
-                    <h2><a href="#">Art Ramadani</a> <span>Administrador</span></h2>\
-                    <p class="recibe">'+data+'</p>\
-                </div>\
-               </div>\
-             </article>';
-            if(('#'+id).length){
-      	 	 $(contesto).appendTo($(".chat_").eq(index)); // como ya existe una ventana, simplemente pega el menu a la ventana
+              				<div class="timeline-entry-inner">\
+                			 <div class="timeline-icon bg-success">\
+                    		  <i class="entypo-feather"></i>\
+                			 </div>\
+                			 <div class="timeline-label">\
+                    		  <h2><a href="#">Administrador</a></h2>\
+                    		  <p class="recibe">'+value+'</p>\
+                			 </div>\
+               				</div>\
+             			  </article>';
+            if($('#wind_'+id).length){
+             $(".ventana_chat").draggable();
+             $(recibe).appendTo($(".chat_").eq(index)); // como ya existe una ventana, simplemente pega el menu a la ventana
+      	 	// $($('.chat_').eq(index)).appendTo('body'); 
       	    }else{
-      	      $('body').appendTo(ventana_nueva(text)); // como no existe la ventana, crea una ventana nueva y la pega en el body
-      	      $(recibe).appendTo($(".chat_").eq(index)); // al crear la ventana se add a la ventana
+      	    	$(".ventana_chat").draggable();
+      	       $(recibe).appendTo($(".chat_").eq(index)); // al crear la ventana se add a la ventana
+      	      $(ventana_nueva(text)).appendTo('body'); // como no existe la ventana, crea una ventana nueva y la pega en el body
       	    }
           });
        }else{
+       	$(".ventana_chat").draggable(); 
        	var recibe = '<article class="timeline-entry">\
-              <div class="timeline-entry-inner">\
-                <div class="timeline-icon bg-success">\
-                    <i class="entypo-feather"></i>\
-                </div>\
-                <div class="timeline-label">\
-                    <h2><a href="#">Art Ramadani</a> <span>Administrador</span></h2>\
-                    <p class="recibe">'+data+'</p>\
-                </div>\
-               </div>\
-             </article>';
-        if(('#'+id).length){
-      	 	 $(contesto).appendTo($(".chat_").eq(index)); // como ya existe una ventana, simplemente pega el menu a la ventana
+              		   <div class="timeline-entry-inner">\
+                		<div class="timeline-icon bg-success">\
+                    	 <i class="entypo-feather"></i>\
+                		</div>\
+                		<div class="timeline-label">\
+                    	  <h2><a href="#">Art Ramadani</a> <span>Administrador</span></h2>\
+                    	  <p class="recibe">'+data+'</p>\
+                		</div>\
+               		   </div>\
+             		 </article>';
+        if($('#wind_'+id).length){
+        	// $($('.chat_').eq(index)).appendTo('body');
+        	$(".ventana_chat").draggable(); 
+      	 	 $(recibe).appendTo($('.chat_').eq(index)); // como ya existe una ventana, simplemente pega el menu a la ventana
+      	 	 
       	}else{
-      	    $('body').appendTo(ventana_nueva(text)); // como no existe la ventana, crea una ventana nueva y la pega en el body
-      	    $(recibe).appendTo($(".chat_").eq(index)); // al crear la ventana se add a la ventana
+      		$(".ventana_chat").draggable();
+      		$(ventana_nueva(text)).appendTo('body'); // como no existe la ventana, crea una ventana nueva y la pega en el body
+      		$(recibe).appendTo($('.chat_').eq(index)); // al crear la ventana se add a la ventana  
       	}
        }
       });
     });
  		
-  $("article").scroll();
-  function convertir_a_numero(letra){
-    var str = letra;
-    n = '';
-    for(var i = 0;i <= str.length;i++){
-     var n =+ str.charCodeAt(1);
-    }
-    return n;
-  }
+  
+  
 
-  function ventana_nueva(email){
-  	var id = convertir_a_numero(email);
-  	var vent = 
-		'<div id='+id+' class="col-sm-4 col-md-4 col-xs-offset-2 col-lg-4 col-xs-10 window win_'+email+'">\
-		  <h1 class="title">Chat\
-			<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true"></button>\
-		  </h1>\
-		  <div id="disqus_thread"></div>\
-			<textarea class="form-control text_chat"></textarea>\
-		  <div class="row">\
-		 	<div class="col-md-4 col-sm-4  col-xs-12" style="text-align:right;margin-top:10px;"><button class="btn btn-success btn-block btn_send" id="btn'+id+'" >Enviar</button></div>\
-		  </div>\
-		  <div class="row">\
-         	<div class="timeline-centered" class="chat_">\
-    	 	</div>\
-		  </div>\
-		 </div>';
-    return vent;
-  }
+    
   });
+
   $(document).on('click',".btn_send",function(){
   	var index = $(".btn_send").index($(this));
-  	$(".btn_send"+eq(index)).attr('id');
-	var text = $(".text_chat").eq(index);
+	var text = $(".text_chat").eq(index).val();
+	var email = $('.text_chat').eq(index).attr('id');
 	$.ajax({
 	  dataType:"json",
 	  type:"post",
-	  data:{"from":msn@logistica.com,"to":"","msg":text},
-	  url:"controller/Mensajes.php"
+	  data:{"from":"msn@logistica.com","to":email,"msg":text},
+	  url:"controller/Mensajes.php",
+	  success:function(){
+	  	$(".ventana_chat").draggable(); 
+	  }
 	}).done(function(data){
-		
-
 		var contesto = '<article class="timeline-entry">\
             <div class="timeline-entry-inner">\
                 <div class="timeline-icon bg-secondary">\
@@ -953,10 +967,22 @@ $(document).ready(function(){
                 </div>\
             </div>\
           </article>';
-	  $(contesto).appendTo($("#chat_"));	
+	  $(contesto).appendTo($(".chat_").eq(index));	
 	});
   });
+  $(document).on('click','.close',function(){
+    var	id_btn = $(this).attr('id');
+    var id_vent = id_btn.replace('btnclo_',''); 
+    $('#wind_'+id_vent).remove();
+  });
+
+
+
 </script>
+
+
+
+
 <script src="js/scripts.js"></script>
 
 <script type="text/javascript">
@@ -976,7 +1002,7 @@ $(document).ready(function(){
     $('a[href="#cant-do-all-the-work-for-you"]').on('click', function(event) {
         event.preventDefault();
         $('#cant-do-all-the-work-for-you').modal('show');
-    })
+    });
     
     $('[data-command="toggle-search"]').on('click', function(event) {
         event.preventDefault();
@@ -987,22 +1013,10 @@ $(document).ready(function(){
         }else{   
             $('.c-search').closest('.row').slideDown(100);
         }
-    })
+    });   
     
-    $('#contact-list').searchable({
-        searchField: '#contact-list-search',
-        selector: 'li',
-        childSelector: '.col-xs-12',
-        show: function( elem ) {
-            elem.slideDown(100);
-        },
-        hide: function( elem ) {
-            elem.slideUp( 100 );
-        }
-    });
 });
 
-
-
-
 </script>
+
+<script src="js/jquery-ui-1.10.0.custom.min.js"></script>

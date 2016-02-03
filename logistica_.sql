@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-02-2016 a las 22:59:27
+-- Tiempo de generación: 03-02-2016 a las 22:58:25
 -- Versión del servidor: 10.0.17-MariaDB
 -- Versión de PHP: 5.5.30
 
@@ -39,12 +39,24 @@ CREATE TABLE `chat_mensajes_` (
 --
 
 INSERT INTO `chat_mensajes_` (`Id_chat`, `Chat_origen`, `Chat_destin`, `Chat_msn`, `Chat_read`) VALUES
-(5, 'msn@logistica.com', 'joselito@velasquez.com', 'dsfsd', 'no'),
-(4, 'joselito@velasquez.com', 'msn@logistica.com', 'dfsdf', 'no'),
-(6, 'joselito@velasquez.com', 'msn@logistica.com', 'Gracias', 'no'),
-(7, 'msn@logistica.com', 'joselito@velasquez.com', 'kkmkm', 'no'),
-(8, 'joselito@velasquez.com', 'msn@logistica.com', 'ssdsd', 'no'),
-(9, 'msn@logistica.com', 'joselito@velasquez.com', 'Hola, gracias por comunicarse con nosotros', 'no');
+(5, 'msn@logistica.com', 'joselito@velasquez.com', 'dsfsd', 'si'),
+(4, 'joselito@velasquez.com', 'msn@logistica.com', 'dfsdf', 'si'),
+(6, 'joselito@velasquez.com', 'msn@logistica.com', 'Gracias', 'si'),
+(7, 'msn@logistica.com', 'joselito@velasquez.com', 'kkmkm', 'si'),
+(8, 'joselito@velasquez.com', 'msn@logistica.com', 'ssdsd', 'si'),
+(9, 'msn@logistica.com', 'joselito@velasquez.com', 'Hola, gracias por comunicarse con nosotros', 'si'),
+(10, 'msn@logistica.com', 'joselito@velasquez.com', 'si si como no', 'si'),
+(11, 'andres@hotmail.com', 'msn@logistica.com', 'hola mi chunchu', 'si'),
+(12, 'msn@logistica.com', 'andres@hotmail.com', 'gh', 'no'),
+(13, 'joselito@velasquez.com', 'msn@logistica.com', 'jaja', 'si'),
+(14, 'joselito@velasquez.com', 'msn@logistica.com', 'esto es una prueba, yo soy un cliente', 'si'),
+(15, 'msn@logistica.com', 'joselito@velasquez.com', 'si vale', 'si'),
+(16, 'msn@logistica.com', 'joselito@velasquez.com', 'si vale', 'si'),
+(17, 'msn@logistica.com', 'joselito@velasquez.com', 'si valefdf', 'si'),
+(18, 'msn@logistica.com', 'joselito@velasquez.com', 'yo soy un administrador', 'si'),
+(19, 'joselito@velasquez.com', 'msn@logistica.com', 'dfdfd', 'si'),
+(20, 'joselito@velasquez.com', 'msn@logistica.com', 'hola como estas', 'si'),
+(21, 'msn@logistica.com', 'joselito@velasquez.com', 'bien, cuentame en que te puedo servit', 'no');
 
 -- --------------------------------------------------------
 
@@ -68,8 +80,7 @@ INSERT INTO `destinos` (`Des_id`, `pais`, `lugar`, `descrip`, `precio`) VALUES
 (151, 2, 'erer', 'fhfghgfhgf', '0'),
 (152, 1, 'Parque cafetero', 'Al llegar a este paraÃ­so terrenal, el mar de 7 colores, le darÃ¡ la bienvenida siendo su principal anfitriÃ³n, cuenta la leyenda que PoseidÃ³n vive en estas aguas logrando cautivar a sus visitantes con un abanico de belleza exuberante.\r\nEn esta joya del atlÃ¡ntico podrÃ¡ disfrutar de multiplex actividades acuÃ¡ticas, tours de compras y paseos a diferentes escenarios naturales.', '230000'),
 (155, 1, 'ghgh', 'asddddddddddd', '45000'),
-(156, 1, 'dsd', 'dsfffff', '23000'),
-(159, 1, 'ertert', 'ertertert', '23000');
+(156, 1, 'dsd', 'dsfffff', '23000');
 
 -- --------------------------------------------------------
 
@@ -89,14 +100,13 @@ CREATE TABLE `fotos` (
 --
 
 INSERT INTO `fotos` (`Foto_id`, `Foto1`, `Foto2`, `id_desti`) VALUES
-(144, '1453915785florida.jpg', '', 152),
-(147, '1453915785florida.jpg', '', 155),
-(148, '1453915785florida.jpg', '', 156),
-(151, '1453915785florida.jpg', '', 159),
-(152, '1453915785florida.jpg', '', 160),
-(153, '1453915785florida.jpg', '', 161),
-(154, '1453915785florida.jpg', '', 162),
-(156, '1453915785florida.jpg', '', 164);
+(144, 'florida.jpg', '1453915785florida.jpg', 152),
+(147, 'florida.jpg', '', 155),
+(148, 'florida.jpg', '', 156),
+(152, 'florida.jpg', '', 160),
+(153, 'florida.jpg', '', 161),
+(154, 'florida.jpg', '', 162),
+(156, 'florida.jpg', '', 164);
 
 -- --------------------------------------------------------
 
@@ -131,8 +141,7 @@ CREATE TABLE `lugares` (
 INSERT INTO `lugares` (`Luga_Id`, `Luga_title`, `Luga_sub_title`, `Luga_descri`, `Foto`, `id_desti`) VALUES
 (90, 'ACUARIO JOHNNY CAY', '', 'Al llegar a este paraíso terrenal, el mar de 7 colores, le dará la bienvenida siendo su principal anfitrión, cuenta la leyenda que Poseidón vive en estas aguas logrando cautivar a sus visitantes con un abanico de belleza exuberante.\nEn esta joya del atlántico podrá disfrutar de multiplex actividades acuáticas, tours de compras y paseos a diferentes escenarios naturales.', 'florida.jpg', 152),
 (91, 'LA CUEVA DE MORGAN', 'LA LEYENDA DEL PIRATA', 'La cueva de Morgan, uno de los sitios más visitado de la isla, atraídos por la leyenda del pirata más famoso del Caribe, en esta cueva, se puede visitar y conocer 5 paradas temáticas que contaran la historia de los ancestros piratas.', 'florida.jpg', 152),
-(92, 'PROVIDENCIA Y SANTA ', '', 'Providencia y Santa Catalina deslumbran un arcoíris marino de siete azules, que han hecho famosas a estas islas, gracias a su origen volcánico, multiplex arrecifes y paisajes submarinos.\n \nUna de las mejores experiencias del viaje es conocer a los habitantes de esta isla. Son gente amable, sonriente, amante de la música y la gastronomía y dispuesta a compartir los secretos de la vida isleña con los turistas.', 'florida.jpg', 152),
-(94, 'trytry', 'tyutyutyu', ' tyyyyyyyyyyyyyyyyyyy', '145392238311105846_829945847084806_615250059_o.jpg', 159);
+(92, 'PROVIDENCIA Y SANTA ', '', 'Providencia y Santa Catalina deslumbran un arcoíris marino de siete azules, que han hecho famosas a estas islas, gracias a su origen volcánico, multiplex arrecifes y paisajes submarinos.\n \nUna de las mejores experiencias del viaje es conocer a los habitantes de esta isla. Son gente amable, sonriente, amante de la música y la gastronomía y dispuesta a compartir los secretos de la vida isleña con los turistas.', 'florida.jpg', 152);
 
 -- --------------------------------------------------------
 
@@ -192,7 +201,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id_cedu_`, `User_Nomb_`, `User_apelli_`, `User_Pais_`, `User_Correo_`, `User_Password_`, `users_tipo`) VALUES
 (1144, 'andres', 'giraldo', 1, 'msn@logistica.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'qwqwsa123423@!'),
 (324234, 'joselito', 'alvares', 1, 'joselito@velasquez.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'asdqweasd5654184'),
-(2347656, 'carlos', 'Vasquez', 1, 'andres@hotmail.com', '12212', 'asdqweasd5654184');
+(2347656, 'carlos', 'Vasquez', 1, 'andres@hotmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'asdqweasd5654184');
 
 --
 -- Índices para tablas volcadas
@@ -255,7 +264,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `chat_mensajes_`
 --
 ALTER TABLE `chat_mensajes_`
-  MODIFY `Id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_chat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `destinos`
 --

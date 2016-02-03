@@ -16,7 +16,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conectar.php";
   	}
 
   	function Mensaje_recibido_client($mine){
-  		$sql = 'SELECT Chat_msn,Chat_origen
+  		$sql = 'SELECT Chat_msn,Chat_origen,Id_chat
   				FROM chat_mensajes_ 
   				WHERE Chat_destin = "'.$mine.'"
   				AND Chat_read = 2';
@@ -25,7 +25,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conectar.php";
   	}
 
     function Mensaje_recibido_admin($mine){
-      $sql = 'SELECT Chat_origen
+      $sql = 'SELECT Chat_origen,Id_chat
           FROM chat_mensajes_ 
           WHERE Chat_destin = "'.$mine.'"
           AND Chat_read = 2';
@@ -40,6 +40,22 @@ include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conectar.php";
               AND Chat_read = 2';
       $response = parent::consultas($sql);
       return $response;
+    }
+
+    function Mensaje_leido($id){
+      $sql = 'UPDATE chat_mensajes_ 
+              SET Chat_read = 1 
+              WHERE Id_chat = '.$id;
+      parent::update_query($sql);
+    }
+
+    function Mensaje_leido_client($id){
+      $sql = 'UPDATE chat_mensajes_ 
+              SET Chat_read = 1 
+              WHERE Chat_destin = "'.$id.'" 
+              AND Chat_read = 2';
+     $data = parent::update_query($sql);
+     return $data;
     }
   }
 ?>

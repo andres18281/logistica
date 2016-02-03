@@ -1,12 +1,5 @@
 $(function(){
 
-    $("#log_out").click(function(){
-         window.location.reload();
-                   window.location.reload();
-                   window.reload(true);
-                   window.reload(true);
-    });
-
    // agregar destinos nuevos
    $(".btn_desti").click(function(){
    	 $("#contenido").html("");

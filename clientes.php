@@ -39,6 +39,30 @@ body {
   height: 60px;
   background-color: #f5f5f5;
 }
+
+
+ #cant_msn{
+    height:5px;
+    position:relative;
+    border:groove 2px #fa0318;
+    -moz-border-radius-topleft: 74px;
+    -moz-border-radius-topright:75px;
+    -moz-border-radius-bottomleft:74px;
+    -moz-border-radius-bottomright:75px;
+    -webkit-border-top-left-radius:74px;
+    -webkit-border-top-right-radius:75px;
+    -webkit-border-bottom-left-radius:74px;
+    -webkit-border-bottom-right-radius:75px;
+    border-top-left-radius:74px;
+    border-top-right-radius:75px;
+    border-bottom-left-radius:74px;
+    border-bottom-right-radius:75px;
+    background-color:red;
+    color:black;
+    font-weight: bold;
+    font-size:12px;
+
+ }
 .mega-dropdown {
   position: static !important;
 }
@@ -624,9 +648,7 @@ img {
 		</button>
 		<a class="navbar-brand" href="#"></a>
 	</div>
-	
 	<div class="collapse navbar-collapse js-navbar-collapse">
-		
         <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Menu</a>
@@ -634,12 +656,12 @@ img {
 		       <li>
                  <div class="navbar-login">
                   <div class="row">
-                    <div class="col-lg-4 col-xs-12">
+                    <div class="col-lg-8 col-xs-12">
                      <p class="text-center">
                       <span class="glyphicon glyphicon-user icon-size"></span>
                      </p>
                     </div>
-                    <div class="col-lg-8 col-xs-12">
+                    <div class="col-lg-8 col-sm-12 col-xs-12">
                      <p class="text-center"><strong>Nombre Completo</strong></p>
                      <p class="text-center">Email</p>
                      <p class="text-left">
@@ -719,6 +741,7 @@ img {
 	</div>
     <br><br><br><br>
  </div>
+
  	<div id="comments" class="col-sm-4 col-md-4 col-xs-offset-2 col-lg-3 col-xs-10">
 		<h1 class="title">
 			Chat
@@ -731,18 +754,16 @@ img {
 		</div>
 		<div class="row">
          <div class="timeline-centered" id="chat_">
-          
     	 </div>
 		</div>
 	</div>
  </div>
 </div><!--container-fluid-->
-
 <div class="footer"> 
  <div class="container-fluid">
     <div id="post">
      <div class="info">
-	    <a href="#comments-1001"> <span class="glyphicon glyphicon-comment"></span> Chat </a>		
+	    <a href="#comments-1001" style="margin-left:30px;"> <span class="glyphicon glyphicon-comment"></span>&nbsp<span id="cant_msn"> 0</span></a>
 		<div class="clearfix"></div>
 	 </div>
 	</div>  
@@ -823,11 +844,11 @@ $(function(){
    dataType:"json",
    type:"post",
    url:"controller/Menus_clientes.php",
-   data:{'destinos':"all"},
-   
+   data:{'destinos':"all"}
  }).done(function(data){
+    console.log(data);
  	if(data[0] instanceof Array){
- 	 $.each(data,function(key,value){
+    	 $.each(data,function(key,value){
  	   var t =  
  	   '<a id='+value[0]+' class="destin" href="#post-1001">\
 		<img class="col-xs-8" src="img/'+value[4]+'" alt="">\
@@ -837,7 +858,9 @@ $(function(){
 	   $(t).appendTo($("#posts"));
 	 });
  	}else{
- 	 var t =  
+ 	
+
+     var t =  
  	   '<a id='+data[0]+' class="destin" href="#post-1001">\
 		<img class="col-xs-8" src="img/'+data[4]+'" alt="">\
 		  <h3>'+data[2]+'</h3>\
@@ -846,16 +869,17 @@ $(function(){
 	   $(t).appendTo($("#posts"));
  	}
  });
- setTimeout(function(){
+ setInterval(function(){
     $.ajax({
       dataType:"json",
       type:"post",
       url:"controller/Mensajes.php",
       data:{'id_consult':email}
     }).done(function(data){
-      console.log(data);
       if(data != null){
-       if(data instanceof Array){
+       if(data[0] instanceof Array){
+         var cant = data.length;
+         $("#cant_msn").text(cant);
         $.each(data,function(key,value){
          var recibe = '<article class="timeline-entry">\
             <div class="timeline-entry-inner">\
@@ -864,13 +888,15 @@ $(function(){
                 </div>\
                 <div class="timeline-label">\
                     <h2> <span>Administrador</span></h2>\
-                    <p class="recibe">'+value+'</p>\
+                    <p class="recibe">'+value[0]+'</p>\
                 </div>\
             </div>\
          </article>';
          $(recibe).appendTo($("#chat_"));
         });
       }else{
+         
+        $("#cant_msn").text(1);
         var recibe = '<article class="timeline-entry">\
             <div class="timeline-entry-inner">\
                 <div class="timeline-icon bg-success">\
@@ -878,7 +904,7 @@ $(function(){
                 </div>\
                 <div class="timeline-label">\
                     <h2> <span>Administrador</span></h2>\
-                    <p class="recibe">'+data+'</p>\
+                    <p class="recibe">'+data[0]+'</p>\
                 </div>\
             </div>\
          </article>';
@@ -886,6 +912,7 @@ $(function(){
       }
      } 
     });
+
    }, 5000);
 });
  $(document).on('click','.destin',function(){
@@ -930,9 +957,19 @@ $(function(){
         $(x).appendTo($("#carru"));
  	 }
  	});
-  
-
   });
+  $("#comments").mouseover(function() {
+    $.ajax({
+        dataType:"json",
+        type:"post",
+        url:"controller/Mensajes.php",
+        data:{'leido_mail':email},
+        success:function(data){
+            console.log(data);
+        }
+    });
+  });
+
   $(document).on('click',"#btn_send",function(){
 	var text = $("#text_chat").val();
 	$("#text_chat").val("");

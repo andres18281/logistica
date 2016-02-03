@@ -35,16 +35,26 @@
   }
  
   // mensaje particular que un cliente envia al administrador
-  if(isset($_POST['msn_from'])){
+  if(isset($_POST['msn_from'],$_POST['id_men'])){
   	$id_con = $_POST['msn_from'];
+  	$id_men = $_POST['id_men'];
   	$chat = new Chat();
   	$respon = $chat->Mensaje_recibido_de($id_con);
+  	$chat->Mensaje_leido($id_men);
   	if(isset($respon)){
   	  echo json_encode($respon);
   	}else{
   	  echo null;
   	}
   }
+
+  if(isset($_POST['leido_mail'])){
+  	$id = $_POST['leido_mail'];
+  	$chat = new Chat();
+  	$data = $chat->Mensaje_leido_client($id);
+  	echo json_encode($data);
+  }
+
   die;
 
 ?>

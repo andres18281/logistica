@@ -21,11 +21,11 @@
   	<link rel="stylesheet" href="css/stylo_sesion.css">
   	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  	
+  	<script src="js/btn_out_session.js"></script>
   	<script src="js/fileinput.min.js"></script>
   	<script src="js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
   	<script src="js/fileinput_locale_es.js"></script>
-  	<script src="js/btn_out_session.js"></script>
+  	
   	
 
 	
@@ -573,53 +573,45 @@ ul.c-controls li a:hover {
          <li class="btn_list_paque"><a href="#">Listar Paquetes</a></li>
 		</ul>
 	   </div>
-	   
 		<ul class="nav navbar-nav navbar-right">
 		 	<ul class="nav navbar-nav navbar-right">
 	    <li>
 	     <a href="#" class="dropdown-toggle glyphicon glyphicon-envelope " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span id="msn_badge" style="color:red;">0</span></a>
-		  <ul class="dropdown-menu">
-	       
+		  <ul class="dropdown-menu">	       
 	        <ul class="list-group" id="contact-list">
-                
             </ul>
-	       
 	      </a>
 	     </li>
 	    </li>	
 	   </ul>
-
-
-
-		 		
-	  	 	<li class="dropdown">
-		     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Mi perfil</a>
-			 <ul class="dropdown-menu">
-		       <li>
-                 <div class="navbar-login">
-                  <div class="row">
-                    <div class="col-lg-4 col-xs-12">
-                     <p class="text-center">
-                      <span class="glyphicon glyphicon-user icon-size"></span>
-                     </p>
-                    </div>
-                    <div class="col-lg-8 col-xs-12">
-                     <p class="text-center"><strong><?php echo $_SESSION["nombre_we"]; ?></strong></p>
-                     <p class="text-center"><?php echo $_SESSION["email"]; ?></p>
-                     <p class="text-left">
-                       <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
-                     </p>
-                    </div>
-                    <div class="col-lg-8 col-xs-12">
-                     <p>
-                       <a href="#" id="log_out" class="btn btn-danger btn-block">Cerrar Sesion</a>
-                     </p>
-                    </div>
-                  </div>
-                 </div>
-                </li>        	
-              </ul>	
-		  	</li>
+	  	<li class="dropdown">
+		 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Mi perfil</a>
+		  <ul class="dropdown-menu">
+		    <li>
+             <div class="navbar-login">
+              <div class="row">
+               <div class="col-lg-8 col-xs-12">
+                <p class="text-center">
+                 <span class="glyphicon glyphicon-user icon-size"></span>
+                </p>
+               </div>
+               <div class="col-lg-8 col-xs-12">
+                 <p class="text-center"><strong><?php echo $_SESSION["nombre_we"]; ?></strong></p>
+                 <p class="text-center"><?php echo $_SESSION["email"]; ?></p>
+                 <p class="text-left">
+                  <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
+                 </p>
+               </div>
+               <div class="col-lg-8 col-xs-12">
+                <p>
+                  <a href="#" id="log_out" class="btn btn-danger btn-block">Cerrar Sesion</a>
+                </p>
+               </div>
+              </div>
+             </div>
+            </li>        	
+          </ul>	
+		</li>
 		</ul>
 	 </div>		
 	</nav>
@@ -659,8 +651,6 @@ ul.c-controls li a:hover {
 		
 	</div>
 </div>
-
-
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
    <div class="modal-dialog">
     <div class="modal-content">
@@ -743,7 +733,8 @@ ul.c-controls li a:hover {
 </html>
 <script>
 $(document).ready(function(){
-   $(".timeline-centered").scroll();
+
+
    function convertir_a_numero(letra){
    	var str = String(letra);
     var n = '';
@@ -757,7 +748,7 @@ $(document).ready(function(){
   function ventana_nueva(email){
   	var id = convertir_a_numero(email);
   	var vent = 
-  	    '<div id="wind_'+id+'" class="panenl col-md-5 col-sm-5 col-lg-5 ventana_chat">\
+  	    '<div id="wind_'+id+'" class="panenl col-md-5 col-sm-5 col-lg-5 ventana_chat" style="top:0;position:relative;">\
 		 <div  class="col-sm-12 col-md-12 col-xs-offset-2 col-lg-9 col-xs-10 window">\
 		   <h1 class="title">Chat\
 			<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true" id="btnclo_'+id+'"></button>\
@@ -827,24 +818,27 @@ $(document).ready(function(){
 	});
 
     // cada 5 segundos envia una peticion verificando si hay alguien que halla preguntado
-	setTimeout(function(){
+	setInterval(function(){
+	 
+	 $("#contact-list").html("");	
    	  $.ajax({
    	   dataType:"json",
    	   type:"post",
    	   url:"controller/Mensajes.php",
    	   data:{'id_consult_admin':email_}
    	  }).done(function(data){
-   	  	var cant = data.length;
-   	  	$("#msn_badge").text(cant);
+   	    $(".ventana_chat").draggable();
    	    if(data != null){
-   	     if(data instanceof Array){
+   	     if(data[0] instanceof Array){
+   	     var cant = data.length;
+   	  	 $("#msn_badge").text(cant);
    	      $.each(data,function(key,value){
-   	      	var id = convertir_a_numero(value);
+   	      	var id = convertir_a_numero(data[0]);
             var contact =  
-           '<li class="list-group-item usuario_preg" id='+id+'>\
+           '<li class="list-group-item usuario_preg id='+id+'>\
              <div class="container-fluid">\
                 <div class="col-xs-9 col-md-9 col-sm-9 ">\
-                  <span class="id_email">'+value+'</span><br/>\
+                  <span class="id_email" id='+value[1]+'>'+value[0]+'</span><br/>\
            		</div>\
                 <div class="clearfix"></div>\
              </div>\
@@ -852,15 +846,13 @@ $(document).ready(function(){
             $(contact).appendTo($("#contact-list"));
           });
          }else{
-         	var id = convertir_a_numero(value);
+         	$("#msn_badge").text(1);
+         	var id = convertir_a_numero(data[0]);
          	var contact =  
            '<li class="list-group-item usuario_preg" id='+id+'>\
-             <div class="row">\
-                <div class="col-xs-6 col-sm-6">\
-                 <img src="http://api.randomuser.me/portraits/women/76.jpg" alt="Glenda Patterson" class="img-responsive img-circle"/>\
-                </div>\
-                <div class="col-xs-6 col-sm-6">\
-                  <span class="id_email">'+value+'</span><br/>\
+             <div class="container-fluid" id="id_msn_'+data[1]+'">\
+                <div class="col-xs-9 col-md-9 col-sm-9 ">\
+                  <span class="id_email" id='+data[1]+'>'+data[0]+'</span><br/>\
                 </div>\
                 <div class="clearfix"></div>\
              </div>\
@@ -870,23 +862,22 @@ $(document).ready(function(){
         }
       });	  	
      }, 5000);
-
     $(document).on('click','.usuario_preg',function(){
-
-       
       var index = $(".usuario_preg").index($(this));
+      var id_msn = $(".id_email").eq(index).attr('id');
       var text = $(".id_email").eq(index).text();
       var text = $.trim(text);
       var id = convertir_a_numero(text);
       $.ajax({
       	dataType:"json",
       	type:"post",
-      	data:{"msn_from":text},
+      	data:{"msn_from":text,"id_men":id_msn},
       	url:"controller/Mensajes.php",
       	success:function(){
       		$(".ventana_chat").draggable();
       	}
       }).done(function(data){
+      		$(".ventana_chat").draggable(); 
       	if(data[0] instanceof Array){
       	  $.each(data,function(key,value){
       	    var recibe = '<article class="timeline-entry">\
@@ -895,8 +886,8 @@ $(document).ready(function(){
                     		  <i class="entypo-feather"></i>\
                 			 </div>\
                 			 <div class="timeline-label">\
-                    		  <h2><a href="#">Administrador</a></h2>\
-                    		  <p class="recibe">'+value+'</p>\
+                    		  <h2><a href="#">Cliente</a></h2>\
+                    		  <p class="recibe">'+value[0]+'</p>\
                 			 </div>\
                				</div>\
              			  </article>';
@@ -906,20 +897,20 @@ $(document).ready(function(){
       	 	// $($('.chat_').eq(index)).appendTo('body'); 
       	    }else{
       	    	$(".ventana_chat").draggable();
+      	        $(ventana_nueva(text)).appendTo('body'); // como no existe la ventana, crea una ventana nueva y la pega en el body
       	       $(recibe).appendTo($(".chat_").eq(index)); // al crear la ventana se add a la ventana
-      	      $(ventana_nueva(text)).appendTo('body'); // como no existe la ventana, crea una ventana nueva y la pega en el body
+      	      
       	    }
           });
        }else{
-       	$(".ventana_chat").draggable(); 
        	var recibe = '<article class="timeline-entry">\
               		   <div class="timeline-entry-inner">\
                 		<div class="timeline-icon bg-success">\
                     	 <i class="entypo-feather"></i>\
                 		</div>\
                 		<div class="timeline-label">\
-                    	  <h2><a href="#">Art Ramadani</a> <span>Administrador</span></h2>\
-                    	  <p class="recibe">'+data+'</p>\
+                    	  <h2><a href="#">Cliente</a> <span></span></h2>\
+                    	  <p class="recibe">'+data[0]+'</p>\
                 		</div>\
                		   </div>\
              		 </article>';
@@ -936,11 +927,6 @@ $(document).ready(function(){
        }
       });
     });
- 		
-  
-  
-
-    
   });
 
   $(document).on('click',".btn_send",function(){

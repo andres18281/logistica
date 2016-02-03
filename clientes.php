@@ -145,7 +145,7 @@ body {
 		position: fixed;
 		top: 0px;
 		left: 0px;
-		width: 30px;
+		width: 50px;
 		height: 100%;
 		background-color: rgb(51, 51, 51);
 		color: rgb(255, 255, 255);
@@ -161,7 +161,7 @@ body {
 	#toggle_posts h1 {
 		position: absolute;
 		top: 50%;
-		left: -63px;
+		left: -43px;
 		font-size: 1.2em;
 		margin: 0px;
 		line-height: 1.1px;
@@ -315,7 +315,7 @@ body {
 	}
 
 	#posts.col-xs-11 { left: -91.66666667%; }	
-	#posts.col-xs-11.open ~ #toggle_posts { left: 91.66666667%; }
+	#posts.col-xs-11.open ~ #toggle_posts { left: 90.66666667%; }
 	#posts.open { left: 0px; }
 
 	/* chat */
@@ -626,80 +626,7 @@ img {
 	</div>
 	
 	<div class="collapse navbar-collapse js-navbar-collapse">
-		<ul class="nav navbar-nav">
-			<li class="dropdown mega-dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Inicio <span class="caret"></span></a>				
-				<ul class="dropdown-menu mega-dropdown-menu">
-					<li class="col-sm-3 hidden-xs">
-						<ul>
-							<li class="dropdown-header">Destinos</li>                            
-                            <div id="menCollection" class="carousel slide" data-ride="carousel">
-                              <div class="carousel-inner">
-                                <div class="item active">
-                                    <a href="#"><img src="http://placehold.it/254x150/ff3546/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 1"></a>
-                                    <h4><small>Summer dress floral prints</small></h4>                                        
-                                    <button class="btn btn-primary" type="button">49,99 €</button> <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>       
-                                </div><!-- End Item -->
-                                <div class="item">
-                                    <a href="#"><img src="http://placehold.it/254x150/3498db/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 2"></a>
-                                    <h4><small>Gold sandals with shiny touch</small></h4>                                        
-                                    <button class="btn btn-primary" type="button">9,99 €</button> <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>        
-                                </div><!-- End Item -->
-                                <div class="item">
-                                    <a href="#"><img src="http://placehold.it/254x150/2ecc71/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 3"></a>
-                                    <h4><small>Denin jacket stamped</small></h4>                                        
-                                    <button class="btn btn-primary" type="button">49,99 €</button> <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>      
-                                </div><!-- End Item -->                                
-                              </div><!-- End Carousel Inner -->
-                              <!-- Controls -->
-                              <a class="left carousel-control" href="#menCollection" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                              <a class="right carousel-control" href="#menCollection" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                              </a>
-                            </div><!-- /.carousel -->
-                            <li class="divider"></li>
-                            <li><a href="#">View all Collection <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
-						</ul>
-					</li>
-					<li class="col-sm-3">
-						<ul>
-							<li class="dropdown-header">Features</li>
-							<li><a href="#">Auto Carousel</a></li>
-                            <li><a href="#">Carousel Control</a></li>
-                            <li><a href="#">Left & Right Navigation</a></li>
-							<li><a href="#">Four Columns Grid</a></li>
-							<li class="divider"></li>
-							<li class="dropdown-header">Fonts</li>
-                            <li><a href="#">Glyphicon</a></li>
-							<li><a href="#">Google Fonts</a></li>
-						</ul>
-					</li>
-					<li class="col-sm-3">
-						<ul>
-							<li class="dropdown-header">Plus</li>
-							<li><a href="#">Navbar Inverse</a></li>
-							<li><a href="#">Pull Right Elements</a></li>
-							<li><a href="#">Coloured Headers</a></li>                            
-							<li><a href="#">Primary Buttons & Default</a></li>							
-						</ul>
-					</li>
-					<li class="col-sm-3">
-						<ul>
-							<li class="dropdown-header">Much more</li>
-                            <li><a href="#">Easy to Customize</a></li>
-							<li><a href="#">Calls to action</a></li>
-							<li><a href="#">Custom Fonts</a></li>
-							<li><a href="#">Slide down on Hover</a></li>                         
-						</ul>
-					</li>
-				</ul>				
-			</li>
-            
-		</ul>
+		
         <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Menu</a>
@@ -734,7 +661,7 @@ img {
   </nav>
 </div><!--container-->
 <div class="container-fluid">
- <div class="col-md-3 col-sm-3 col-xs-3 hidden-lg">
+ <div class="col-md-3 col-sm-3 col-xs-3 ">
 	<div id="posts" class="col-xs-11 col-sm-4 col-md-4">
 		
 	</div>
@@ -746,20 +673,20 @@ img {
 		</h1>
 	</div>
  </div>	
- <div class="col-md-9 col-sm-9 col-lg-10 col-xs-12" style="height:100% !important;">
- 	<div id="post" class="col-xs-offset-1 col-xs-11 col-xs-12 col-sm-12  col-md-12">
+ <div class="col-md-9 col-sm-9 col-lg-8 col-xs-12" id="contenedor_info" style="display:none;">
+ 	<div id="post" class="col-xs-offset-1 col-xs-11 col-xs-12 col-sm-12  col-md-12" >
 		<article id="post-1001" class="active">
 			<h2 class="title" id="title">
 				<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true"></button>
 			</h2>
 			<div class="post">
-			 <div class="col-md-4 col-xs-10">
+			 <div class="col-md-12 col-xs-10">
 				<img class="post-img" id="foto1" src="" alt="">
 			 </div>
-			 <div class="col-md-6 col-xs-12">
+			 <div class="col-md-12 col-xs-12">
 			 	<p id="descrip"></p>
 			 </div>
-			 <div class="col-md-2 col-xs-2">
+			 <div class="col-md-12 col-xs-2">
 			 	<p>
 					<strong id="precio"></strong>
 				</p>
@@ -768,8 +695,7 @@ img {
 				<div id="menCollection" class="carousel slide" data-ride="carousel">
     			  <div id="carru" class="carousel-inner">
                     <div class="item active">
-                       <a href="#"><img src="http://placehold.it/254x150/ff3546/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 1"></a>
-                       <h4><small>Summer dress floral prints</small></h4>                                        
+                                                        
                     </div><!-- End Item -->
 
                    </div>
@@ -791,6 +717,7 @@ img {
 		
 		
 	</div>
+    <br><br><br><br>
  </div>
  	<div id="comments" class="col-sm-4 col-md-4 col-xs-offset-2 col-lg-3 col-xs-10">
 		<h1 class="title">
@@ -982,6 +909,7 @@ $(function(){
  	  data:{'id_subdesti':id},
  	  url:"controller/Menus_clientes.php"
  	}).done(function(data){
+     $("#contenedor_info").css("display","block");   
  	 if(data[0] instanceof Array){
  	   $.each(data,function(key,value){
  	    var x ='<div class="item">\

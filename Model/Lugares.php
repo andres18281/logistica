@@ -1,9 +1,9 @@
 <?php
-   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conectar.php";
+   include_once "../controller/conectar.php";
   class Lugares extends Conectar{
    
   	function __construct(){
-  		parent::__construct("root","");
+  		parent::__construct();
   	}
 
   	function Get_lugares($id){

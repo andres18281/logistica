@@ -1,7 +1,7 @@
 <?php
- if(!isset($_SESSION)){
-    session_start(); 
-  }
+ob_start();
+session_start(); 
+   include_once 'controller/login.php'; 
   if(isset($_SESSION)){ 
    if(isset($_SESSION,$_SESSION["perfil"]) and $_SESSION["perfil"] == "qwqwsa123423@!"){ // de operaciones
      header("location: configuracion.php");
@@ -9,6 +9,7 @@
      header("location: clientes.php");
    }
   } 
+
 ?>
 
 <!DOCTYPE html>
@@ -68,16 +69,15 @@
 </html>
 <?php
   if(isset($_POST['btn_enviar'])){
-    include_once('controller/login.php'); 
     if(isset($_POST['users_id'],$_POST['password'])){
       $pass = $_POST['password'];
       $login = new Login($_POST['users_id'],sha1($pass));
       if($login->loguearse()){
-
         header("location: index.php");
       }else{
         echo "no se conecta";
       }
     }
  }
+ob_end_flush();
 ?>

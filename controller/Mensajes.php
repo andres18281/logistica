@@ -1,5 +1,5 @@
 <?php
-  include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Chat.php";
+  include_once "../Model/Chat.php";
 
   if(isset($_POST['from'],$_POST['to'],$_POST['msg'])){
    $from = $_POST['from'];

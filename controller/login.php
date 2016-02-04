@@ -1,10 +1,5 @@
 <?php
-
-
   include_once('conectar.php');
-  if(!isset($_SESSION)) { 
-        session_start(); 
-  }
   class Login {    
       protected $user;
       protected $pass;
@@ -14,7 +9,7 @@
       }
 
       public function loguearse(){
-        $consulta = new Conectar("root",""); 
+        $consulta = new Conectar(); 
         $sql = 'SELECT  id_cedu_,User_Correo_,users_tipo,User_Nomb_
                 FROM users  
                 WHERE User_Correo_ = "'.$this->user.'" 

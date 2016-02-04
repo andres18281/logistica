@@ -1,9 +1,10 @@
 <?php
- include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php";
- include_once $_SERVER['DOCUMENT_ROOT']."/logistica/controller/conexion.php";  
+ include_once "../Model/Destinos.php";
+ include_once "conectar.php";  
  // agrega destinos a la base de datos
+ $url = "../img";
  if(isset($_POST['pais'],$_POST['lugar'],$_POST['descrip'],$_POST['precio'],$_POST['fecha'])){
-   $url = $_SERVER['DOCUMENT_ROOT']."/logistica/img/";
+   
    $pais = $_POST['pais'];
    $nombre_des = $_POST['lugar'];
    $descri = $_POST['descrip'];
@@ -32,8 +33,7 @@
  }
 
  if(isset($_POST['id'],$_POST["txt_title2"],$_POST["txt_subtitle2"])){
-   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Lugares.php";
-   $url = $_SERVER['DOCUMENT_ROOT']."/logistica/img/";
+   include_once "../Model/Lugares.php";
    $title = $_POST["txt_title2"];
    $subtitle = $_POST["txt_subtitle2"];
    $descrip = $_POST["txt_descrip2"];
@@ -71,7 +71,7 @@
 
  // borrar destino
  if(isset($_POST['eliminate'])){
-   $conexion = new Conectar('root','');
+   $conexion = new Conectar();
    $id = $_POST['eliminate'];
    $fot = 'SELECT Foto1, Foto2 FROM fotos WHERE id_desti = '.$id;
    $data = $conexion->consultas($fot);
@@ -114,7 +114,7 @@
  }
 
  if(isset($_POST['imgen'])){
-   $conexion = new Conectar('root','');
+   $conexion = new Conectar();
    $foto1 = $_POST['imgen'];
    unlink("../img/".$foto1);
    $sql = 'UPDATE fotos SET Foto1 = "" WHERE Foto1 = "'.$foto1.'"';
@@ -131,7 +131,6 @@
 
  // actualizar destinos
  if(isset($_POST['id'],$_POST['slt_pai'],$_POST['txt_lugar'],$_POST['txt_prec'],$_POST['txt_area'])){
-   $url = $_SERVER['DOCUMENT_ROOT']."/logistica/img/";
    $destino = new Destinos();
    $id = $_POST['id'];
    $pais = $_POST['slt_pai'];
@@ -163,7 +162,7 @@
  }
 
  if(isset($_POST['list_client']) and $_POST['list_client'] == "ok"){
-   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Clientes.php";
+   include_once "../Model/Clientes.php";
    $cliente = new Clientes();
    $response = $cliente->Listar_clientes();
    if(isset($response)){

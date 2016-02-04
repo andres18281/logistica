@@ -49,6 +49,11 @@ $(function(){
      $("#txt_area").val(descrip);
    });	
 
+   $(document).on('click','.btn_users',function(){
+     $("#contenido").html("");
+     $("#contenido").load("template/cambiar_contrasena.html");
+   });
+
    $(document).on('click',".btn_delete",function(){
    	 id = $(this).attr('id');  
    });	
@@ -306,8 +311,11 @@ $(function(){
 	  	url:"controller/Recibe_by_ajax.php",
 	  	data:{"list_client":"ok"},
 	  	success:function(data){
-	  	  if(data[0] instanceof Array){
+        console.log(data[0]);
+        console.log(data);
+	  	  if(data[0] instanceof Object){
 	  	  	$.each(data, function(indx,value){
+
 	  	  	  var tr = 
 	  	  	  	'<tr>\
         		 <td>'+value[0]+'</td>\

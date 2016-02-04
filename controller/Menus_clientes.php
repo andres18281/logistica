@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php";
+include_once "../Model/Destinos.php";
 
 if(isset($_POST['destinos']) and $_POST['destinos'] == "all"){
  $desti = new Destinos();
@@ -18,7 +18,7 @@ if(isset($_POST['id_destino'])){
 }
 
 if(isset($_POST['id_subdesti'])){
-  include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Lugares.php";
+  include_once "../Model/Lugares.php";
   $lugar = new Lugares();
   $id = $_POST['id_subdesti'];
   $response = $lugar->Get_lugares($id);
@@ -29,7 +29,7 @@ if(isset($_POST['id_subdesti'])){
         }
     }else{
         $array = array($response[0],$response[1],$response[2],utf8_encode($response[3]),$response[4]);
-	}  
+	}
   	echo json_encode($array);
   }
 }

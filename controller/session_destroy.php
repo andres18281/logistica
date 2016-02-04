@@ -2,7 +2,7 @@
 	if(!isset($_SESSION)){ 
           session_start(); 
     }
-	if(isset($_POST['session']) and $_POST['session'] == "destroy"){
+	if(isset($_REQUEST['session']) and $_REQUEST['session'] == "destroy"){
 		session_destroy();
 	}
 

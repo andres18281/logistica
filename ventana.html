@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<title></title>
+ <style>
+    .d {
+	  width: 80px;
+	  height: 80px;
+	  background-color: #5aaafc;
+	  border: 3px solid #1c89f9;
+      -webkit-animation-name: MiAnimacion; /* Chrome, Safari, Opera */
+      -webkit-animation-duration: 6s; /* Chrome, Safari, Opera */
+      animation-duration: 6s;
+      animation-iteration-count: infinite;
+      animation-name: MiAnimacion;
+      animation-direction: alternate;
+    }
+@-moz-keyframes MiAnimacion {
+	from {;
+		margin-top:0%;}
+	50% {font-size:400%;}
+	to {
+		font-size:400%;
+		margin-top:100%;
+
+	}
+}
+@-webkit-keyframes MiAnimacion {
+	from {
+		font-size:0%;
+		margin-top:0%;
+	}
+	50% {
+		font-size:400%;
+	}
+	to {
+		font-size:400%;
+		margin-top:100%;
+	}
+}
+
+
+</style>   
+ 
+
+</head>
+<body >
+ <button class="btn btn-success" id="btn"> Enviar</button>
+ <div style="position:relative;height: 100%;">
+  <div id="div" class=""></div>
+ </div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+ $(function(){
+  $("#btn").click(function(){
+    $("#div").addClass('d');
+  });
+ }); 
+</script>

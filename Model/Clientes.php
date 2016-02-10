@@ -1,8 +1,7 @@
 <?php
- include_once "../controller/conectar.php";
- 
+  //   require_once $_SERVER['DOCUMENT_ROOT'].'/webworldpremier.stratecsa.com/intranet/controller/conectar.php';
+ require_once '../controller/conectar.php';
  class Clientes extends Conectar{
-  
   function __construct(){
   	parent::__construct();
   }

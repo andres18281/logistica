@@ -1,13 +1,14 @@
 <?php
- if(!isset($_SESSION)){
-    session_start(); 
-  }
+ob_start();
+session_start(); 
   if(!isset($_SESSION["perfil"])){
         header("location: index.php");
   }
   if($_SESSION["perfil"] != "qwqwsa123423@!"){ // de operaciones
       header("location: index.php");
   }
+ob_end_flush();
+
 ?>
 
 <!DOCTYPE html>
@@ -42,9 +43,10 @@
   	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <?php
+
       if(isset($_GET['destinos'])){
-        include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php";
-        include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Lugares.php";
+        include_once "Model/Destinos.php";
+        include_once "Model/Lugares.php";  
         $id_desti = $_GET['destinos'];
         $destino =  new Destinos();
         $lugares = new Lugares();

@@ -1,5 +1,8 @@
 <?php
-include_once "../controller/conectar.php";
+    $data = $_SERVER['REQUEST_URI'];
+
+  // require_once $_SERVER['DOCUMENT_ROOT'].'/webworldpremier.stratecsa.com/intranet/controller/conectar.php';
+    require_once '../controller/conectar.php';
   class Chat extends Conectar{
     
     function __construct(){

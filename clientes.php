@@ -17,9 +17,11 @@ ob_end_flush();
 <head>
     
 	<title></title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/btn_out_session.js"></script>
   	<link rel="stylesheet" href="css/stylo_sesion.css">
   	<style type="text/css">
   	 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
@@ -33,17 +35,102 @@ body {
  html{
  	height: 100%;
  }
+ 
+body{
+ background:#eee;    
+}
+
+p {
+    font-size: 14px;
+    color: #777;
+}
+
+.blog .image {
+    height: 250px;
+    overflow: hidden;
+    border-radius: 3px 0 0 3px;
+}
+
+.blog .image img {
+    width: 100%;
+    height: auto;
+}
+
+.blog .date {
+    top: -10px;
+    z-index: 99;
+    width: 65px;
+    right: -10px;
+    height: 65px;
+    padding: 10px;
+    position: absolute;
+    color:#FFFFFF;
+    font-weight:bold;
+    background: #5bc0de;
+    border-radius: 999px;
+}
+
+.blog .blog-details {
+    padding: 0 20px 0 0;
+}
+
+.blog {
+    padding: 0;
+}
+
+.well {
+    border: 0;
+    padding: 20px;
+    min-height: 63px;
+    background: #fff;
+    box-shadow: none;
+    border-radius: 3px;
+    position: relative;
+    max-height: 100000px;
+    border-bottom: 2px solid #ccc;
+}
+
+.blog .blog-details h2 {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.blog .date .blog-number {
+    color: #fff;
+    display: block;
+    font-size: 24px;
+    text-align: center;
+}                    
+
+
 .footer{
   position: fixed;
   margin-bottom: 0;
   bottom:0;
   width: 100%;
+  background-color: rgb(51, 51, 51);
+        color: rgb(255, 255, 255);
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
+ 
 }
 .destin{
- background-color: rgba(58, 10, 72, 0.5);
+  border:inherit 2px #000000;
+-moz-border-radius-topleft: 8px;
+-moz-border-radius-topright:8px;
+-moz-border-radius-bottomleft:8px;
+-moz-border-radius-bottomright:8px;
+-webkit-border-top-left-radius:8px;
+-webkit-border-top-right-radius:8px;
+-webkit-border-bottom-left-radius:8px;
+-webkit-border-bottom-right-radius:8px;
+border-top-left-radius:8px;
+border-top-right-radius:8px;
+border-bottom-left-radius:8px;
+border-bottom-right-radius:8px;
+
+
 }
 .destin:hover{
   
@@ -146,11 +233,11 @@ body {
     	background-size: cover;
 	}
 	#posts {
+        background-color: rgba(0, 0, 0, .8);
 		position: fixed;
         top: 0px;
         left: 0px;
         height: 100%;
-        background-color: #FCF8E3;
         overflow: auto;
         -webkit-transition: all 0.5s ease-in-out;
         -moz-transition: all 0.5s ease-in-out;
@@ -172,7 +259,9 @@ body {
 	#posts a:hover {
 		background-color: rgba(255, 255, 255, 0.8);
 	}
+    footer{
 
+    }
 	#toggle_posts {
 		position: fixed;
 		top: 0px;
@@ -239,17 +328,9 @@ body {
 		-ms-transform: scale(0,0);
 		transform: scale(0,0);
 	}
-	#post article.active {
-        margin-top: 0px;
+	
 
-		-webkit-transform: scale(1, 1);
-		-moz-transform: scale(1, 1);
-		-o-transform: scale(1, 1);
-		-ms-transform: scale(1, 1);
-		transform: scale(1, 1);
-	}
-
-	#post article .title,
+	 .title,
 	#comments .title {
 		font-family: "Oswald", Arial, sans-serif;
 		text-transform: uppercase;
@@ -259,7 +340,7 @@ body {
 		border-bottom: 1px solid rgb(160, 160, 160);
 	}
 
-	#post article .title .close,
+	.title .close,
 	#comments .title .close  {
 		position: absolute;
 		top: 0px;
@@ -270,12 +351,12 @@ body {
 		opacity: 1;
 	}
 
-	#post article .title .close:hover,
+	.title .close:hover,
 	#comments .title .close:hover {
 		background-color: rgba(51, 51, 51, 0.1);
 	}
 
-	#post article .post {
+	.post {
 		
 		margin: 0;
 		margin-top: 0;
@@ -284,35 +365,6 @@ body {
 		overflow: auto;
 	}
 
-	#post article .post .post-img {
-		width: 100%;
-	}
-
-	#post article .post img {
-		max-width: 100%; 
-	}
-
-	#post article .post p {
-		margin: 20px 0px;
-	}
-
-	#post .info {
-		display: block;
-		background-color: rgb(51, 51, 51);
-	}
-
-	#post .info a {
-		float: left;
-		display: inline-block;
-		padding: 20px 30px;
-		color: rgb(255, 255, 255);
-		text-decoration: none;
-		border-right: 1px solid rgb(81, 81, 81);
-	}
-
-	#post .info a:hover {
-		background-color: rgb(81, 81, 81);
-	}
 	
 
 	#comments {
@@ -717,52 +769,32 @@ img {
 		</h1>
 	</div>
 
- <div class="col-md-9 col-sm-9 col-lg-8 col-xs-12" id="contenedor_info" style="display:none;">
- 	<div id="post" class="col-xs-offset-1 col-xs-11 col-xs-12 col-sm-12  col-md-12" >
-		<article id="post-1001" class="active">
-			<h2 class="title" id="title">
-				<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true"></button>
-			</h2>
-			<div class="post">
-			 <div class="col-md-12 col-xs-10">
-				<img class="post-img" id="foto1" src="" alt="">
-			 </div>
-			 <div class="col-md-12 col-xs-12">
-			 	<p id="descrip"></p>
-			 </div>
-			 <div class="col-md-12 col-xs-2">
-			 	<p>
-					<strong id="precio"></strong>
-				</p>
-			 </div>
-
-				<div id="menCollection" class="carousel slide" data-ride="carousel">
-    			  <div id="carru" class="carousel-inner">
-                    <div class="item active">
-                                                        
-                    </div><!-- End Item -->
-
-                   </div>
-                   <a class="left carousel-control" href="#menCollection" role="button" data-slide="prev">
-                      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                      <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="right carousel-control" href="#menCollection" role="button" data-slide="next">
-                     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                     <span class="sr-only">Siguiente</span>
-                    </a>
-                </div>
-                
-				
-				
-			</div>
-			
-		</article>
+ <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-sm-10 col-md-8 col-lg-8" id="contenedor_info" style="display:none;">
+ 	<div id="post" class="well blog" style="margin-top:10px;">
+	  <h2 class="title" id="title">
+		<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true"></button>
+	  </h2>
+      
+        <h3 style="text-align: right;">
+              <strong id="precio"></strong>
+        </h3>
+     
+	  <div class="post">
+	    
+        <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+         <div class="image">
+              <img class="post-img" id="foto1" src="" alt="">
+         </div>
+        </div>
+		<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+            <p id="descrip"></p>
+		</div>
 		
-		
-	</div>
-    <br><br><br><br>
- </div>
+		<div id="carru">
+        </div> 	
+	  </div>	
+	</div>  
+  </div>
 
  	<div id="comments" class="col-sm-4 col-md-4 col-xs-offset-2 col-lg-3 col-xs-10">
 		<h1 class="title">
@@ -783,12 +815,12 @@ img {
 </div><!--container-fluid-->
 <div class="footer"> 
  <div class="container-fluid">
-    <div id="post">
+    
      <div class="info">
-	    <a href="#comments-1001" style="margin-left:30px;"> <span class="glyphicon glyphicon-comment"></span>&nbsp<span id="cant_msn"> 0</span></a>
+	    <a href="#comments-1001" style="margin-left:50px;"> <span class="glyphicon glyphicon-envelope" style="margin-top:15px;"></span>&nbsp<span id="cant_msn"> 0</span></a>
 		<div class="clearfix"></div>
 	 </div>
-	</div>  
+	
   </div>
  </div>
 </div>
@@ -869,13 +901,10 @@ $(function(){
    data:{'destinos':"all"}
  }).done(function(data){
     $("#posts").html("");
-    
-    console.log(data[0]);
- 	
      $.each(data,function(key,value){
  	   var t =  
  	   '<a id='+value[0]+' class="destin" href="#post-1001">\
-		<img class="col-xs-8" src="img/'+value[4]+'" alt="">\
+		<img class="col-xs-12" src="img/'+value[4]+'" alt="">\
 		  <h3>'+value[2]+'</h3>\
 		<div class="clearfix"></div>\
 	   </a>';
@@ -895,6 +924,7 @@ $(function(){
          var cant = data.length;
          $("#cant_msn").text(cant);
         $.each(data,function(key,value){
+
          var recibe = '<article class="timeline-entry">\
             <div class="timeline-entry-inner">\
                 <div class="timeline-icon bg-success">\
@@ -908,8 +938,7 @@ $(function(){
          </article>';
          $(recibe).appendTo($("#chat_"));
         });
-      }else{
-         
+      }else if(data[0] != ""){   
         $("#cant_msn").text(1);
         var recibe = '<article class="timeline-entry">\
             <div class="timeline-entry-inner">\
@@ -930,16 +959,19 @@ $(function(){
    }, 5000);
 });
  $(document).on('click','.destin',function(){
+    $("#carru").html("");
  	var id = $(this).attr('id');
  	$.ajax({
- 	  dataType:"json",
+ 	  contentType:'application/x-www-form-urlencoded; charset=8859-1',
+      dataType:"json",
  	  type:"post",
  	  data:{'id_destino':id},
  	  url:"controller/Menus_clientes.php"
  	}).done(function(data){
- 		$("#title").text(data[1]);
+ 		console.log("mensaje" + data);
+        $("#title").text(data[1]);
  		$("#precio").text(data[5]);
- 		$("#pais").text(data[0]);
+ 		$("#pais").text(data[2]);
  		$("#foto1").attr('src',"img/"+data[3]);
  		$("#foto2").attr('src',"img/"+data[4]);
  		$("#descrip").text(data[2]);
@@ -950,22 +982,49 @@ $(function(){
  	  data:{'id_subdesti':id},
  	  url:"controller/Menus_clientes.php"
  	}).done(function(data){
+
      $("#contenedor_info").css("display","block");   
  	 if(data[0] instanceof Array){
  	   $.each(data,function(key,value){
- 	    var x ='<div class="item">\
-            <a href="#"><img src="img/'+value[4]+'" class="img-responsive" alt="product 1"></a>\
-            <h4><small>'+value[1]+'</small></h4>\
-            <p>'+value[3]+'</p>\
-           </div>';
-        $(x).appendTo($("#carru"));
+        var x = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">\
+            <div class="well blog">\
+                <a href="#">\
+                    <div class="row">\
+                        <div class="col-xs-12 col-sm-12 col-md-5  col-lg-5">\
+                            <div class="image">\
+                                <img src="img/'+value[4]+'" alt="">\
+                            </div>\
+                        </div>\
+                        <div class="col-xs-12 col-sm-12 col-md-7  col-lg-6">\
+                            <div class="blog-details">\
+                                <h2>'+value[1]+'</h2>\
+                                <p>'+value[3]+'</p>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </a>\
+            </div>';
+         $(x).appendTo($("#carru"));
    	   });
- 	 }else{
- 	    var x = '<div class="item">\
-           <a href="#"><img src="img/'+data[4]+'" class="img-responsive" alt="product 1"></a>\
-           <h4><small>'+data[1]+'</small>\
-           </h4><p>'+data[3]+'</p>\
-           </div>';
+ 	 }else if(data[0] != null){
+ 	    var x = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">\
+            <div class="well blog">\
+                <a href="#">\
+                    <div class="row">\
+                        <div class="col-xs-12 col-sm-12 col-md-5  col-lg-5">\
+                            <div class="image">\
+                                <img src="img/'+data[4]+'" alt="">\
+                            </div>\
+                        </div>\
+                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-6">\
+                            <div class="blog-details">\
+                                <h2>'+data[1]+'</h2>\
+                                <p>'+data[3]+'</p>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </a>\
+            </div>';
         $(x).appendTo($("#carru"));
  	 }
  	});

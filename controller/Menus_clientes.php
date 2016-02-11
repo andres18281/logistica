@@ -18,6 +18,16 @@ if(isset($_POST['id_destino'])){
   echo json_encode($respon);
 }
 
+if(isset($_POST['paises'])){
+  $desti = new Destinos();
+  $response = $desti->Get_paises();
+  if(isset($response)){
+    $respon = array($response[0],$response[1]);
+  }
+  echo json_encode($respon);
+}
+
+
 if(isset($_POST['id_subdesti'])){
   include_once "../Model/Lugares.php";
   $lugar = new Lugares();

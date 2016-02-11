@@ -4,7 +4,7 @@ class Conectar{
   public $mbd;
   function __construct(){
   	//$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=stra_logistica;port=3306', 'stra_comino', 'lavidaesbella123');
-  	$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=logistica_;port=3307', 'root', '');
+  	$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=logistica_;port=3306', 'root', '');
   }
 
   function consultas($sql){

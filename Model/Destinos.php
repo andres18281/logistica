@@ -27,6 +27,16 @@
   		return $response;
   	}
 
+    // Obtiene el listado de paises
+    function Get_paises(){
+      $sql = 'SELECT Nombre,des.pais
+              FROM destinos des, pais pa
+              WHERE des.pais = pa.Pa_id 
+              GROUP BY 2';
+      $response = parent::consultas($sql);
+      return $response;
+    }
+
   	// obtiene todo los registros de destinos por el pais
   	function Get_destinos_por_pais($pais){
   		$sql = 'SELECT lugar,descrip,precio,fo.Foto1,fo.Foto2

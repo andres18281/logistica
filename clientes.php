@@ -44,11 +44,24 @@ p {
     font-size: 14px;
     color: #777;
 }
+.image:hover
+{   -webkit-filter: grayscale(1);
+     -webkit-filter:    opacity(0.8) ;
+        cursor: pointer;
+      
+}
+
 
 .blog .image {
     height: 250px;
     overflow: hidden;
     border-radius: 3px 0 0 3px;
+
+    -webkit-transition: all .4s cubic-bezier(0, 1.8, 1, 1.8);
+    -moz-transition:  all .4s cubic-bezier(0, 1.8, 1, 1.8);
+    -o-transition:  all .4s cubic-bezier(0, 1.8, 1, 1.8);
+    -ms-transition:  all .4s cubic-bezier(0, 1.8, 1, 1.8);
+    transition:  all .4s cubic-bezier(0, 1.8, 1, 1.8);
 }
 
 .blog .image img {
@@ -907,7 +920,8 @@ $(function(){
 		<img class="col-xs-12" src="img/'+value[4]+'" alt="">\
 		  <h3>'+value[2]+'</h3>\
 		<div class="clearfix"></div>\
-	   </a>';
+	   </a>\
+       ';
 	   $(t).appendTo($("#posts"));
 	 });
  	

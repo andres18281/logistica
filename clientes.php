@@ -126,9 +126,11 @@ p {
         color: rgb(255, 255, 255);
   /* Set the fixed height of the footer here */
   height: 60px;
- 
+
 }
+
 .destin{
+
   border:inherit 2px #000000;
 -moz-border-radius-topleft: 8px;
 -moz-border-radius-topright:8px;
@@ -246,7 +248,7 @@ border-bottom-right-radius:8px;
     	background-size: cover;
 	}
 	#posts {
-        background-color: rgba(0, 0, 0, .8);
+        background-color: rgba(0, 0, 0, .9);
 		position: fixed;
         top: 0px;
         left: 0px;
@@ -265,13 +267,23 @@ border-bottom-right-radius:8px;
 	#posts a {
 		display: block;
 		padding: 20px 30px;
-		color: rgb(51, 51, 51);
+		color: white;
 		text-decoration: none;
 	}
+    #posts a:hover{
+         color: black;
+    }
 
-	#posts a:hover {
-		background-color: rgba(255, 255, 255, 0.8);
-	}
+    #destinos{
+         display:inline-block;
+        position:relative;
+        top:20px;
+    }
+    #destinos a:hover{
+        background-color: rgba(255, 255, 255, 0.8);
+
+    }
+	
     footer{
 
     }
@@ -720,6 +732,46 @@ img {
                         filter: alpha(opacity=60);
                     }
 
+                    .panel-custom > .panel-heading {
+  color: #ff0000;
+  background-color: #000000;
+}
+.panel-custom > .panel-body {
+  color: #9fa7b7;
+  background-color: #5a6378;
+  border:none;
+}
+.bord_redond{
+    border:inherit 8px #000000;
+-moz-border-radius-topleft: 41px;
+-moz-border-radius-topright:42px;
+-moz-border-radius-bottomleft:41px;
+-moz-border-radius-bottomright:41px;
+-webkit-border-top-left-radius:41px;
+-webkit-border-top-right-radius:42px;
+-webkit-border-bottom-left-radius:41px;
+-webkit-border-bottom-right-radius:41px;
+border-top-left-radius:41px;
+border-top-right-radius:42px;
+border-bottom-left-radius:41px;
+border-bottom-right-radius:41px;
+color:red;
+ }
+ h3{
+    color:white;
+ }
+
+ @font-face { font-family: 'GoodFootRegular';
+    src: url('goodfoot.eot');
+    src: local('Good Foot'), local('GoodFoot'), url('goodfoot.woff') format('woff'), url('goodfoot.ttf') format('truetype');}
+.letra{ 
+    font:21px bold normal GoodFootRegular;
+    color:white;
+}
+.letra:hover{
+   font-color:black;
+}
+
   	</style>
 
 </head>
@@ -736,79 +788,85 @@ img {
 		<a class="navbar-brand" href="#"></a>
 	</div>
 	<div class="collapse navbar-collapse js-navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Menu</a>
-			 <ul class="dropdown-menu">
-		       <li>
-                 <div class="navbar-login">
-                  <div class="row">
-                    <div class="col-lg-8 col-xs-12">
-                     <p class="text-center">
-                      <span class="glyphicon glyphicon-user icon-size"></span>
-                     </p>
-                    </div>
-                    <div class="col-lg-8 col-sm-12 col-xs-12">
-                     <p class="text-center"><strong>Nombre Completo</strong></p>
-                     <p class="text-center">Email</p>
-                     <p class="text-left">
-                       <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
-                     </p>
-                    </div>
-                    <div class="col-lg-8 col-xs-12">
-                     <p>
-                       <a href="#" id="log_out" class="btn btn-danger btn-block">Cerrar Sesion</a>
-                     </p>
-                    </div>
+		  <ul class="dropdown-menu">
+		    <li>
+              <div class="navbar-login">
+                <div class="row">
+                  <div class="col-lg-8 col-xs-12">
+                    <p class="text-center"><span class="glyphicon glyphicon-user icon-size"></span></p>
                   </div>
-                 </div>
-                </li>        	
-              </ul>
+                  <div class="col-lg-8 col-sm-12 col-xs-12">
+                    <p class="text-center"><strong>Nombre Completo</strong></p>
+                    <p class="text-center">Email</p>
+                    <p class="text-left"><a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a></p>
+                  </div>
+                  <div class="col-lg-8 col-xs-12">
+                    <p><a href="#" id="log_out" class="btn btn-danger btn-block">Cerrar Sesion</a></p>
+                  </div>
+                </div>
+              </div>
+            </li>        	
+          </ul>
         </li>
       </ul>
 	</div><!-- /.nav-collapse -->
   </nav>
 </div><!--container-->
 <div class="container-fluid">
- 
-	<div id="posts" class="col-xs-11 col-sm-4 col-md-3">
-		
-	</div>
+	<div id="posts" class="col-xs-11 col-sm-4 col-md-4">
+      <div class="col-md-12 col-xs-12">
+        <div class="form-horizontal" style="margin-top:15px;">
+           <div class="form-group">
+             <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-search"></button>
+            <div class="col-xs-9 col-md-9 col-sm-9 col-lg-9">
+              <input type="text" class="form-control input-lg" id="focusedInput" placeholder="Destino">
+            </div>
+           </div>  
+        </div>
+      </div>
+      <div class="col-md-11 col-xs-11">
+        <div class="panel" style="background-color: rgba(0, 0, 2, 0.5);">
+         <button class="btn btn-danger btn-block btn-lg btn_pais_des glyphicon glyphicon-globe" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> PAISES</button>
+         <ul id="ul_list_pais" class="dropdown-menu" style="width: 100%;margin-left: 10px;background-color: rgba(0,0,0,0.4);position:relative;" aria-labelledby="dropdownMenu1">
+         </ul>
+        </div>
+      </div> 
+      <div class="col-md-11 col-xs-11" style="position:relative;">
+        <button class="btn btn-danger btn-block btn-lg" id="show_destin">Ver destinos</button>
+      </div>
+      <div id="destinos"></div>
+    </div>
 	<div id="toggle_posts">
 		<h1>
-			<span class="glyphicon arrow-left glyphicon-chevron-up"></span>
-			<span>MENU</span>
-			<span class="glyphicon arrow-right glyphicon-chevron-up"></span>
+		  <span class="glyphicon arrow-left glyphicon-chevron-up"></span>
+		  <span>MENU</span>
+		  <span class="glyphicon arrow-right glyphicon-chevron-up"></span>
 		</h1>
 	</div>
-
- <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-sm-10 col-md-8 col-lg-8" id="contenedor_info" style="display:none;">
- 	<div id="post" class="well blog" style="margin-top:10px;">
-	  <h2 class="title" id="title">
-		<button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true"></button>
-	  </h2>
-      
+    <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-sm-10 col-md-8 col-lg-8" id="contenedor_info" style="display:none;">
+ 	  <div id="post" class="well blog" style="margin-top:10px;">
+	    <h2 class="title" id="title">
+		  <button type="button" class="close glyphicon glyphicon-remove" aria-hidden="true"></button>
+	    </h2>
         <h3 style="text-align: right;">
               <strong id="precio"></strong>
         </h3>
-     
-	  <div class="post">
-	    
-        <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
-         <div class="image">
+	    <div class="post">
+         <div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
+           <div class="image">
               <img class="post-img" id="foto1" src="" alt="">
+           </div>
          </div>
-        </div>
-		<div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
+		 <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12">
             <p id="descrip"></p>
-		</div>
-		
-		<div id="carru">
-        </div> 	
-	  </div>	
-	</div>  
-  </div>
-
+		 </div>
+		 <div id="carru"></div> 	
+	    </div>	
+	  </div>  
+    </div>
  	<div id="comments" class="col-sm-4 col-md-4 col-xs-offset-2 col-lg-3 col-xs-10">
 		<h1 class="title">
 			Chat
@@ -907,25 +965,42 @@ img {
 });
 
 $(function(){
- $.ajax({
-   dataType:"json",
-   type:"post",
-   url:"controller/Menus_clientes.php",
-   data:{'destinos':"all"}
- }).done(function(data){
-    $("#posts").html("");
-     $.each(data,function(key,value){
- 	   var t =  
- 	   '<a id='+value[0]+' class="destin" href="#post-1001">\
-		<img class="col-xs-12" src="img/'+value[4]+'" alt="">\
-		  <h3>'+value[2]+'</h3>\
-		<div class="clearfix"></div>\
-	   </a>\
-       ';
-	   $(t).appendTo($("#posts"));
-	 });
- 	
- });
+ $(".btn_pais_des").click(function(){
+        $.ajax({
+          dataType:"json",
+          type:"post",
+          url:"controller/Menus_clientes.php",
+          data:{"paises":"all"},
+          success:function(data){
+            $("#ul_list_pais").html("");
+            $.each(data,function(key,value){
+             var t = '<li class="letra"><a id='+value[1]+' class="pais bord_redond letra" style="text-align:right" href="#">'+value[0]+'</a></li>';
+              $(t).appendTo($("#ul_list_pais"));
+            });
+          }
+        });
+   });
+  $("#show_destin").click(function(){
+     $.ajax({
+        dataType:"json",
+        type:"post",
+        url:"controller/Menus_clientes.php",
+        data:{'destinos':"all"}
+      }).done(function(data){
+         $.each(data,function(key,value){
+            var t =  
+              '<a id='+value[0]+' class="destin" href="#">\
+                <img class="col-xs-12" src="img/'+value[4]+'" alt="">\
+                <h3>'+value[2]+'</h3>\
+                <div class="clearfix"></div>\
+              </a>';
+            $(t).appendTo($("#destinos"));
+         });
+       });
+  });
+  
+
+
  setInterval(function(){
     $.ajax({
       dataType:"json",
@@ -996,7 +1071,7 @@ $(function(){
  	  data:{'id_subdesti':id},
  	  url:"controller/Menus_clientes.php"
  	}).done(function(data){
-
+      
      $("#contenedor_info").css("display","block");   
  	 if(data[0] instanceof Array){
  	   $.each(data,function(key,value){
@@ -1078,6 +1153,64 @@ $(function(){
 	  $(contesto).appendTo($("#chat_"));	
 	});
   });
+
+  $(document).on('click','.pais',function(){
+      $("#carru").html("");
+     var id =  $(this).attr('id');
+     $.ajax({
+        dataType:"json",
+        type:"POST",
+        url:"controller/Menus_clientes.php",
+        data:{"destin_pais":id}
+     }).done(function(data){
+        $("#contenedor_info").css("display","block");   
+        if(data[0] instanceof Array){
+         $.each(data,function(key,value){
+          var x = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">\
+            <div class="well blog">\
+                <a href="#">\
+                    <div class="row">\
+                        <div class="col-xs-12 col-sm-12 col-md-5  col-lg-5">\
+                            <div class="image">\
+                                <img src="img/'+value[3]+'" alt="">\
+                            </div>\
+                        </div>\
+                        <div class="col-xs-12 col-sm-12 col-md-7  col-lg-6">\
+                            <div class="blog-details">\
+                                <h2>'+value[0]+'</h2>\
+                                <p>'+value[1]+'</p>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </a>\
+            </div>';
+          $(x).appendTo($("#carru"));
+         });
+        }else{
+            var x = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">\
+            <div class="well blog">\
+                <a href="#">\
+                    <div class="row">\
+                        <div class="col-xs-12 col-sm-12 col-md-5  col-lg-5">\
+                            <div class="image">\
+                                <img src="img/'+data[3]+'" alt="">\
+                            </div>\
+                        </div>\
+                        <div class="col-xs-12 col-sm-12 col-md-7  col-lg-6">\
+                            <div class="blog-details">\
+                                <h2>'+data[0]+'</h2>\
+                                <p>'+data[1]+'</p>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </a>\
+            </div>';
+          $(x).appendTo($("#carru"));
+
+
+        }
+     });
+    });
 </script>
 
 <!--

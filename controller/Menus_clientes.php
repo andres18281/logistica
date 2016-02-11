@@ -18,6 +18,7 @@ if(isset($_POST['id_destino'])){
   echo json_encode($respon);
 }
 
+// Muestra todos los paises //
 if(isset($_POST['paises'])){
   $desti = new Destinos();
   $response = $desti->Get_paises();
@@ -26,6 +27,24 @@ if(isset($_POST['paises'])){
   }
   echo json_encode($respon);
 }
+
+
+if(isset($_REQUEST['destin_pais'])){
+  $desti = new Destinos();
+  $id = $_REQUEST['destin_pais'];
+  $response = $desti->Get_destinos_por_pais($id); 
+  if(isset($response)){
+    if(is_array($response)){
+      foreach($response as $val){
+        $respon[] = array(utf8_encode($val[0]),utf8_encode($val[1]),$val[2],$val[3],$val[4]);
+      }
+    }else{
+      $respon = array(utf8_encode($response[0]),utf8_encode($response[1]),$response[2],$response[3],$response[4]);
+    }
+    echo json_encode($respon);
+  }
+}
+
 
 
 if(isset($_POST['id_subdesti'])){
@@ -42,8 +61,7 @@ if(isset($_POST['id_subdesti'])){
         $array = array($response[0],$response[1],utf8_encode($response[2]),utf8_encode($response[3]),$response[4]);
 	  }
   	echo json_encode($array);
-  }
-  
+  } 
 }
 
 ?>

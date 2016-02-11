@@ -44,14 +44,14 @@
   				INNER JOIN fotos fo ON fo.id_desti = des.Des_id 
   				WHERE des.pais = '.$pais;
   		$response = parent::consultas($sql);
-  		return $response;
+  	  return $response;
   	}
 
   	function Get_all_destinos(){
   	  $sql = 'SELECT Des_id,pa.Nombre,lugar,precio,fo.Foto1,fo.Foto2
-  			  FROM destinos des
-  			  INNER JOIN fotos fo ON fo.id_desti = des.Des_id 
-          INNER JOIN pais pa ON pa.Pa_id = des.pais';
+  			      FROM destinos des
+  			      INNER JOIN fotos fo ON fo.id_desti = des.Des_id 
+              INNER JOIN pais pa ON pa.Pa_id = des.pais';
   		$response = parent::consultas($sql);
   		return $response;	
   	}

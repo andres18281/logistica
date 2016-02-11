@@ -32,7 +32,7 @@ $(function(){
 
 
 
-    // ------------------botones de eventos de eliminar, modificar y editar ----------------------//
+  // ------------------botones de eventos de eliminar, modificar y editar ----------------------//
 	var id_destino = 0;
    $(document).on('click',".btn_modifi",function(){
    	 id = $(this).attr('id');
@@ -322,7 +322,7 @@ $(function(){
         		 <td>'+value[2]+'</td>\
         		 <td>'+value[3]+'</td>\
         		 <td>'+value[4]+'</td>\
-             <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi_clien" data-title="Edit" data-toggle="modal" data-target="#myModalClien_edi" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
+             <td><p data-placement="top" data-toggle="tooltip" title="edit_cli"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi_clien" data-title="edit_cli" data-toggle="modal" data-target="#myModalClien_edi" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
              <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id='+value[0]+' class="btn btn-danger btn_delete_client btn-xs" data-title="Delete" data-toggle="modal" data-target="#myModalClien_bor" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
        			</tr>';
        		  $(tr).appendTo($("#tr_client"));
@@ -335,7 +335,7 @@ $(function(){
         		 <td>'+data[2]+'</td>\
         		 <td>'+data[3]+'</td>\
         		 <td>'+data[4]+'</td>\
-              <td><p data-placement="top" data-toggle="tooltip" title="Edit_c"><button id='+data[0]+' class="btn btn-primary btn-xs btn_modifi_clien" data-title="Edit" data-toggle="modal" data-target="#myModalClien_edi" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
+              <td><p data-placement="top" data-toggle="tooltip" title="edit_cli"><button id='+data[0]+' class="btn btn-primary btn-xs btn_modifi_clien" data-title="edit_cli" data-toggle="modal" data-target="#myModalClien_edi" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
              <td><p data-placement="top" data-toggle="tooltip" title="Delete_c"><button id='+data[0]+' class="btn btn-danger btn_delete_client btn-xs" data-title="Delete" data-toggle="modal" data-target="#myModalClien_bor" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
        			</tr>';
        		$(tr).appendTo($("#tr_client"));
@@ -356,5 +356,12 @@ $(function(){
 	$("#btn_users").click(function(){
 
 	});
+
+ 
+
+
+  $(document).on('click',"#btn_modifi_clien",function(){
+    $("#myModalClien_edi").modal('show');
+  });
 
  });

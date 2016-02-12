@@ -55,6 +55,13 @@
   	echo json_encode($data);
   }
 
+  if(isset($_POST['leido_mensaje'])){
+    $id = $_POST['leido_mensaje'];
+    $chat = new Chat();
+    $chat->Mensaje_leido($id);
+  }
+  
+
   die;
 
 ?>

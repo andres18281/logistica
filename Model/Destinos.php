@@ -1,8 +1,10 @@
 <?php
   //   require_once $_SERVER['DOCUMENT_ROOT'].'/webworldpremier.stratecsa.com/intranet/controller/conectar.php';
-  require_once '../controller/conectar.php';
+  include_once '../controller/conectar.php';
+
   class Destinos extends Conectar{
-  	function __construct(){
+  	
+    function __construct(){
   		parent::__construct();
   	}
 
@@ -89,8 +91,8 @@
         WHERE lu.Luga_title LIKE "%'.$word.'%"
         OR lu.Luga_sub_title LIKE "%'.$word.'%"
         OR des.lugar LIKE "%'.$word.'%"
-        OR des.pais LIKE "%'.$word.'%"';
-        echo $sql;
+        OR pa.Nombre LIKE "%'.$word.'%"
+        GROUP BY 1';
         $response = parent::consultas($sql);
         return $response; 
     }

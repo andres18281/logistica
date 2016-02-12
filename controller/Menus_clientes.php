@@ -34,7 +34,7 @@ if(isset($_REQUEST['destin_pais'])){
   $id = $_REQUEST['destin_pais'];
   $response = $desti->Get_destinos_por_pais($id); 
   if(isset($response)){
-    if(is_array($response)){
+    if(is_array($response[0])){
       foreach($response as $val){
         $respon[] = array(utf8_encode($val[0]),utf8_encode($val[1]),$val[2],$val[3],$val[4]);
       }

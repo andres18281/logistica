@@ -4,7 +4,7 @@ class Conectar{
   public $mbd;
   function __construct(){
   	//$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=stra_logistica;port=3306', 'stra_comino', 'lavidaesbella123');
-  	$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=logistica_;port=3306', 'root', '');
+  	$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=logistica_;port=3307', 'root', '');
   }
 
   function consultas($sql){
@@ -35,8 +35,8 @@ class Conectar{
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
    public function update_query($query){
    	 $stmt = $this->mbd->prepare($query); 
-   	 $sentencia = $stmt->execute();
-  	 $response = $sentencia->fetch(PDO::FETCH_BOTH);
+   	 $stmt->execute();
+  	 $response = $stmt->fetch(PDO::FETCH_BOTH);
   	 if(isset($response)){
   	    $salida = array("exito"=>"Actualizacion con exito");                     
      }else{

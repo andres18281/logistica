@@ -1,6 +1,8 @@
 
      $(function(){
-        $("#log_out").click(function(){
+        
+
+        $(".log_out ").click(function(){
               $.ajax({
                 type:"get",
                 url:"controller/session_destroy.php",
@@ -15,4 +17,4 @@
         });
     });
      
-    
+  

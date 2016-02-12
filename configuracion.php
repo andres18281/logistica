@@ -24,7 +24,7 @@
   	<script src="js/btn_out_session.js"></script>
   	<script src="js/fileinput.min.js"></script>
   	<script src="js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
-  	<script src="js/fileinput_locale_es.js"></script>
+
   	
   	
 

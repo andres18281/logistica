@@ -72,7 +72,7 @@ ob_end_flush();
             $var[] = '<br>
             <div class="row">
               <div class="col-md-5 col-sm-12 col-xs-12 col-lg-5">
-               <img class="thumbnail"  src="img/'.$val[4].'"/>
+               <img class="thumbnail" style="width:400px;height:auto;" src="img/'.$val[4].'"/>
               </div>    
               <div class="col-md-7 col-sm-12 col-xs-12 col-lg-7">
                <h2>
@@ -91,7 +91,7 @@ ob_end_flush();
              $var = '
             <div class="col-md-12">
               <div class="col-md-4">
-               <img class="thumbnail"  src="img/'.$response_lugar[4].'"/>
+               <img class="thumbnail"  style="width:400px;height:auto;" src="img/'.$response_lugar[4].'"/>
               </div>
               <div class="col-md-8">
                <h2 class="text-primary" style="margin-top:0;">

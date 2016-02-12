@@ -820,10 +820,10 @@ color:red;
       <div class="col-md-12 col-xs-12">
         <div class="form-horizontal" style="margin-top:15px;">
            <div class="form-group">
-             <button type="submit" class="btn btn-primary btn-lg glyphicon glyphicon-search"></button>
+             <button id="btn_search" class="btn btn-primary btn-lg glyphicon glyphicon-search"></button>
             <div class="col-xs-9 col-md-9 col-sm-9 col-lg-9">
               <input type="text" class="form-control input-lg" id="focusedInput" placeholder="Destino">
-            </div>
+            </div> 
            </div>  
         </div>
       </div>
@@ -962,6 +962,40 @@ color:red;
 		event.preventDefault();
 		$(this).closest('#comments').removeClass('active');
 	});   
+
+
+    $("#btn_search").click(function(){
+       var valor = $("#focusedInput").val();
+       $.ajax({
+        dataType:"json",
+        type:"post",
+        url:"controller/Menus_clientes.php",
+        data:{"words":valor},
+        success:function(data){
+          $.each(data,function(key,value){
+            var x = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">\
+            <div class="well blog">\
+                <a href="#">\
+                    <div class="row">\
+                        <div class="col-xs-12 col-sm-12 col-md-5  col-lg-5">\
+                            <div class="image">\
+                                <img src="img/'+value[3]+'" alt="">\
+                            </div>\
+                        </div>\
+                        <div class="col-xs-12 col-sm-12 col-md-7  col-lg-6">\
+                            <div class="blog-details">\
+                                <h2>'+value[1]+'</h2>\
+                                <p>'+value[2]+'</p>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </a>\
+            </div>';
+           $(x).appendTo($("#carru"));
+          });
+        }
+       });
+    });
 });
 
 $(function(){
@@ -1161,7 +1195,7 @@ $(function(){
         dataType:"json",
         type:"POST",
         url:"controller/Menus_clientes.php",
-        data:{"destin_pais":id}
+        data:{"destin_pais":id} 
      }).done(function(data){
         $("#contenedor_info").css("display","block");   
         if(data[0] instanceof Array){

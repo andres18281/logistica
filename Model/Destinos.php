@@ -47,6 +47,7 @@
   	  return $response;
   	}
 
+    // Lanza todos los destinos
   	function Get_all_destinos(){
   	  $sql = 'SELECT Des_id,pa.Nombre,lugar,precio,fo.Foto1,fo.Foto2
   			      FROM destinos des
@@ -76,6 +77,23 @@
   		$response =	parent::update_query($sql);
   		return $response;
   	}
+
+    // Muestra la busquda segun las palabras que coordinen //
+    function Get_busqueda_words($word){
+      $sql = '
+        SELECT des.Des_id,des.lugar,des.descrip,fo.Foto1,lu.Luga_title,lu.Luga_sub_title
+        FROM destinos des
+        INNER JOIN lugares lu ON des.Des_id = lu.id_desti
+        INNER JOIN pais pa ON pa.Pa_id = des.pais
+        INNER JOIN fotos fo ON fo.id_desti = des.Des_id
+        WHERE lu.Luga_title LIKE "%'.$word.'%"
+        OR lu.Luga_sub_title LIKE "%'.$word.'%"
+        OR des.lugar LIKE "%'.$word.'%"
+        OR des.pais LIKE "%'.$word.'%"';
+        echo $sql;
+        $response = parent::consultas($sql);
+        return $response; 
+    }
 
   	function Set_fotos($id,$nombre1,$nombre2){
   		$array = Array('Foto1'=>$nombre1,

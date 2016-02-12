@@ -46,6 +46,24 @@ if(isset($_REQUEST['destin_pais'])){
 }
 
 
+// busca por palabras clave como pais, nombre del destino, descripcion, sub destinos, retornara la informacion mensionada 
+// junto a una foto
+if(isset($_POST['words'])){
+  $desti = new Destinos();
+  $word = $_POST['words'];
+  $respon = $desti->Get_busqueda_words($word);
+  if(isset($respon)){
+    if(is_array($respon[0])){
+      foreach($respon as $value){
+        $data[] = Array($value[0],utf8_encode($value[1]),utf8_encode($value[2]),$value[3],utf8_encode($value[4]),utf8_encode($value[5]));
+      }
+    }else{
+       $data = Array($respon[0],utf8_encode($respon[1]),utf8_encode($respon[2]),$respon[3],utf8_encode($respon[4]),utf8_encode($respon[5]));
+    }
+   echo json_encode($data);
+  }
+}
+
 
 if(isset($_POST['id_subdesti'])){
   include_once "../Model/Lugares.php";

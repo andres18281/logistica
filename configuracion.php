@@ -773,10 +773,10 @@ $(document).ready(function(){
   $('#btn_desti').tooltip({title: "Crear destinos", placement: "right"}); 
   $('#btn_list_paque').tooltip({title: "Enlistar destinos ", placement: "right"}); 
 
-    if (window.location == window.parent.location) {      
+    if (window.location == window.parent.location){
         $('#fullscreen').attr('href', 'http://bootsnipp.com/mouse0270/snippets/846vX');
         $('#fullscreen').css('margin-left','-391.5px')
-    }    
+    }
     
     $('#fullscreen').on('click', function(event) {
         event.preventDefault();

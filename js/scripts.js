@@ -21,7 +21,7 @@ $(function(){
     		    		<td>'+value[2]+'</td>\
     		    		<td>'+value[3]+'</td>\
     		    		<td><p data-placement="top" data-toggle="tooltip" data-toggle="modal" data-target="#" title="Edit"><button id='+value[0]+' class="btn btn-success btn-xs btn_ver"  data-title="Edit" data-toggle="modal" data-target="#ver"><span class="glyphicon glyphicon-zoom-in"></span></button></p></td>\
-    		    		<td><p data-placement="top" data-toggle="tooltip" title="Edit"><button id='+value[0]+' class="btn btn-primary btn-xs btn_modifi" data-title="Edit" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>\
+    		    		<td><p data-placement="top" data-toggle="tooltip" title="Edit"><a href="modificar.php?destinos='+value[0]+'"  class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span></a></p></td>\
    	 		    		<td><p data-placement="top" data-toggle="tooltip" title="Delete"><button id='+value[0]+' class="btn btn-danger btn_delete btn-xs" data-title="Delete" data-toggle="modal" data-target="#myModal3" ><span class="glyphicon glyphicon-trash"></span></button></p></td>\
     		 		  </tr>';
     	  $(data_).appendTo($("#table_lista"));
@@ -34,20 +34,7 @@ $(function(){
 
   // ------------------botones de eventos de eliminar, modificar y editar ----------------------//
 	var id_destino = 0;
-   $(document).on('click',".btn_modifi",function(){
-   	 id = $(this).attr('id');
-     $("#myModal").modal('show');
-     var destino = $("#txt_destino").val(); 
-     var pais = $("#slt_pais").val(); 
-     var precio = $("#txt_precio").val();
-     var fecha = $("#txt_fecha").val(); 
-     var descrip = $("#txt_descrip").val();    
-     $("#txt_lugar").val(destino); //destino
-     $("#txt_fech").val(fecha);  //fecga
-     $("#txt_prec").val(precio);  //precio
-     $("#slt_pai").val(pais); // pais
-     $("#txt_area").val(descrip);
-   });	
+   
 
    $(document).on('click','.btn_users',function(){
      $("#contenido").html("");
@@ -114,11 +101,11 @@ $(function(){
         type: 'POST',
         success: function(data){
            console.log(data);
-           form.delete('id');
+          form.delete('id');
     	   form.delete('file2');
-    	   form.delete('txt_title2');
-    	   form.delete('txt_subtitle2');
-    	   form.delete('txt_descrip2');
+    	  form.delete('txt_title2');
+    	  form.delete('txt_subtitle2');
+    	  form.delete('txt_descrip2');
     		$("#txt_title2").val("");
    			$("#txt_subtitle2").val("");
    			$("#txt_descrip2").val("");
@@ -195,7 +182,6 @@ $(function(){
    	 	$("#ïmg1").attr('src',"");
    	 	$("#ïmg2").attr('src',"");
    	 	data = data.success;
-   	 	console.log(data);
    	 	$("#slt_pai").val(data[0]);
    	 	$("#txt_lugar").val(data[1]);
    	 	$("#txt_area").val(data[2]);
@@ -260,45 +246,7 @@ $(function(){
    	  });
    	});
 
-   	$("#btn_update_desti").click(function(){
-   	  var pais = $("#slt_pai").val();
-   	  var lugar = $("#txt_lugar").val();
-   	  var precio = $("#txt_prec").val();
-   	  var text	= $("#txt_area").val();
-   	  var file_data = $('#inp_files_3')[0].files; // for multiple files
-   	  var dato = new FormData();
-   	  dato.append('id',id_destino);
-   	  dato.append('slt_pai',pais);
-   	  dato.append('txt_lugar',lugar);
-   	  dato.append('txt_prec',precio);
-   	  dato.append('txt_area',text);
-   	  if(file_data.length > 1){
-   	    for(var i = 0;i< file_data.length;i++){
-          dato.append("inp_file", file_data[i]);
-        }
-      }else if(file_data.length > 0 && file_data.length <= 1){
-      	dato.append("inp_file", file_data[0]);
-      }  
-      var other_data = $('#form_update').serializeArray();
-      $.ajax({
-        url: 'controller/Recibe_by_ajax.php',
-        data: dato,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        success: function(data){
-         console.log(data);
-        }
-      }).done(function(data){
-        var data = $.parseJSON(data);
-      	if(data.respon === true){
-      	 $("#myModal").modal('hide');
-      	}else if(data.respon === false){
-      	 $("#myModal").modal('hide');
-      	  alert("algo resulto mal, por favor vuelva y rectifique los datos digitados");
-      	}
-      });
-   	});
+   	
 
     $(".actu_all_des").click(function(){  
      var ind = $(this).index(this);

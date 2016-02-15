@@ -113,6 +113,14 @@
       $response = parent::update_query($sql);
       return $response;
     }
+
+    function delete_subdestino($id){
+      $sql = 'DELETE 
+              FROM lugares 
+              WHERE Luga_Id = '.$id;
+      $response = parent::update_query($sql);
+      return $response;
+    }
   }
 
 ?>

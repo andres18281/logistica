@@ -722,6 +722,7 @@ ul.c-controls li a:hover {
         </div>
      </form>
       <div class="modal-footer">
+        <button type="button" class="btn btn-info actu_all_des" >Actualizar Subdestinos</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" id="btn_update_desti">Actualizar</button>
       </div>

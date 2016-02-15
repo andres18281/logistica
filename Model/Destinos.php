@@ -1,6 +1,7 @@
 <?php
   //   require_once $_SERVER['DOCUMENT_ROOT'].'/webworldpremier.stratecsa.com/intranet/controller/conectar.php';
-  include_once '../controller/conectar.php';
+ include_once $_SERVER['DOCUMENT_ROOT'].'/logistica/controller/conectar.php';
+
 
   class Destinos extends Conectar{
   	

@@ -300,6 +300,12 @@ $(function(){
       });
    	});
 
+    $(".actu_all_des").click(function(){  
+     var ind = $(this).index(this);
+      alert($(this).index());
+    });
+   
+
 	//-------------------------------------------------------- finaliza eventos de listar destinos --------------//
 	//------------------- listar todos los clientes registrados -----------------//
 	$(".btn_list_client").click(function(){
@@ -356,7 +362,9 @@ $(function(){
 	$("#btn_users").click(function(){
 
 	});
-
+  $("·btn_modifi").click(function(){
+    alert($(this).attr('id'));
+  });
  
 
 

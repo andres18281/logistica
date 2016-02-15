@@ -10,7 +10,6 @@ session_start();
 ob_end_flush();
   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php";
   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Lugares.php"; 
-  echo $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php"; 
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +17,7 @@ ob_end_flush();
 <head>
 	<title></title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/fileinput.css">
+	<link rel="stylesheet" href="css/fileinput.min.css">
   <link rel="stylesheet" href="css/stylo_sesion.css">
   <style type="text/css">
   .divisor{
@@ -41,13 +40,16 @@ ob_end_flush();
     margin-top: 1%;
     position: relative;
   }
-  </style>
-  	<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <?php
+  textarea{
+   width:auto;
+    display: block;rows=3
+  }
 
+
+
+  </style>
+  	    <?php
       if(isset($_GET['destinos'])){
-      
         $id_desti = $_GET['destinos'];
         $destino =  new Destinos();
         $lugares = new Lugares();
@@ -55,37 +57,62 @@ ob_end_flush();
         $response_lugar = $lugares->Get_lugares($id_desti);
         if(isset($response_desti)){
           $cabecera = '
-            <div class="container">
-                <div class="jumbotron" style="background-image: url(img/'.$response_desti[4].');background-size: 100% 100%; background-repeat: no-repeat;
-    background-size: length;">
-                </div>
-                <h2 style="text-align:center">
-                  '.$response_desti[1].' 
-                </h2>
-                <p style="text-align:center">
-                   '.$response_desti[2].' 
-                </p>
-            </div>';
+          <div class="row">
+            <input id="input-id" type="file" class="file" data-preview-file-type="text">
+            <p></p>
+            <div class="panel panel-default">
+             <div class="panel-body">
+              <div class="jumbotron" style="background-image: url(img/'.$response_desti[4].'); background-repeat: no-repeat;"></div>
+              <div class="col-md-12">
+                <input type="text" class="form-control" placeholder="Destino" value='.$response_desti[1].'>
+              </div>
+              <div class="col-md-6">
+                  <label>Lugar</label>
+                  <input type="text" id="txt_lugar" class="form-control">
+              </div>
+              <div class="col-md-6">
+                <label>Pais</label>
+                <select class="form-control" id="slt_pai">
+                  <option></option>
+                  <option value="1">COLOMBIA</option>
+                  <option value="2">PANAMA</option>
+                  <option value="3">EEUU</option>
+                  <option value="4">ESPANA</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                <label>Precio</label>
+                <input type="text" id="txt_prec" class="form-control">
+              </div>
+              <div class="col-md-12">
+                  <textarea rows="10" class="form-control">'.$response_desti[2].'</textarea> 
+              </div>
+            </div>
+           </div>
+          </div>';
         }
         if(isset($response_lugar)){
           if(is_array($response_lugar[0])){
            foreach($response_lugar as $key=>$val){
-            $var[] = '<br>
+            $var[] = '
             <div class="row">
-              <div class="col-md-5 col-sm-12 col-xs-12 col-lg-5">
-               <img class="thumbnail" style="width:400px;height:auto;" src="img/'.$val[4].'"/>
-              </div>    
-              <div class="col-md-7 col-sm-12 col-xs-12 col-lg-7">
-               <h2>
-                '.$val[1].'
-               </h2>
-               <h3>
-                '.$val[2].'
-               </h3>
-               <p >
-                 '.$val[3].'
-               </p>
+             <div class="panel panel-default">
+              <div class="panel-heading">
+               <a href="#" class="btn btn-danger" style="margin-left:0px;"><span class="glyphicon glyphicon-remove"></span></a>
               </div>
+              <div class="panel-body">
+                <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
+                  <img class="thumbnail" style="width:400px;height:auto;" src="img/'.$val[4].'"/>
+                </div>    
+                <div class="col-md-7 col-sm-7 col-xs-12 col-lg-7">
+                  <input type="text" placeholder="Titulo" class="form-control" value='.$val[1].'>
+                  <input type="text" placeholder="Sub titulo" class="form-control" value='.$val[2].'>
+                  <textarea  rows="10" class="form-control">
+                    '.$val[3].'
+                  </textarea>
+                </div>
+              </div>
+             </div>
             </div>';
            }
           }else{
@@ -96,16 +123,16 @@ ob_end_flush();
               </div>
               <div class="col-md-8">
                <h2 class="text-primary" style="margin-top:0;">
-                '.$response_lugar[1].'
+                <input type="text" class="form-control" value='.$response_lugar[1].'>
                </h2>
                <h3 class="text-info ">
-                '.$response_lugar[2].'
+                <input type="text" class="form-control" value='.$response_lugar[2].'>
                </h3>
-                <p>
-                 <small>
+                
+                 <textarea rows="10" class="form-control">
                  '.$response_lugar[3].'
-                </small>
-               </p>
+                </textarea>
+
               </div>
             </div>';
           }
@@ -172,12 +199,18 @@ ob_end_flush();
 
 
 	<div class="row">	
-		
+		  <div class="row">
+        <div class="col-md-4 col-md-offset-8">
+         <a href="#" id="add_destin" class="btn btn-success">Agregar otro subdestino</a>
+        </div>
+       
+      </div>
 		  
 			 <div class="panel panel-default">
 				
 				<div id="contenido" class="panel-body">
 					<div class="col-md-12">
+            <div id="destin_new"></div>
             <?php 
              if(isset($var)){
               if(count($var) > 1){
@@ -189,6 +222,7 @@ ob_end_flush();
               }
              }
             ?>
+            
           </div>
 				</div>
 			 </div>
@@ -198,7 +232,47 @@ ob_end_flush();
 </div>
 </body>
 </html>
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="js/fileinput.min.js"></script>
+<script src="js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+
 <script src="js/btn_out_session.js"></script>
 
+<script type="text/javascript">
+  $(function(){
+    
+    $("#add_destin").click(function(event){
+      event.preventDefault();
+      $("#input-id").fileinput();
+ 
+// with plugin options
+    $("#input-id").fileinput({'showUpload':false, 'previewFileType':'any'});
+      var x = 
+        '<div class="row">\
+         <div class="panel panel-default">\
+          <div class="panel-heading">\
+            <a href="#" class="btn btn-danger" style="margin-left:0px;"><span class="glyphicon glyphicon-remove"></span></a>\
+          </div>\
+          <div class="panel-body">\
+           <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">\
+           <label class="control-label">Seleccionar Foto</label>\
+           <input id="input-id" type="file" class="file" data-preview-file-type="text">\
+           </div>\
+           <div class="col-md-7 col-sm-7 col-xs-12 col-lg-7">\
+             <input type="text" placeholder="Titulo" class="form-control" >\
+             <input type="text" placeholder="Sub titulo" class="form-control" >\
+             <textarea  rows="10" class="form-control"></textarea>\
+           </div>\
+          </div>\
+         </div>';
+      $(x).appendTo($("#destin_new"));
+    });
 
+ 
+});
+  $(window).load(function() {
+  
+});
 
+</script>

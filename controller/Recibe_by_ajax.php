@@ -136,6 +136,7 @@
 
  // actualizar destinos 
  if(isset($_POST['id'],$_POST['slt_pai'],$_POST['txt_lugar'],$_POST['txt_prec'],$_POST['txt_area'])){
+   var_dump($_POST);
    $destino = new Destinos();
    $id = $_POST['id'];
    $pais = $_POST['slt_pai'];
@@ -204,6 +205,7 @@
  }
 
   if(isset($_POST['title'],$_POST['subtitulo'],$_POST['texto'],$_POST['id'])){
+    var_dump($_POST);
      $conexion = new Conectar();
      $title = $_POST['title'];
      $subtitle = $_POST['subtitulo'];
@@ -221,7 +223,8 @@
 
   // inserta nuevos registros cuando un administrador añade nuevos subdestinos en la editacion
   if(isset($_POST['title_new'],$_POST['subti_new'],$_POST['text_new'],$_FILES['foto'],$_POST['id'])){
-    $foto;
+    var_dump($_POST);
+   // $foto;
     $lugar = new Lugares();
     $id = $_POST['id'];
     $title = $_POST['title_new'];

@@ -52,12 +52,12 @@ $(function(){
    	 var pais = $("#slt_pais").val(); 
    	 var precio = $("#txt_precio").val();
    	 var fecha = $("#txt_fecha").val();
-	 var descrip = $("#txt_descrip").val();
-    var fd = new FormData();
-    var file_data = $('input[type="file"]')[0].files; // for multiple files
-    for(var i = 0;i<file_data.length;i++){
-        fd.append("inp_file", file_data[i]);
-    }
+	   var descrip = $("#txt_descrip").val();
+     var fd = new FormData();
+     var file_data = $('input[type="file"]')[0].files; // for multiple files
+     for(var i = 0;i<file_data.length;i++){
+       fd.append("inp_file", file_data[i]);
+     }
     fd.append("pais",pais);
     fd.append("lugar",destino);
     fd.append("descrip",descrip);

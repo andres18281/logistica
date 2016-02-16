@@ -62,11 +62,11 @@ ob_end_flush();
         $response_lugar = $lugares->Get_lugares($id_desti);
         if(isset($response_desti)){
           $cabecera = '
-          <div class="row ">
+          <div class="row">
             <p></p>
             <div class="panel panel-default">
-             <div class="panel-body">
-              <form enctype="multipart/form-data" method="post">\
+             <form enctype="multipart/form-data" method="post">
+             <div class="panel-body"> 
                <div class="jumbotron" style="background-image: url(img/'.$response_desti[4].'); background-repeat: no-repeat;"></div>
                 <div class="row">
                  <div class="col-md-6">
@@ -117,9 +117,9 @@ ob_end_flush();
                 <div class="col-md-12"><br>
                   <label style="text-align:center;"> Descripcion</label>
                   <textarea rows="10" id="textprinc" class="form-control textprinc">'.$response_desti[2].'</textarea> 
-                </div>
-               </form>
+                </div> 
               </div>
+            </form>
            </div>
            <div id="mostrar_si_upda"></div>
           </div>';
@@ -154,8 +154,8 @@ ob_end_flush();
           }else{
              $var = '
             <div class="row" id="row_'.$response_lugar[0].'">
+             <form enctype="multipart/form-data" method="post">
               <div class="panel panel-default">
-               <form enctype="multipart/form-data" method="post">\
                 <div class="panel-heading">
                   <a href="#" id='.$response_lugar[0].' class="btn btn-danger" style="margin-left:0px;"><span class="glyphicon glyphicon-remove"></span></a>
                 </div>
@@ -170,9 +170,9 @@ ob_end_flush();
                       '.$response_lugar[3].'
                     </textarea>
                   </div>
-                </div>
-               </form>
+                </div>  
               </div>
+             </form>
             </div>';
           }
         }
@@ -296,7 +296,7 @@ ob_end_flush();
               <input id="input-id" type="file" class="file" data-preview-file-type="text">\
             </div>\
             <div class="col-md-7 col-sm-7 col-xs-12 col-lg-7">\
-             <input type="text" placeholder="Titulo" class="form-control titu_new" >\
+             <input type="text" placeholder="Titulo" class="form-control titu_new">\
              <input type="text" placeholder="Sub titulo" class="form-control subti_new" >\
              <textarea  rows="10" class="form-control text_new"></textarea>\
             </div>\
@@ -310,7 +310,7 @@ ob_end_flush();
     event.preventDefault();
     var id = $(this).attr('id');
     $.ajax({
-      dataType:"json",
+      contentType: "json",
       type:"post",
       url:"controller/Recibe_by_ajax.php",
       data:{"delete_subdestino":id} 
@@ -323,6 +323,7 @@ ob_end_flush();
 
   $("#btn_actualizar").click(function(event){
     event.preventDefault();
+    var other_data = $('form').serializeArray();
     var new_info_cant = $(".new_vent").length; 
     var form   = new FormData();
     var destin = $("#inp_dest").val();
@@ -330,11 +331,10 @@ ob_end_flush();
     var pais   = $("#slt_pai").val();
     var preci  = $("#txt_prec").val();
     var texto  = $("#textprinc").val();
-    var foto   = $("#foto_new")[0].files[0];
+    var foto   = $("#foto_new").files;
     $.ajax({
-      dataType:"json",
       type:"post",
-      contentType: false,
+      contentType: "json",
       processData: false,
       url:"controller/Recibe_by_ajax.php",     
       data:{"id":id_destin,"txt_lugar":lugar,"slt_pai":pais,"txt_prec":preci,"txt_area":texto,"inp_file":foto},
@@ -348,11 +348,12 @@ ob_end_flush();
       }
     });
 
-    for(var j = 0;j <= new_info_cant;j++){
+    // los subdestinos nuevos //
+    for(var j = 0;j < new_info_cant;j++){
       var title = $(".titu_new").eq(j).val();
       var subti_new =  $(".subti_new").eq(j).val();
       var text_new = $(".text_new").eq(j).val();
-      var foto = $(".file").eq(j)[0].files[0];
+      var foto = $(".file").eq(j).files;
       form.append("title_new",title); 
       form.append("subti_new",subti_new); 
       form.append("text_new",text_new);
@@ -361,7 +362,7 @@ ob_end_flush();
       $.ajax({
         url: 'controller/Recibe_by_ajax.php',
         data:form,
-        contentType: false,
+        contentType: "json",
         processData: false,
         success:function(data){
           console.log(data);
@@ -370,12 +371,13 @@ ob_end_flush();
           }else{
             $('<div class="alert alert-danger" role="alert">Problemas al insertar actualizacion</div>').appendTo($("#pan_new_"+id));
           }
-        
         }
       });
     }
-    var cant = $(".textprinc").length;
-    for(var i = 0;i <= cant;i++){
+
+    // subdestinos existentes para actualizar
+    var cant = $(".textarea").length;
+    for(var i = 0;i < cant;i++){
       var id = $(".title").eq(i).attr('id');
       var title = $(".title").eq(i).val();
       var subti = $(".subtit").eq(i).val();
@@ -388,7 +390,7 @@ ob_end_flush();
       $.ajax({
         url: 'controller/Recibe_by_ajax.php',
         data:fd,
-        contentType: false,
+        contentType: "json",
         processData: false,
         success:function(data){
           console.log(data);
@@ -397,11 +399,9 @@ ob_end_flush();
           }else{
             $('<div class="alert alert-danger" role="alert">Problemas en la actualizacion</div>').appendTo($("#pan_"+id));
           }
-          
         }
       });
     }
-    alert("Enviado");
   });
 
   $(document).on('click',".btn_delete",function(){

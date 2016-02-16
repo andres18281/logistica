@@ -67,7 +67,7 @@ ob_end_flush();
             <div class="panel panel-default">
              <form enctype="multipart/form-data" method="post">
              <div class="panel-body"> 
-               <div class="jumbotron" style="background-image: url(img/'.$response_desti[4].'); background-repeat: no-repeat;"></div>
+               <div class="jumbotron" style="background-image: url(img/'.$response_desti[3].'); background-repeat: no-repeat;"></div>
                 <div class="row">
                  <div class="col-md-6">
                   <div class="panel panel-default">
@@ -90,14 +90,6 @@ ob_end_flush();
                   <div class="col-md-6">
                     <div class="panel panel-default">
                       <div class="panel-body">
-                        <label>Lugar</label>
-                        <input type="text" id="txt_lugar" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="panel panel-default">
-                      <div class="panel-body">
                         <label>Pais</label>
                         <select class="form-control" id="slt_pai">
                           <option></option>
@@ -109,15 +101,15 @@ ob_end_flush();
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                        <label>Precio</label>
+                        <input type="text" id="txt_prec" class="form-control" value='.$response_desti[5].'>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-12">
-                  <label>Precio</label>
-                  <input type="text" id="txt_prec" class="form-control">
-                </div>
-                <div class="col-md-12"><br>
-                  <label style="text-align:center;"> Descripcion</label>
-                  <textarea rows="10" id="textprinc" class="form-control textprinc">'.$response_desti[2].'</textarea> 
-                </div> 
               </div>
             </form>
            </div>
@@ -135,7 +127,7 @@ ob_end_flush();
                 <div id="pan_'.$val[0].'"></div>
               </div>
               <div class="panel-body">
-               <form enctype="multipart/form-data" method="post">\
+               <form enctype="multipart/form-data" method="post">
                 <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">
                   <img class="thumbnail" style="width:400px;height:auto;" src="img/'.$val[4].'"/>
                 </div>    
@@ -245,11 +237,13 @@ ob_end_flush();
 					<div class="col-md-12">
             <div id="destin_new"></div>
             <?php 
-             if(isset($var)){
+             if(isset($var) ){
               if(count($var) > 1){
                foreach($var as $val){
                 echo $val; 
                }
+              }else{
+                echo $var;
               }
              }
             ?>
@@ -286,14 +280,14 @@ ob_end_flush();
         '<div class="row new_vent" >\
          <div class="panel panel-default">\
           <div class="panel-heading">\
-            <a href="#" class="btn btn-danger btn_delete" style="margin-left:0px;"><span class="glyphicon glyphicon-remove"></span></a>\
+            <a href="#" class="btn btn-danger btn_delete " style="margin-left:0px;"><span class="glyphicon glyphicon-remove"></span></a>\
             <div id="pan_new_'+cont_new_panel+'"></div>\
           </div>\
           <div class="panel-body">\
            <form enctype="multipart/form-data" method="post">\
             <div class="col-md-5 col-sm-5 col-xs-12 col-lg-5">\
               <label class="control-label">Seleccionar Foto</label>\
-              <input id="input-id" type="file" class="file" data-preview-file-type="text">\
+              <input id="input-id_'+cont_new_panel+'" type="file" class="file_new" data-preview-file-type="text">\
             </div>\
             <div class="col-md-7 col-sm-7 col-xs-12 col-lg-7">\
              <input type="text" placeholder="Titulo" class="form-control titu_new">\
@@ -309,35 +303,43 @@ ob_end_flush();
   $(document).on('click',".btn-danger",function(event){
     event.preventDefault();
     var id = $(this).attr('id');
+    var form = new FormData();
+    form.append("delete_subdestino",id);
     $.ajax({
-      contentType: "json",
+      contentType:false,
+      processData: false,
       type:"post",
       url:"controller/Recibe_by_ajax.php",
-      data:{"delete_subdestino":id} 
+      data:form,
     }).done(function(data){
+      console.log(data);
       if(data.exito != ""){
-        $('#row_'+id).slideToggle( "slow");
+        $('#row_'+id).slideToggle("slow");
       }
     });
   });
 
   $("#btn_actualizar").click(function(event){
     event.preventDefault();
-    var other_data = $('form').serializeArray();
     var new_info_cant = $(".new_vent").length; 
-    var form   = new FormData();
     var destin = $("#inp_dest").val();
-    var lugar  = $("#txt_lugar").val();
     var pais   = $("#slt_pai").val();
     var preci  = $("#txt_prec").val();
     var texto  = $("#textprinc").val();
-    var foto   = $("#foto_new").files;
+    var foto   = $("#foto_new")[0].files[0];
+    var form_up = new FormData();
+    form_up.append("id",id_destin);
+    form_up.append("txt_lugar",destin);
+    form_up.append("slt_pai",pais);
+    form_up.append("txt_prec",preci);
+    form_up.append("txt_area",texto);
+    form_up.append("inp_file",foto);
     $.ajax({
       type:"post",
-      contentType: "json",
+      contentType: false,
       processData: false,
       url:"controller/Recibe_by_ajax.php",     
-      data:{"id":id_destin,"txt_lugar":lugar,"slt_pai":pais,"txt_prec":preci,"txt_area":texto,"inp_file":foto},
+      data:form_up,
       success:function(data){
         console.log(data);
         if(data.respon == true){
@@ -349,21 +351,24 @@ ob_end_flush();
     });
 
     // los subdestinos nuevos //
+    var form   = new FormData();
     for(var j = 0;j < new_info_cant;j++){
       var title = $(".titu_new").eq(j).val();
       var subti_new =  $(".subti_new").eq(j).val();
       var text_new = $(".text_new").eq(j).val();
-      var foto = $(".file").eq(j).files;
+      var foto = $('.file_new')[j].files[0]; 
       form.append("title_new",title); 
       form.append("subti_new",subti_new); 
       form.append("text_new",text_new);
       form.append("foto",foto);
       form.append("id",id_destin);
+      
       $.ajax({
         url: 'controller/Recibe_by_ajax.php',
         data:form,
-        contentType: "json",
+        contentType: false,
         processData: false,
+        type:"post",
         success:function(data){
           console.log(data);
           if(data.exito != null){
@@ -390,10 +395,10 @@ ob_end_flush();
       $.ajax({
         url: 'controller/Recibe_by_ajax.php',
         data:fd,
-        contentType: "json",
+        contentType: false,
         processData: false,
-        success:function(data){
-          console.log(data);
+        type:"post",
+        success:function(data){  
           if(data.exito != null){
            $('<div class="alert alert-success" role="alert">Datos actualizado con exito</div>').appendTo($("#pan_"+id));
           }else{
@@ -403,6 +408,7 @@ ob_end_flush();
       });
     }
   });
+
 
   $(document).on('click',".btn_delete",function(){
    var panel = $(this).index(".btn_delete");

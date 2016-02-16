@@ -8,7 +8,7 @@
   if($_SESSION["perfil"] != "qwqwsa123423@!"){ // de operaciones
       header("location: index.php");
   }
-   echo '<script> var email_ = "'.$_SESSION["email"].'";</script>';
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -640,8 +640,7 @@ ul.c-controls li a:hover {
 		<div class="col-md-8 col-sm-8 col-xs-12">
 		  <div class="container-fluid">
 			<div class="panel panel-default">
-				<div class="panel-heading">
-				</div>
+				
 				<div id="contenido" class="panel-body">
 				</div>
 			</div>
@@ -1029,3 +1028,7 @@ $(document).ready(function(){
     <!-- /.modal-content --> 
   </div>
 </div>  
+
+<?php
+    echo '<script> var email_ = "'.$_SESSION["email"].'";</script>';
+?>

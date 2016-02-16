@@ -10,7 +10,6 @@ session_start();
 ob_end_flush();
   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php";
   include_once $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Lugares.php"; 
-  echo $_SERVER['DOCUMENT_ROOT']."/logistica/Model/Destinos.php"; 
 ?>
 
 <!DOCTYPE html>
@@ -59,12 +58,16 @@ ob_end_flush();
                 <div class="jumbotron" style="background-image: url(img/'.$response_desti[4].');background-size: 100% 100%; background-repeat: no-repeat;
     background-size: length;">
                 </div>
-                <h2 style="text-align:center">
+                <div class="col-md-12">
+                 <h2>
                   '.$response_desti[1].' 
-                </h2>
-                <p style="text-align:center">
+                 </h2>
+                </div>
+                <div class="col-md-12">
+                 <p style="text-align:center">
                    '.$response_desti[2].' 
-                </p>
+                 </p>
+                </div>
             </div>';
         }
         if(isset($response_lugar)){
@@ -76,15 +79,21 @@ ob_end_flush();
                <img class="thumbnail" style="width:400px;height:auto;" src="img/'.$val[4].'"/>
               </div>    
               <div class="col-md-7 col-sm-12 col-xs-12 col-lg-7">
-               <h2>
-                '.$val[1].'
-               </h2>
-               <h3>
-                '.$val[2].'
-               </h3>
-               <p >
-                 '.$val[3].'
-               </p>
+               <div class="col-md-12">
+                 <h2>
+                  '.$val[1].'
+                 </h2>
+               </div>
+               <div class="col-md-12">
+                <h3>
+                 '.$val[2].'
+                </h3>
+               </div>
+               <div class="col-md-12">
+                 <p>
+                   '.$val[3].'
+                 </p>
+               </div>
               </div>
             </div>';
            }
@@ -101,11 +110,13 @@ ob_end_flush();
                <h3 class="text-info ">
                 '.$response_lugar[2].'
                </h3>
+               <div class="col-md-12">
                 <p>
                  <small>
                  '.$response_lugar[3].'
-                </small>
-               </p>
+                 </small>
+                </p>
+               </div>
               </div>
             </div>';
           }

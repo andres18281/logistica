@@ -1,8 +1,12 @@
 <?php
  include_once "../Model/Destinos.php";
  include_once "conectar.php";  
+ include_once "../Model/Lugares.php";
  // agrega destinos a la base de datos
- $url = "../img";
+ $url = "../img/";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
  if(isset($_POST['pais'],$_POST['lugar'],$_POST['descrip'],$_POST['precio'],$_POST['fecha'])){
    $pais = $_POST['pais'];
    $nombre_des = $_POST['lugar'];
@@ -31,6 +35,8 @@
    }
  }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
  if(isset($_POST['id'],$_POST["txt_title2"],$_POST["txt_subtitle2"])){
    include_once "../Model/Lugares.php";
    $title = $_POST["txt_title2"];
@@ -51,10 +57,11 @@
       $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,time().$nomb);   
     }
    }else{
-     $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,$nomb);  
+     $response = $lugar->Set_lugares($id,$title,$subtitle,$descrip,time().$nomb);  
    }
    echo json_encode($response);
  }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  // Lista todos los destinos creados
  if(isset($_POST["listar"]) and $_POST["listar"] =="ok"){
@@ -73,6 +80,8 @@
  	    echo json_encode($array);
  	  }
  }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  // borrar destino
  if(isset($_POST['eliminate'])){
@@ -102,6 +111,8 @@
    echo json_encode($dato);
  }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
  // devuelve informacion de destino
  if(isset($_POST['id_destino'])){
    $id = $_POST['id_destino'];
@@ -117,6 +128,8 @@
     echo null;
    }
  }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
  if(isset($_POST['imgen'])){
    $conexion = new Conectar();
@@ -134,9 +147,10 @@
    echo json_encode($res); 
  }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
  // actualizar destinos 
  if(isset($_POST['id'],$_POST['slt_pai'],$_POST['txt_lugar'],$_POST['txt_prec'],$_POST['txt_area'])){
-   var_dump($_POST);
    $destino = new Destinos();
    $id = $_POST['id'];
    $pais = $_POST['slt_pai'];
@@ -145,34 +159,52 @@
    $descrip = $_POST['txt_area'];
    $array_nombre = array();
    $respon = $destino->Update_destino($id,$lugar,$pais,$precio,$descrip);
-   if(!isset($respon['error']) and isset($_FILES['inp_file'])){
-     $cont_caract = strlen($_FILES['inp_file']);
-      if($cont_caract > 40){
-        $nomb = substr($_FILES['inp_file'], 0,35);
-      }else{
-        $nomb = $_FILES['inp_file'];  
-      }
-     foreach($_FILES as $key=>$files){
-      if(move_uploaded_file($files['tmp_name'], $url.time().$nomb)){
-        array_push($array_nombre,$files);
-      }
+   if(!isset($respon['error'])) {
+    if(isset($_FILES['inp_file'])){
+     if(count($_FILES['inp_file']) > 1){ 
+        foreach($_FILES as $key=>$files){
+          $cont_caract = strlen($files['name']);
+          if($cont_caract > 40){
+            $nomb = substr($files['name'], 0,35);
+          }else{
+            $nomb = $files['name'];  
+          }
+          if(move_uploaded_file($files['tmp_name'], $url.time().$nomb)){
+            array_push($array_nombre,time().$files['name']);
+          }
+        }
+     }else if(count($_FILES['inp_file']) == 1){
+        $cont_caract = strlen($_FILES['inp_file']['name']);
+        if($cont_caract > 40){
+          $nomb = substr($_FILES['inp_file']['name'], 0,35);
+        }else{
+          $nomb = $_FILES['inp_file']['name'];  
+        }
+        if(move_uploaded_file($_FILES['tmp_name'], $url.time().$nomb)){
+            array_push($array_nombre,time().$_FILES['tmp_name']['name']);
+        }
      }
-     if(isset($array_nombre)){
-      if(count($array_nombre) >= 2){
-        $respon = $destino->Update_foto($id,time().$array_nombre[0]['name'],time().$array_nombre[1]['name']);
-      }else{
-         $respon = $destino->Update_foto($id,time().$array_nombre[0]['name'],null);
+      if(isset($array_nombre)){
+        if(count($array_nombre) >= 2){
+          $respon = $destino->Update_foto($id,$array_nombre[0],$array_nombre[1]);
+        }else if(count($array_nombre == 1)){
+           $respon = $destino->Update_foto($id,$array_nombre[0],null);
+        }
+        $data['respon'] = true;
       }
+    }else{
       $data['respon'] = true;
-     }
-   }elseif(!isset($respon['error'])){
-     $data['respon'] = true;
+    }
    }else{
-    $data['respon'] = false;
+      echo "no entra en files";
+     $data['respon'] = false;
    }
    echo json_encode($data);
  }
 
+
+/////////////////////////////////////////////////////////////////////////////////
+ 
  if(isset($_POST['list_client']) and $_POST['list_client'] == "ok"){
    include_once "../Model/Clientes.php";
    $cliente = new Clientes();
@@ -184,6 +216,7 @@
    }
  }
 
+/////////////////////////////////////////////////////////////////////////////////
 
  if(isset($_POST['delete_subdestino'])){
    $id = $_POST['delete_subdestino'];
@@ -191,7 +224,7 @@
    $conect = new Conectar();
    $sql = 'SELECT Foto 
            FROM lugares 
-           WHERE  Luga_Id ='.$id;
+           WHERE Luga_Id ='.$id;
    $img = $conect->consultas($sql);
    if(isset($img[0])){
     if(unlink('../img/'.$img[0])){
@@ -200,12 +233,14 @@
       $data['img'] = "no eliminado";
     }
    }
-   $data = $destino->delete_subdestino($id);
+  $data = $destino->delete_subdestino($id);
    echo json_encode($data);
  }
 
+//////////////////////////////////////////////////////////////////////////////////
+
+
   if(isset($_POST['title'],$_POST['subtitulo'],$_POST['texto'],$_POST['id'])){
-    var_dump($_POST);
      $conexion = new Conectar();
      $title = $_POST['title'];
      $subtitle = $_POST['subtitulo'];
@@ -216,14 +251,15 @@
                  Luga_sub_title = "'.$subtitle.'",
                  Luga_descri = "'.$texto.'"
                  WHERE Luga_Id = '.$id;
-     $data =  $conexion->update_query($dele_fotos);  
+     $data =  $conexion->update_query($sql);  
      echo json_encode($data);   
   }
-    
+
+///////////////////////////////////////////////////////////////////////////////////
+
 
   // inserta nuevos registros cuando un administrador añade nuevos subdestinos en la editacion
-  if(isset($_POST['title_new'],$_POST['subti_new'],$_POST['text_new'],$_FILES['foto'],$_POST['id'])){
-    var_dump($_POST);
+  if(isset($_POST['title_new'],$_POST['subti_new'],$_POST['text_new'],$_POST['id'],$_FILES['foto'])){
    // $foto;
     $lugar = new Lugares();
     $id = $_POST['id'];
@@ -238,11 +274,12 @@
      $nomb = $files['name'];  
     }
     if(isset($files)){
-      move_uploaded_file($files,$url.time().$nomb);
+      move_uploaded_file($files['tmp_name'],$url.time().$nomb);
     }else{
       $nomb = '';
     }
-    $lugar->Set_lugares($id,$title,$subtitle,$descrip,$nomb);
+    $data = $lugar->Set_lugares($id,$title,$subtitle,$descrip,time().$nomb);
+    echo json_encode($data);
   }
 
 ?>

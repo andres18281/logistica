@@ -110,6 +110,7 @@
       $sql = 'UPDATE fotos SET Foto1 = "'.$nombre1.'",
                                Foto2 = "'.$nombre2.'"
               WHERE id_desti = '.$id;
+              echo $sql;
       $response = parent::update_query($sql);
       return $response;
     }

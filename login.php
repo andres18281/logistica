@@ -156,6 +156,11 @@ Image credits: unsplash.com
 
 
 
+.centered-form .panel{
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
 
 
 
@@ -183,21 +188,22 @@ Image credits: unsplash.com
       </div>
       <div class="hero">
         <div class="row">
-        <div class="col-md-5 col-md-offset-3 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+        <div class="col-md-5 col-md-offset-3 col-xs-12" >
+            <div class="panel panel-default" >
+                <div class="panel-heading" >
                     <h3 class="panel-title">Acceder a tu cuenta</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" >
                     <form accept-charset="UTF-8" role="form" action="" method="POST">
-                    <fieldset>
-                        <div class="form-group">
+                    <fieldset >
+                        <div class="form-group" >
                             <input class="form-control" placeholder="E-mail" name="users_id" type="text">
                         </div>
                         <div class="form-group">
                             <input class="form-control" placeholder="Password" name="password" type="password" value="">
                         </div>
                         <div align="center"><a href="" id="idA_PWD_SwitchToOTC"><a href="restablecer_contraseña.html">¿No puedes acceder a tu cuenta?</a></div>
+                        <div align="center"><a href="" id="registrar" class="btn btn-danger btn-block" data-toggle="modal" data-target="#myModal">Registrarse</a>
                         <input class="btn btn-lg btn-success btn-block" name="btn_enviar" type="submit" value="Entrar">
                     </fieldset>
                     </form>
@@ -226,3 +232,109 @@ Image credits: unsplash.com
  }
 ob_end_flush();
 ?>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Registrarse</h4>
+      </div>
+      <div class="modal-body">
+           <div class="panel panel-default">
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="first_name" id="cedula" class="form-control  floatlabel" placeholder="Cedula">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                     <select id="pais" class="form-control">
+                       <option></option>
+                       <option value="1">Colombia</option>
+                       <option value="2">Panama</option>
+                       <option value="3">EEUU</option>
+                       <option value="4">España</option>
+                       <option value="5">Peru</option>
+                       <option value="6">Ecuador</option>
+                       <option value="7">Venezuela</option>
+                     </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="first_name" id="first_name" class="form-control  floatlabel" placeholder="Nombres">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="text" name="last_name" id="last_name" class="form-control " placeholder="Apellidos">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="email" name="email" id="email" class="form-control " placeholder="Email">
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password" id="password" class="form-control " placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                      <input type="password" name="password_confirmation" id="password_confirmation" class="form-control " placeholder="Confirm Password">
+                    </div>
+                  </div>
+                </div>
+                <button  class="btn btn-info btn-block" id="btn_registrar"> Registrar </button>
+                <button  class="btn btn-default btn-block"> Cerrar</button>
+           </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+ $(function(){
+  $("#btn_registrar").click(function(){
+    var cedu = $("#cedula").val();
+    var primer_nom = $("#first_name").val();
+    var second_nomb = $("#last_name").val();
+    var email = $("#email").val();
+    var pass = $("#password").val();
+    var pass2 = $("#password_confirmation").val(); 
+    var pais = $("#pais").val();
+    if(cedu != "" && primer_nom != "" && second_nomb != "" && email != "" && pass != "" && pais >0 && pais <= 7){
+      var form = new FormData();
+      form.append("id",cedu);
+      form.append("nombre",primer_nom);
+      form.append("apelli",second_nomb);
+      form.append("pais",pais);
+      form.append("correo",email);
+      form.append("pass",pass);
+      form.append("pass2",pass2);
+      if(pass == pass2){
+        $.ajax({
+          contentType:false,
+          processData: false,
+          type:"post",
+          url:"controller/Clientes.php",
+          data:form,
+          success:function(data){
+            if(data.exito != ""){
+               alert(data.exito);
+              window.location.reload();
+            }
+          }
+        });
+      }else{
+        alert("Contraseñas no coinciden");
+      }   
+    }else{
+      alert("Uno de los campos esta mal digitados, por favor digite todos los campos");
+    }
+  });
+ });
+</script>

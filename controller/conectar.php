@@ -4,7 +4,7 @@ class Conectar{
   public $mbd;
   function __construct(){
   	//$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=stra_logistica;port=3306', 'stra_comino', 'lavidaesbella123');
-  	$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=logistica_;port=3306', 'root', '');
+  	$this->mbd = new PDO('mysql:host=127.0.0.1;dbname=logistica_;port=3307', 'root', '');
   }
 
   function consultas($sql){
@@ -22,15 +22,17 @@ class Conectar{
   function inserta($tablas,$params = array()){
   	 $inserta = 'INSERT INTO `'.$tablas.'` (`'.implode('`, `',array_keys($params)).'`) VALUES ("' . implode('", "', $params) . '")';
   	 $sentencia = $this->mbd->prepare($inserta);
-  	 $sentencia->execute();
+  	 $dato = $sentencia->execute();
   	 $response = $sentencia->fetch(PDO::FETCH_ASSOC);
+     echo $inserta;
   	 if(isset($response)){
        $array = array("exito"=>"Insercion con exito",
-                     "last_cod_id"=>$response['product_id'],
+                     "last_cod_id"=>$this->mbd->lastInsertId(),
                      "mensaje"=>"Si inserto");
      }else{
-       $array = array("error"=>$response['errorInfo']);
+       $array = array("error"=>$this->mbd->errorInfo());
      }
+     return $array;
   }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
    public function update_query($query){

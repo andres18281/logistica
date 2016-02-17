@@ -24,12 +24,137 @@ ob_end_flush();
     <script src="js/btn_out_session.js"></script>
   	<link rel="stylesheet" href="css/stylo_sesion.css">
     <link rel="stylesheet" href="css/client.css">
-  	
+  	<style type="text/css">
+     .hero-spacer {
+    margin-top: 50px;
+}
+
+.hero-feature {
+    margin-bottom: 30px;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 3px 10px -2px rgba(0,0,0,.1);
+    border: 1px solid rgba(0,0,0,.1);
+}
+nav ul{
+    list-style: none;
+    position: relative;
+    float: right;
+    margin-right: 100px;
+    display: inline-table;
+}
+nav ul li{
+    float: left;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+nav ul li:hover{
+    background: rgba(0,0,0,.15);
+}
+nav ul li:hover > ul{
+    display: block;
+}
+nav ul li{
+    float: left;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+nav ul li a{
+    display: block; 
+    padding: 20px 20px;
+    color: #222; 
+    font-size: 1em;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+nav ul ul{
+    display: none;
+    background: #fff;
+    position: absolute; 
+    top: 100%;
+    box-shadow: -3px 3px 10px -2px rgba(0,0,0,.1);
+    border: 1px solid rgba(0,0,0,.1);
+}
+nav ul ul li{
+    float: none; position: relative;
+}
+nav ul ul li a {
+    padding: 15px 30px; 
+    border-bottom: 1px solid rgba(0,0,0,.05);
+}
+nav ul ul ul {
+    position: absolute; 
+    left: 100%; 
+    top:0;
+}    
+nav img {
+    width: 62px;
+    padding-left: 7px;
+}
+.jumbotron {
+    height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('http://wallpaperandbackground.com/wp-content/uploads/2014/02/Unique-Beach-Palm-Tree.jpg');
+
+}
+.jumbotron h1{
+    color: #fff;
+    font-size: 48px;
+}
+.jumbotron p{
+    color: #fff;
+}
+.movimiento {
+-webkit-animation: cssAnimation 20.4569s 1 ease;
+-moz-animation: cssAnimation 20.4569s 1 ease;
+-o-animation: cssAnimation 20.4569s 1 ease;
+}
+
+@-webkit-keyframes cssAnimation {
+from { -webkit-transform: rotate(0deg) scale(0.946) skew(-180deg) translate(300px); }
+to { -webkit-transform: rotate(0deg) scale(0.97) skew(-180deg) translate(-54px); }
+}
+@-moz-keyframes cssAnimation {
+from { -moz-transform: rotate(0deg) scale(0.946) skew(-180deg) translate(300px); }
+to { -moz-transform: rotate(0deg) scale(0.97) skew(-180deg) translate(-54px); }
+}
+@-o-keyframes cssAnimation {
+from { -o-transform: rotate(0deg) scale(0.946) skew(-180deg) translate(300px); }
+to { -o-transform: rotate(0deg) scale(0.97) skew(-180deg) translate(-54px); }
+}
+
+.movimiento:hover{
+transform: rotate(0deg) scale(1.5) skew(1deg) translate(0px);
+-webkit-transform: rotate(0deg) scale(1.5) skew(1deg) translate(0px);
+-moz-transform: rotate(0deg) scale(1.5) skew(1deg) translate(0px);
+-o-transform: rotate(0deg) scale(1.5) skew(1deg) translate(0px);
+-ms-transform: rotate(0deg) scale(1.5) skew(1deg) translate(0px);
+
+}
+
+    </style>
 
 
 
 </head>
-<body>
+
+<body onload="mostrar()">
+<div id="mascara" style="width: 100%; height:100%; background-color:rgb(0,0,0); position: absolute; z-index:100"></div>
  <div class="container-fluid">
   <nav class="navbar navbar-default">
     <div class="navbar-header">
@@ -101,6 +226,30 @@ ob_end_flush();
 		  <span class="glyphicon arrow-right glyphicon-chevron-up"></span>
 		</h1>
 	</div>
+    <div class="col-md-8 col-lg-8 col-xs-12 col-md-offset-2 col-lg-offset-2" id="menu_destin"> 
+      <header class="jumbotron hero-spacer">
+            <h1>Bienvenido</h1>
+            <p>SIentase libre de escoger su destinos</p>
+            <p><a href="#" class="btn btn-primary btn-large">Nuestros productos</a>
+            </p>
+       </header>
+
+        <hr>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Top de Destinos</h2>
+            </div>
+        </div>
+      
+
+        <!-- Page Features -->
+        <div class="row text-center" id="pais_destin">
+            
+        </div>
+    </div>
+
     <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xs-10 col-sm-10 col-md-8 col-lg-8" id="contenedor_info" style="display:none;">
  	  <div id="post" class="well blog" style="margin-top:10px;">
 	   
@@ -212,6 +361,7 @@ ob_end_flush();
 
 
     $("#btn_search").click(function(){
+      $("#menu_destin").css('display','none');
        var valor = $("#focusedInput").val();
        $("#dat_princ").html("");
        $("#carru").html("");
@@ -278,6 +428,7 @@ ob_end_flush();
 
 $(function(){
  $(".btn_pais_des").click(function(){
+  $("#menu_destin").css('display','none');
         $.ajax({
           dataType:"json",
           type:"post",
@@ -293,6 +444,7 @@ $(function(){
         });
    });
   $("#show_destin").click(function(){
+    $("#menu_destin").css('display','none');
     $("#destinos").html("");
      $.ajax({
         dataType:"json",
@@ -312,6 +464,29 @@ $(function(){
        });
   });
   
+  setTimeout(function(){
+    $.ajax({
+      dataType:"json",
+      type:"post",
+      data:{"paises":"all"},
+      url:"controller/Menus_clientes.php",
+      success:function(data){
+        $.each(data,function(key,value){
+          var dest = 
+              '<div class="col-md-3 col-sm-6 hero-feature movimiento">\
+                <div class="thumbnail" style="background-color: rgba(96, 139, 196, 0.7);">\
+                  <div class="caption">\
+                    <h4>'+value.Nombre+'</h4>\
+                      <p><a href="#" id='+value.pais+' class="btn btn-danger pais">Ver mas</a></p>\
+                  </div>\
+                </div>\
+              </div>';
+          $(dest).appendTo($("#pais_destin"));
+        });
+      }
+    });
+
+  },1000);
 
 
  setInterval(function(){
@@ -377,6 +552,7 @@ $(function(){
    }, 5000);
 });
  $(document).on('click','.destin',function(){
+   $("#menu_destin").css('display','none');
     $("#carru").html("");
  	var id = $(this).attr('id');
  	$.ajax({
@@ -450,7 +626,8 @@ $(function(){
   
 
   $(document).on('click',"#btn_send",function(){
-	var text = $("#text_chat").val();
+    $("#menu_destin").css('display','none');
+	 var text = $("#text_chat").val();
 	$("#text_chat").val("");
 	$.ajax({
 	  dataType:"json",
@@ -474,6 +651,8 @@ $(function(){
   });
 
   $(document).on('click','.pais',function(){
+    
+     $("#menu_destin").css('display','none');
      $("#carru").html("");
      $("#dat_princ").html("");
      $("#contenedor_info").css("display","block");
@@ -530,6 +709,9 @@ $(function(){
         }
      });
     });
+  function mostrar(){
+    $('#mascara').css('display','none');
+  }
 </script>
 
 <!--

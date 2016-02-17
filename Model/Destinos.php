@@ -17,7 +17,6 @@
   					         "precio"=>$precio
   					        );
   		$response = parent::inserta('destinos',$array);
-      var_dump($response);
   		return $response;
   	}
     

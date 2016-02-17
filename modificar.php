@@ -143,7 +143,7 @@ ob_end_flush();
              </div>
             </div>';
            }
-          }else{
+          }else if(isset($response_lugar[0])){
              $var = '
             <div class="row" id="row_'.$response_lugar[0].'">
              <form enctype="multipart/form-data" method="post">
@@ -244,6 +244,7 @@ ob_end_flush();
                }
               }else{
                 echo $var;
+                
               }
              }
             ?>
@@ -251,9 +252,11 @@ ob_end_flush();
           </div>
 				</div>
 			 </div>
-      <div class="row">
+      <div class="col-md-4 col-md-offset-8" style="margin-bottom: 20px;">
         <button id="btn_actualizar" class="btn btn-success btn-block">Actualizacion</button>
       </div> 
+      <div class="container">
+      </div>
 		 
 		
 	</div>

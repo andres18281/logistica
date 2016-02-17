@@ -14,7 +14,7 @@
    $precio = $_POST['precio'];
    $destino = new Destinos();
    $response = $destino->Set_destino($nombre_des,$pais,$precio,$descri);
-   $data['last_id'] = $response['last_cod_id'];
+   $data['last_cod_id'] = $response['last_cod_id'];
    if(isset($response['exito'])){
     $array_nombre = array();
     $err = array();
@@ -57,7 +57,6 @@
      }else{
      	$respon = $destino->Set_fotos($response['last_cod_id'],$array_nombre[0],null);
      }
-     $data['respon'] = $respon;
      $data['error'] = $err;
     }   
    }

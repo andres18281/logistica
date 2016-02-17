@@ -552,6 +552,18 @@ ul.c-controls li a:hover {
     font-size: 1.25em;
 }
 
+/* modal de modificacion de datos */ 
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #c4e17f;
+  border-radius: 5px;
+  background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+  background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
   	</style>
 </head>
 
@@ -604,7 +616,7 @@ ul.c-controls li a:hover {
                </div>
                <div class="col-lg-8 col-xs-12">
                 <p>
-                  <a href="#" id="log_out" class="btn btn-danger btn-block">Cerrar Sesion</a>
+                  <a href="#"  class="btn btn-danger btn-block log_out">Cerrar Sesion</a>
                 </p>
                </div>
               </div>
@@ -655,6 +667,64 @@ ul.c-controls li a:hover {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+      </div>
+      <div class="modal-body">    
+        <div class="row">
+          <div class="col-xs-9 col-sm-9 col-md-9 col-sm-offset-2 col-md-offset-2">
+            
+              <h2>Modificar Usuario</h2>
+              <hr class="colorgraph">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <input type="text" id="cedu" class="form-control input-lg" placeholder="Cedula" tabindex="1">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <input type="text"  id="nomb" class="form-control input-lg" placeholder="Nombre " tabindex="2">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <input type="text"  id="apelli" class="form-control input-lg" placeholder="Apellido " tabindex="2">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <input type="text"  id="corre" class="form-control input-lg" placeholder="Correo " tabindex="2">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <input type="password" id="contra1" class="form-control input-lg" placeholder="Contraseña " tabindex="2">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <input type="password" id="contra2" class="form-control input-lg" placeholder="confirmacion Contraseña " tabindex="2">
+                    </div>
+                </div>
+              </div>
+              
+           
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" >
+       <button class="btn btn-success" id="btn_modifi_send" data-dismiss="modal">Modificar</button>
+       <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>Cancelar</button>
+      </div>
+    </div>
+    <!-- /.modal-content --> 
+  </div>
+</div>  
+
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+   <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
         <h4 class="modal-title custom_align" id="Heading">Eliminar Destino</h4>
       </div>
       <div class="modal-body">
@@ -668,66 +738,30 @@ ul.c-controls li a:hover {
     <!-- /.modal-content --> 
   </div>
 </div>  
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+
+
+
+<div class="modal fade" id="Modalelim" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modificar</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+        <h4 class="modal-title custom_align" id="Heading">Eliminar Destino</h4>
       </div>
       <div class="modal-body">
-       <form id="form_update" method="POST" enctype="multipart/form-data">
-        <div class="container-fluid">
-         <div class="col-md-6">
-          <label>Pais</label>
-           <select class="form-control" id="slt_pai">
-            <option></option>
-          	<option value="1">COLOMBIA</option>
-   			<option value="2">PANAMA</option>
-    		<option value="3">EEUU</option>
-    		<option value="4">ESPANA</option>
-           </select>
-         </div>
-         <div class="col-md-6">
-           <label>Lugar</label>
-           <input type="text" id="txt_lugar"class="form-control">
-         </div>
-         <div class="col-md-12">
-          <label>Precio</label>
-          <input type="text" id="txt_prec" class="form-control">
-         </div>
-         <div class="col-md-12"> 
-          <label> Descripcion</label>
-          <textarea id="txt_area" class="form-control" rows="7"></textarea>
-         </div>
-         <div class="col-md-12">
-  			<div class="col-xs-6 col-md-6">
-    		  <button  class="glyphicon glyphicon-remove btn btn-danger" id="btn_dele_foto" data-toggle="tooltip" data-placement="left" title="Eliminar foto"></button>
-    		  <a href="#" class="thumbnail" id="thumbnail1">
-      			<img src="" id="img1">
-    		  </a>
-  			</div>
-  			<div class="col-xs-6 col-md-6">
-    		  <button class="glyphicon glyphicon-remove btn btn-danger" id="btn_dele_foto2" data-toggle="tooltip" data-placement="left" title="Eliminar foto"></button>
-    		  <a href="#" class="thumbnail" id="thumbnail2">
-      			<img src="" id="img2">
-    		  </a>
-  			</div>
-		 </div>
-		 <div class="col-md-12">
-           <label>Imagen</label>
-           <input id="inp_files_3" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
-         </div>
-        </div>
-     </form>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info actu_all_des" >Actualizar Subdestinos</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" id="btn_update_desti">Actualizar</button>
+        <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Desea el cliente seleccionado?</div> 
       </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_elimnate_client"><span class="glyphicon glyphicon-ok-sign"></span>Si</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>No</button>
+      </div>  
+    </div>
+    <div class="modal-footer">       
     </div>
   </div>
 </div>
+
 
 
 
@@ -822,7 +856,6 @@ $(document).ready(function(){
 
     // cada 5 segundos envia una peticion verificando si hay alguien que halla preguntado
 	setInterval(function(){
-	 
 	 $("#contact-list").html("");	
    	  $.ajax({
    	   dataType:"json",
@@ -831,7 +864,7 @@ $(document).ready(function(){
    	   data:{'id_consult_admin':email_}
    	  }).done(function(data){
    	    $(".ventana_chat").draggable();
-   	    if(data != null){
+   	    if(data != false){
    	     if(data[0] instanceof Array){
    	     var cant = data.length;
    	  	 $("#msn_badge").text(cant);
@@ -855,13 +888,19 @@ $(document).ready(function(){
            '<li class="list-group-item usuario_preg" id='+id+'>\
              <div class="container-fluid" id="id_msn_'+data[1]+'">\
                 <div class="col-xs-9 col-md-9 col-sm-9 ">\
-                  <span class="id_email" id='+data[1]+'>'+data[0]+'</span><br/>\
+                  <span class="id_email" id='+data[1]+'><b>'+data[0]+'</b></span><br/>\
                 </div>\
                 <div class="clearfix"></div>\
              </div>\
             </li>';
             $(contact).appendTo($("#contact-list"));
          }
+        }else{
+           var contact =  
+           '<li class="list-group-item usuario_preg">\
+                  <span><small>Sin mensajes</small></span><br/>\
+            </li>';
+            $(contact).appendTo($("#contact-list")); 
         }
       });	  	
      }, 5000);
@@ -1007,28 +1046,7 @@ $(document).ready(function(){
 });
 
 </script>
-
 <script src="js/jquery-ui-1.10.0.custom.min.js"></script>
-
-<div class="modal fade" id="myModalClien_edi" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-   <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-        <h4 class="modal-title custom_align" id="Heading">Eliminar Destino</h4>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Desea eliminar el destino seleccionado?</div> 
-      </div>
-      <div class="modal-footer ">
-       <button type="button" class="btn btn-success" data-dismiss="modal" id="btn_eliminate"><span class="glyphicon glyphicon-ok-sign"></span>Si</button>
-       <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>No</button>
-      </div>
-    </div>
-    <!-- /.modal-content --> 
-  </div>
-</div>  
-
 <?php
     echo '<script> var email_ = "'.$_SESSION["email"].'";</script>';
 ?>

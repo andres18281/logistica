@@ -55,8 +55,7 @@ ob_end_flush();
         if(isset($response_desti)){
           $cabecera = '
             <div class="container">
-                <div class="jumbotron" style="background-image: url(img/'.$response_desti[4].');background-size: 100% 100%; background-repeat: no-repeat;
-    background-size: length;">
+                <div class="jumbotron" style="background-image: url(img/'.$response_desti[3].');background-size: 100% 100%; background-repeat: no-repeat;background-size: length;">
                 </div>
                 <div class="col-md-12">
                  <h2>
@@ -73,7 +72,7 @@ ob_end_flush();
         if(isset($response_lugar)){
           if(is_array($response_lugar[0])){
            foreach($response_lugar as $key=>$val){
-            $var[] = '<br>
+            $var[] = '<br><br>
             <div class="row">
               <div class="col-md-5 col-sm-12 col-xs-12 col-lg-5">
                <img class="thumbnail" style="width:400px;height:auto;" src="img/'.$val[4].'"/>
@@ -97,25 +96,29 @@ ob_end_flush();
               </div>
             </div>';
            }
-          }else{
-             $var = '
-            <div class="col-md-12">
-              <div class="col-md-4">
-               <img class="thumbnail"  style="width:400px;height:auto;" src="img/'.$response_lugar[4].'"/>
+          }else if(isset($response_lugar)){
+             $var = '<br><br>
+            <div class="row">
+              <div class="col-md-5 col-sm-12 col-xs-12 col-lg-5">
+               <img class="thumbnail" style="width:400px;height:auto;" src="img/'.$response_lugar[4].'"/>
               </div>
-              <div class="col-md-8">
-               <h2 class="text-primary" style="margin-top:0;">
-                '.$response_lugar[1].'
-               </h2>
-               <h3 class="text-info ">
-                '.$response_lugar[2].'
-               </h3>
+              <div class="col-md-7 col-sm-12 col-xs-12 col-lg-7">
                <div class="col-md-12">
-                <p>
-                 <small>
-                 '.$response_lugar[3].'
-                 </small>
-                </p>
+                 <h2>
+                  '.$response_lugar[1].'
+                 </h2>
+               </div>
+               <div class="col-md-12">
+                <h3>
+                  '.$response_lugar[2].'
+                </h3>
+               </div>
+               <div class="col-md-12">
+                  <p>
+                    <small>
+                      '.$response_lugar[3].'
+                    </small>
+                  </p>
                </div>
               </div>
             </div>';

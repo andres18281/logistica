@@ -7,32 +7,61 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
- if(isset($_POST['pais'],$_POST['lugar'],$_POST['descrip'],$_POST['precio'],$_POST['fecha'])){
+ if(isset($_POST['pais'],$_POST['lugar'],$_POST['descrip'],$_POST['precio'])){
    $pais = $_POST['pais'];
    $nombre_des = $_POST['lugar'];
    $descri = $_POST['descrip'];
    $precio = $_POST['precio'];
-   $fecha = $_POST['fecha'];
    $destino = new Destinos();
-   $response = $destino->Set_destino($nombre_des,$pais,$precio,$fecha,$descri);
+   $response = $destino->Set_destino($nombre_des,$pais,$precio,$descri);
+   $data['last_id'] = $response['last_cod_id'];
    if(isset($response['exito'])){
     $array_nombre = array();
-    foreach($_FILES as $key=>$files){
-      if(move_uploaded_file($files['tmp_name'], $url.time().$files['name'])){
-      	array_push($array_nombre,$files);
+    $err = array();
+    if(isset($_FILES['inp_file'])){
+      if(count($_FILES['inp_file'] > 1)){
+        foreach($_FILES as $key=>$files){
+          $cont_caract = strlen($files['name']);
+          if($cont_caract > 40){
+            $nomb = substr($files['name'], 0,35);
+          }else{
+            $nomb = $files['name'];  
+          }
+          try{
+            move_uploaded_file($files['tmp_name'], $url.time().$nomb);
+            array_push($array_nombre,time().$nomb);
+            array_push($err,"no_error");
+          }catch(Exception $ext ){
+            array_push($err,$ext);
+          }
+        }
+      }else if(count($_FILES['inp_file'] == 1)){
+        $cont_caract = strlen($_FILES['inp_file']['name']);
+        if($cont_caract > 40){
+          $nomb = substr($_FILES['inp_file']['name'], 0,35);
+        }else{
+          $nomb = $_FILES['inp_file']['name'];  
+        }
+        try{ 
+           move_uploaded_file($_FILES['inp_file']['tmp_name'], $url.time().$nomb);
+           array_push($array_nombre,time().$nomb);
+           array_push($err,"no_error");
+        }catch(Exception $ext){
+          array_push($err,$ext);
+        }
       }
-    }
+    } 
     if(isset($array_nombre)){
      if(count($array_nombre) >= 2){
-     	$respon = $destino->Set_fotos($response['last_cod_id'],time().$array_nombre[0]['name'],time().$array_nombre[1]['name']);
+     	$respon = $destino->Set_fotos($response['last_cod_id'],$array_nombre[0],$array_nombre[1]);
      }else{
-     	$respon = $destino->Set_fotos($response['last_cod_id'],time().$array_nombre[0]['name'],null);
+     	$respon = $destino->Set_fotos($response['last_cod_id'],$array_nombre[0],null);
      }
      $data['respon'] = $respon;
-     $data['last_id'] = $response['last_cod_id'];
-     echo json_encode($data);
-    }    
+     $data['error'] = $err;
+    }   
    }
+   echo json_encode($data); 
  }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////

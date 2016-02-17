@@ -10,13 +10,14 @@
   	}
 
   	// Inserta un destino
-  	function Set_destino($nombre_des,$pais,$precio,$fecha,$descrip){
+  	function Set_destino($nombre_des,$pais,$precio,$descrip){
   		$array = Array("pais"=>$pais,
   					         "lugar"=>$nombre_des,
   					         "descrip"=>$descrip,
   					         "precio"=>$precio
   					        );
   		$response = parent::inserta('destinos',$array);
+      var_dump($response);
   		return $response;
   	}
     

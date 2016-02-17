@@ -28,8 +28,8 @@
             </div>
 
             <form role="form">
-                <div class="tab-content">
-                    <div class="tab-pane active well" role="tabpanel" id="step1">
+                <div class="tab-content well">
+                    <div class="tab-pane active " role="tabpanel" id="step1">
                       <form method="post" enctype="multipart/form-data">
                         <div class="col-md-12">
                          <label> Destino</label>
@@ -50,16 +50,14 @@
                          <input type="number" id="txt_precio" class="form-control"> 
                         </div>
                         <div class="col-md-12">
-                         <label> Salida</label>
-                         <input type="text" id="txt_fecha" class="form-control"> 
+                           <label> Descripcion</label>
+                           <textarea type="text" id="txt_descrip" class="form-control"></textarea> 
                         </div>
-
-                        <label> Descripcion</label>
-                         <textarea type="text" id="txt_descrip" class="form-control"></textarea> 
-                        <div>
-                        <label class="control-label">Seleccionar Foto</label>
-                        <input id="inp_file" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
-                        </div>  
+                        <div class="col-md-12">
+                         <label class="control-label">Seleccionar Foto</label>
+                         <input id="inp_file" name="inp_file[]" multiple=true type="file" data-preview-file-type="any" class="file"></input>
+                        </div>
+                       
                       </form> 
                         <ul class="list-inline pull-right" style="margin-top:20px;top:20px;">
                           <li>

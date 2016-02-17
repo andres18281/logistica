@@ -62,7 +62,6 @@ $(function(){
     fd.append("lugar",destino);
     fd.append("descrip",descrip);
     fd.append("precio",precio);
-    fd.append("fecha",fecha);
     var other_data = $('form').serializeArray();
     $.ajax({
         url: 'controller/Recibe_by_ajax.php',
@@ -71,58 +70,67 @@ $(function(){
         processData: false,
         type: 'POST',
         success: function(data){
-         data = $.parseJSON(data);
+         var data = $.parseJSON(data);
+         console.log(data);
+         
+         if(data.last_id != null){
+           alert(data.last_id);
+         }else{
+           alert("Problemas al guardar la imagen, le sugerimos seguir diligenciando los sub destinos y dirijase a la opcion listar destinos y realice revise que los campos esten correctos");
+         }
          id_destino = data.last_id;
         }
     });
    }); 
 
    $(document).on('click',"#btn_save2",function(){
-   	var title = $("#txt_title2").val();
-   	var subtitle = $("#txt_subtitle2").val();
-   	var descrip = $("#txt_descrip2").val();
-   	var form = new FormData();
-   	var file_des = $('#inp_file2')[0].files;   	
-   	form.append('id',id_destino);
-   	form.append("file2", file_des[0]);
-   	form.append('txt_title2',title);
-   	form.append('txt_subtitle2',subtitle);
-   	form.append('txt_descrip2',descrip);
-   	$("#txt_title2").val("");
-   	$("#txt_subtitle2").val("");
-   	$("#txt_descrip2").val("");
-   	$('#inp_file2').fileinput('reset');
-   
-   	$.ajax({
+    if(id_destino > 0){
+   	  var title = $("#txt_title2").val();
+   	  var subtitle = $("#txt_subtitle2").val();
+   	  var descrip = $("#txt_descrip2").val();
+   	  var form = new FormData();
+   	  var file_des = $('#inp_file2')[0].files;   	
+   	  form.append('id',id_destino);
+   	  form.append("file2", file_des[0]);
+   	  form.append('txt_title2',title);
+   	  form.append('txt_subtitle2',subtitle);
+   	  form.append('txt_descrip2',descrip);
+   	  $("#txt_title2").val("");
+   	  $("#txt_subtitle2").val("");
+   	  $("#txt_descrip2").val("");
+   	  $('#inp_file2').fileinput('reset');
+   	  $.ajax({
         url: 'controller/Recibe_by_ajax.php',
         data: form,
         contentType: false,
         processData: false,
         type: 'POST',
         success: function(data){
-           console.log(data);
+          console.log(data);
           form.delete('id');
-    	   form.delete('file2');
-    	  form.delete('txt_title2');
-    	  form.delete('txt_subtitle2');
-    	  form.delete('txt_descrip2');
-    		$("#txt_title2").val("");
-   			$("#txt_subtitle2").val("");
-   			$("#txt_descrip2").val("");
-   			$('#inp_file2').fileinput('reset');
+    	    form.delete('file2');
+    	    form.delete('txt_title2');
+    	    form.delete('txt_subtitle2');
+    	    form.delete('txt_descrip2');
+    		  $("#txt_title2").val("");
+   			  $("#txt_subtitle2").val("");
+   			  $("#txt_descrip2").val("");
+   			  $('#inp_file2').fileinput('reset');
         }
-    }).done(function(data){
-    	form.delete('id');
-    	form.delete('file2');
-    	form.delete('txt_title2');
-    	form.delete('txt_subtitle2');
-    	form.delete('txt_descrip2');
-    	$("#txt_title2").val("");
-   		$("#txt_subtitle2").val("");
-   		$("#txt_descrip2").val("");
-   		$('#inp_file2').fileinput('reset');
-   		
-    });
+      }).done(function(data){
+    	 form.delete('id');
+    	 form.delete('file2');
+    	 form.delete('txt_title2');
+    	 form.delete('txt_subtitle2');
+    	 form.delete('txt_descrip2');
+    	 $("#txt_title2").val("");
+   		 $("#txt_subtitle2").val("");
+   		 $("#txt_descrip2").val("");
+   		 $('#inp_file2').fileinput('reset');
+      });
+    }else{
+      alert("no se puede guardar el subdestino, hubo un error al digitar el destino");
+    }
    });
 
    // boton ver
